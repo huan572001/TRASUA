@@ -121,7 +121,7 @@ function ProductItem() {
             description: e.target.description.value,
             image: avatarPreview,
         };
-        console.log(data);
+
         dispatch(updateProduct(data))
 
     };

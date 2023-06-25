@@ -5,6 +5,7 @@ import Detail from './detalCart';
 import { useNavigate } from 'react-router-dom';
 import routerLinks from '@/utils/router-links';
 import { errorPayment } from '@/components/AccountModal/Modal';
+import { useAuth } from '@/context/AuthProvider';
 
 const Cart = () => {
   const [listTotal, setListTotal] = useState([{ id: -1, price: 0 }]);
@@ -14,11 +15,16 @@ const Cart = () => {
       localStorage.getItem('cart') ? localStorage.getItem('cart') : '[]'
     )
   );
+  const auth = useAuth();
   const navigate = useNavigate();
   const payment = () => {
-    if (data.length > 0) navigate(routerLinks('Payment'), { state: total });
-    else {
-      errorPayment();
+    if (auth?.user) {
+      if (data.length > 0) navigate(routerLinks('Payment'), { state: total });
+      else {
+        errorPayment();
+      }
+    } else {
+      navigate(routerLinks('LoginCustomer'));
     }
   };
   const totalF = () => {

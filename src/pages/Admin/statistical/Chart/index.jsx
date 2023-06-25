@@ -20,11 +20,13 @@ const PieChart = () => {
           if (total === 0) {
             settaodo(800 / req?.data.length);
           }
+          console.log(total);
         }
       } catch (error) {}
     };
     a();
   }, []);
+
   return (
     <>
       <h1>Thống kê shipper</h1>

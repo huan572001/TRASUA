@@ -37,9 +37,12 @@ const LayoutPage = () => {
         width={270}
       >
         <div className={'logo '}>
-          <img alt="logo" src={Logo} />
+          <img
+            alt="logo"
+            src="https://uploads-ssl.webflow.com/5fb85f26f126ce08d792d2d9/639d4fb26949fb0d309d5aba_logo-phuc-long-coffee-and-tea.jpg"
+          />
           <div className={collapsed ? 'hidden' : '' + 'logoName'}>
-            <div className={'name'}>BanTraiCay</div>
+            <div className={'name'}>Phuc long</div>
             <div className={'hastag'}>#HHP</div>
           </div>
         </div>

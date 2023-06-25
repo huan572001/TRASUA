@@ -41,7 +41,6 @@ const ListProduct = () => {
               className="gutter-row"
             >
               <Card>
-                {console.log(child?.image, 'huan')}
                 <img
                   style={{ width: '100%' }}
                   alt="example"

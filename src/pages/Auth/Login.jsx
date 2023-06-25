@@ -21,7 +21,7 @@ const Login = () => {
           token: res?.token,
           data: res?.data,
         };
-        console.log(data);
+
         auth.login(data);
         navigate('/Admin');
       } else {
@@ -44,8 +44,11 @@ const Login = () => {
       >
         <div className="form-Login">
           <div className="logo">
-            <img alt="logo" src={Vite} />
-            <span>Cửa hàng bán trái cây</span>
+            <img
+              alt="logo"
+              src="https://uploads-ssl.webflow.com/5fb85f26f126ce08d792d2d9/639d4fb26949fb0d309d5aba_logo-phuc-long-coffee-and-tea.jpg"
+            />
+            <span>Cửa hàng Phúc Long</span>
           </div>
           <Form onFinish={onFinished}>
             <FormItem name="phone" rules={[{ required: true }]} hasFeedback>

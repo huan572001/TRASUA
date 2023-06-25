@@ -36,7 +36,7 @@ const Payment = () => {
     input = { ...input, data };
     try {
       const req = await CustomerAPI.checkOut(input);
-      console.log(req);
+
       if (req?.success) {
         buy();
       }

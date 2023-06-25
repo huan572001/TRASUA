@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Button, Col, Form, Input, Modal, Row, Select } from 'antd';
 import { useEffect } from 'react';
 import { createProduct, getAllIngredient } from '../handal';
+import { useNavigate } from 'react-router-dom';
+import routerLinks from '@/utils/router-links';
+
 const { TextArea } = Input;
 
 const CreateProduct = () => {
@@ -10,6 +13,7 @@ const CreateProduct = () => {
   const [avatarPreview, setAvatarPreview] = useState(
     'https://icon-library.com/images/facebook-loading-icon/facebook-loading-icon-15.jpg'
   );
+  const navigate = useNavigate();
   const onFinish = (values) => {
     let data = [];
     let recipre = [];
@@ -20,7 +24,7 @@ const CreateProduct = () => {
       });
     });
     data = { ...values, recipre, image: avatarPreview };
-    createProduct(data);
+    createProduct(data, () => navigate(routerLinks('AdminProduct')));
   };
   const handleChange = (value) => {
     setListVT(value);

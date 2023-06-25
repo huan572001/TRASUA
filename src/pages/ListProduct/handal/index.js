@@ -17,11 +17,12 @@ export const deleteProduct = async (id) => {
     showConfirmError();
   }
 };
-export const createProduct = async (data) => {
+export const createProduct = async (data, load) => {
   try {
     const a = await ProductAPI.createProduct(data);
     if (a?.success) {
       showConfirmSuccess();
+      load();
     } else {
       showConfirmError();
     }
