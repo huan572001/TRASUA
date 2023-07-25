@@ -1,16 +1,16 @@
-import { product } from '@/assets';
-import { useState } from 'react';
+import { product } from "@/assets";
+import { useState } from "react";
 import {
   informSucess,
   showConfirmError,
   showConfirmSuccess,
   showError,
-} from '@/components/AccountModal/Modal';
-import routerLinks from '@/utils/router-links';
-import { Button, Col, Form, Input, Row } from 'antd';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/context/AuthProvider';
-import { CustomerAPI } from '@/services/Customer';
+} from "@/components/AccountModal/Modal";
+import routerLinks from "@/utils/router-links";
+import { Button, Col, Form, Input, Row } from "antd";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthProvider";
+import { CustomerAPI } from "@/services/Customer";
 
 const Payment = () => {
   const [open, setOpen] = useState(true);
@@ -22,9 +22,10 @@ const Payment = () => {
     let input = { ...values };
     let listProduct = [];
     listProduct = JSON.parse(
-      localStorage.getItem('cart') ? localStorage.getItem('cart') : '[]'
+      localStorage.getItem("cart") ? localStorage.getItem("cart") : "[]"
     );
     let data = [];
+    console.log(listProduct);
     listProduct.forEach((e) => {
       data.push({
         idCus: auth?.user?.data?.id,
@@ -45,8 +46,8 @@ const Payment = () => {
     }
   };
   const buy = () => {
-    localStorage.removeItem('cart');
-    navigate('/');
+    localStorage.removeItem("cart");
+    navigate("/");
     informSucess();
   };
   return (
@@ -61,7 +62,7 @@ const Payment = () => {
         <Row className="myRow">
           <Col span={20}>
             <Form.Item
-              style={{ marginRight: '24px' }}
+              style={{ marginRight: "24px" }}
               label="Địa chỉ nhận hàng"
               name="address"
             >
@@ -82,7 +83,7 @@ const Payment = () => {
         </Row>
         <Row>
           <Col span={12}>Tổng tiền: </Col>
-          <Col span={12} style={{ color: 'red' }}>
+          <Col span={12} style={{ color: "red" }}>
             {total?.state} VND
           </Col>
         </Row>

@@ -6,7 +6,7 @@ import { columns } from "./columns";
 import { IngrediantAPI } from "@/services/Admin/Ingredient";
 import { useState } from "react";
 import routerLinks from "@/utils/router-links";
-const index = () => {
+const WareHouse = () => {
   const { tableData, loading, fetchRows, onDelete } = useTable(
     IngrediantAPI.getAllIngredient,
     "data"
@@ -24,14 +24,8 @@ const index = () => {
           fontSize: "40px",
         }}
       >
-        Danh sach Vat tu
+        Danh sach nhân viên kho
       </h1>
-      <Button
-        className="btn"
-        onClick={() => navigate(routerLinks("CreateIngredient"))}
-      >
-        Thêm vật tư
-      </Button>
       <Table
         columns={columns(onDelete)}
         dataSource={tableData?.data}
@@ -46,4 +40,4 @@ const index = () => {
     </div>
   );
 };
-export default index;
+export default WareHouse;

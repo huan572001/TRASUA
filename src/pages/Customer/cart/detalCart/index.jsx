@@ -1,16 +1,25 @@
-import { Button, Card, Col, Row } from 'antd';
-import React, { useState } from 'react';
-import '../index.less';
-import { useEffect } from 'react';
+import { Button, Card, Col, Row } from "antd";
+import React, { useState } from "react";
+import "../index.less";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 const Detail = ({ data, setList, setTotal }) => {
   const [count, setCount] = useState(data?.sl ? data?.sl : 1);
+  const dispatch = useDispatch();
   const deleteChild = () => {
+    let tmp = [];
     setList((child) => {
-      let tmp = child.filter((item) => item.id !== data?.id);
-      localStorage.setItem('cart', JSON.stringify(tmp));
+      tmp = child.filter((item) => item.id !== data?.id);
+      localStorage.setItem("cart", JSON.stringify(tmp));
       return tmp;
     });
+
+    dispatch({
+      type: "SET_CARD",
+      payload: tmp.length,
+    });
   };
+
   useEffect(() => {
     setTotal((total) => {
       const newList = total.filter((item) => item.id !== data?.id);
@@ -18,17 +27,17 @@ const Detail = ({ data, setList, setTotal }) => {
     });
   }, [count]);
   return (
-    <Card style={{ width: '100%' }}>
+    <Card style={{ width: "100%" }}>
       <Row>
         <Col span={12}>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: "flex" }}>
             <img
               style={{ width: 100 }}
               alt="example"
               src={
                 data?.image
                   ? data?.image
-                  : 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+                  : "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
               }
               onClick={() => detailproduct()}
             />

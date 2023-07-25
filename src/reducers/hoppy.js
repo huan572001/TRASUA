@@ -5,7 +5,7 @@ const initialState = {
 
 const hoppy = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_ACTIVE_HOPPY': {
+    case "SET_ACTIVE_HOPPY": {
       return { ...state, list: action.payload };
     }
     default:
