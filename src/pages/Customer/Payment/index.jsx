@@ -25,7 +25,7 @@ const Payment = () => {
       localStorage.getItem("cart") ? localStorage.getItem("cart") : "[]"
     );
     let data = [];
-    console.log(listProduct);
+
     listProduct.forEach((e) => {
       data.push({
         idCus: auth?.user?.data?.id,

@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import './index.less';
-import { StatiscalAPI } from '@/services/Admin/statistical';
+import { useEffect, useState } from "react";
+import "./index.less";
+import { StatiscalAPI } from "@/services/Admin/statistical";
 const PieChart = () => {
   const [data, setData] = useState([]);
   const [taodo, settaodo] = useState(0);
   let total = 0;
   let deg = 45;
 
-  const coler = ['#f0c149', '#23318d', '#a92fa7', '#39af54'];
+  const coler = ["#f0c149", "#23318d", "#a92fa7", "#39af54"];
   useEffect(() => {
     const a = async () => {
       try {
@@ -20,7 +20,6 @@ const PieChart = () => {
           if (total === 0) {
             settaodo(800 / req?.data.length);
           }
-          console.log(total);
         }
       } catch (error) {}
     };
@@ -55,8 +54,8 @@ const PieChart = () => {
                 <div
                   style={{
                     marginTop: 20,
-                    display: 'flex',
-                    justifyContent: 'center',
+                    display: "flex",
+                    justifyContent: "center",
                   }}
                 >
                   <div>

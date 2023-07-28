@@ -5,9 +5,11 @@ import {
 } from "@ant-design/icons";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { detailOrder } from "../detailOrder/ModalDetail";
+import { showDeleteOderModal } from "@/components/AccountModal/Modal";
 // import { listOrder } from './listOrder';
 
-export const columns = (setIsModalOpen) => {
+export const columns = () => {
   const navigate = useNavigate();
   return [
     {
@@ -35,9 +37,9 @@ export const columns = (setIsModalOpen) => {
       key: "3",
       render: (_, info) => (
         <>
-          <EyeOutlined onClick={() => setIsModalOpen(true)} />
+          <EyeOutlined onClick={() => detailOrder()} />
           {"  | "}
-          <DeleteOutlined />
+          <DeleteOutlined onClick={() => showDeleteOderModal()} />
         </>
       ),
     },

@@ -1,27 +1,26 @@
-import useTable from '@/hook/useTable';
-import { Button, Table } from 'antd';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { columns } from './columns';
-import { columns2 } from './columns2';
-import { StatiscalAPI } from '@/services/Admin/statistical';
-import PieChart from './Chart';
+import useTable from "@/hook/useTable";
+import { Button, Table } from "antd";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { columns } from "./columns";
+import { columns2 } from "./columns2";
+import { StatiscalAPI } from "@/services/Admin/statistical";
+import PieChart from "./Chart";
 const Product = () => {
   const { tableData, loading, fetchRows, onDelete } = useTable(
     StatiscalAPI.statisticalProduct,
-    'data'
+    "data"
   );
   // const [data, setdata] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     fetchRows();
   }, []);
-  console.log(tableData);
   return (
     <div>
       <h1
         style={{
-          fontSize: '40px',
+          fontSize: "40px",
         }}
       >
         Thống kê số lượng
@@ -41,7 +40,7 @@ const Product = () => {
 const Revenue = () => {
   const { tableData, loading, fetchRows, onDelete } = useTable(
     StatiscalAPI.revenue,
-    'datatk'
+    "datatk"
   );
   // const [data, setdata] = useState([]);
   const navigate = useNavigate();
@@ -52,7 +51,7 @@ const Revenue = () => {
     <div>
       <h1
         style={{
-          fontSize: '40px',
+          fontSize: "40px",
         }}
       >
         Thống kê Doanh thu

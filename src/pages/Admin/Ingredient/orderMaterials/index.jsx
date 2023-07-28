@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import routerLinks from "@/utils/router-links";
 import { IngrediantAPI } from "@/services/Admin/Ingredient";
 import useTable from "@/hook/useTable";
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { columns } from "./columns";
 import { useEffect } from "react";
 const FormIngredient = () => {
@@ -10,6 +10,7 @@ const FormIngredient = () => {
     IngrediantAPI.getAllIngredient,
     "data"
   );
+  const navigate = useNavigate();
   useEffect(() => {
     fetchRows();
   }, []);
@@ -22,6 +23,12 @@ const FormIngredient = () => {
       >
         Danh sach Hóa đơn Vat tu
       </h1>
+      <Button
+        className="btn"
+        onClick={() => navigate(routerLinks("AddIngredient"))}
+      >
+        Tạo hóa đơn vật tư
+      </Button>
       <Table
         columns={columns(onDelete)}
         dataSource={tableData?.data}

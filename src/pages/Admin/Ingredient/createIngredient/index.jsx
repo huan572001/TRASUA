@@ -4,18 +4,20 @@ import routerLinks from "@/utils/router-links";
 const CreateIngredient = () => {
   const navigate = useNavigate();
   const onChange = (value) => {
-    console.log(value);
     navigate(routerLinks("Ingredient"));
   };
 
   return (
     <>
-      <Card>
+      <Card title="Tạo vật tư">
         <Form onFinish={onChange}>
-          <Form.Item name="name">
+          <Form.Item
+            name="name"
+            rules={[{ required: true, whitespace: true }, { max: 150 }]}
+          >
             <Input placeholder="Tên vật tư" />
           </Form.Item>
-          <Form.Item name="hihihi">
+          <Form.Item name="medium" rules={[{ required: true }]}>
             <Select
               showSearch
               placeholder="đơn vị"

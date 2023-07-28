@@ -37,11 +37,11 @@ const index = () => {
         dataSource={tableData?.data}
         rowKey="id"
         loading={loading}
-        onRow={(record) => ({
-          onClick: () => {
-            navigate(routerLinks("AddIngredient"), { state: { ...record } });
-          },
-        })}
+        // onRow={(record) => ({
+        //   onClick: () => {
+        //     navigate(routerLinks("AddIngredient"), { state: { ...record } });
+        //   },
+        // })}
       />
     </div>
   );

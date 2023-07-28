@@ -6,13 +6,6 @@ const TabOrder = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
-      <Card
-        style={{
-          display: isModalOpen ? "block" : "none",
-        }}
-      >
-        hihihi
-      </Card>
       <Table columns={columns(setIsModalOpen)} dataSource={data} rowKey="id" />
     </>
   );
