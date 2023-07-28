@@ -29,7 +29,7 @@ const Register = () => {
             <h1>Đăng ký</h1>
           </div>
           <div className="signup-classic">
-            <h2>welcome, honored guests</h2>
+            <h2>Chào mừng bạn đến với cửa hàng</h2>
             <Form className="login-form" onFinish={onFinish}>
               <Form.Item
                 name="email"
@@ -45,7 +45,7 @@ const Register = () => {
               >
                 <Input
                   prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="Username"
+                  placeholder="Email"
                 />
               </Form.Item>
               <Form.Item
@@ -130,7 +130,7 @@ const Register = () => {
                   Register
                 </Button>
                 Or
-                <div onClick={() => navigate(routerLinks("Login"))}>
+                <div onClick={() => navigate(routerLinks("LoginCustomer"))}>
                   login now!
                 </div>
               </Form.Item>

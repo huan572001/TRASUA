@@ -1,10 +1,10 @@
-import { Button, Checkbox, Form, Input } from 'antd';
-import { useNavigate } from 'react-router';
-import routerLinks from '@/utils/router-links';
-import './index.less';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { CustomerAPI } from '@/services/Customer';
-import { useAuth } from '@/context/AuthProvider';
+import { Button, Checkbox, Form, Input } from "antd";
+import { useNavigate } from "react-router";
+import routerLinks from "@/utils/router-links";
+import "./index.less";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { CustomerAPI } from "@/services/Customer";
+import { useAuth } from "@/context/AuthProvider";
 const LoginCustomer = () => {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const LoginCustomer = () => {
           data: res?.data,
         };
         auth.login(data);
-        navigate('/', { replace: true });
+        navigate("/", { replace: true });
       }
     } catch (err) {
       console.log(err);
@@ -45,7 +45,7 @@ const LoginCustomer = () => {
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your Phone!',
+                    message: "Please input your Phone!",
                   },
                 ]}
               >
@@ -59,7 +59,7 @@ const LoginCustomer = () => {
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your Password!',
+                    message: "Please input your Password!",
                   },
                 ]}
               >
@@ -85,9 +85,12 @@ const LoginCustomer = () => {
                 >
                   Login
                 </Button>
-                Or <div>register now!</div>
+                Or{" "}
+                <div onClick={() => navigate(routerLinks("Register"))}>
+                  register now!
+                </div>
               </Form.Item>
-              <div onClick={() => navigate(routerLinks('Login'))}>
+              <div onClick={() => navigate(routerLinks("Login"))}>
                 Staff click here
               </div>
             </Form>
