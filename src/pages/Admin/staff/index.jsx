@@ -7,6 +7,7 @@ import routerLinks from "@/utils/router-links";
 import WareHouse from "./warehouse";
 import Staff11 from "./Staff";
 const Staff = () => {
+  const navigate = useNavigate();
   return (
     <>
       <h1
@@ -16,6 +17,9 @@ const Staff = () => {
       >
         Quản lý nhân viên
       </h1>
+      <Button onClick={() => navigate(routerLinks("AddStaff"))}>
+        Thêm nhân viên
+      </Button>
       <Tabs>
         <Tabs.TabPane tab="Nhân viên kho" key="1">
           <WareHouse />

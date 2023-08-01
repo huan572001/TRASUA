@@ -7,6 +7,8 @@ const Util = (name) => {
     CreateProduct: "/admin/createProduct",
     statistical: "/admin/statistical",
     Staff: "/admin/Staff",
+    AddStaff: "/admin/AddStaff",
+    EditStaff: "/admin/EditStaff",
 
     Ingredient: "/admin/Ingredient",
     AddIngredient: "/admin/Ingredient/add",

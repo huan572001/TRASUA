@@ -5,6 +5,7 @@ import "./index.less";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { CustomerAPI } from "@/services/Customer";
 import { useAuth } from "@/context/AuthProvider";
+import { showError } from "@/components/AccountModal/Modal";
 const LoginCustomer = () => {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -18,9 +19,11 @@ const LoginCustomer = () => {
         };
         auth.login(data);
         navigate("/", { replace: true });
+      } else {
+        showError(res?.mgs);
       }
     } catch (err) {
-      console.log(err);
+      showError();
     }
   };
   return (

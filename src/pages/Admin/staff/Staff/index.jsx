@@ -32,9 +32,9 @@ const Staff11 = () => {
         rowKey="id"
         loading={loading}
         onRow={(record) => ({
-          onClick: () => {
-            navigate(routerLinks("AddIngredient"), { state: { ...record } });
-          },
+          // onClick: () => {
+          //   navigate(routerLinks("AddIngredient"), { state: { ...record } });
+          // },
         })}
       />
     </div>

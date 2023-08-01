@@ -2,9 +2,9 @@ import {
   showConfirmError,
   showConfirmSuccess,
   showDeleteOderModal,
-} from '@/components/AccountModal/Modal';
-import { useCallback, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+} from "@/components/AccountModal/Modal";
+import { useCallback, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const useTable = (fetchData, dataFieldName, deleteData) => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const useTable = (fetchData, dataFieldName, deleteData) => {
   const [params, setParams] = useState({
     page: 1,
     amount: 10,
-    search: '',
+    search: "",
   });
 
   const onPageChange = (params) => {
@@ -64,7 +64,7 @@ const useTable = (fetchData, dataFieldName, deleteData) => {
     fetchRows({
       page: 1,
       amount: 10,
-      search: '',
+      search: "",
     });
   };
 

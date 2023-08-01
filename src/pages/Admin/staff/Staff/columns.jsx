@@ -1,4 +1,7 @@
-import { showDeleteOderModal } from "@/components/AccountModal/Modal";
+import {
+  showDeleteOderModal,
+  showLockUserModal,
+} from "@/components/AccountModal/Modal";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -6,6 +9,7 @@ import {
   UnlockOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import routerLinks from "@/utils/router-links";
 
 export const columns = (onDelete) => {
   const navigate = useNavigate();
@@ -38,11 +42,31 @@ export const columns = (onDelete) => {
         <>
           <DeleteOutlined
             onClick={(e) => {
+              onDelete();
               e.stopPropagation();
             }}
           />
-          <EditOutlined />
-          {info?.status ? <LockOutlined /> : <UnlockOutlined />}
+          <EditOutlined
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(routerLinks("EditStaff"), { state: { ...info } });
+            }}
+          />
+          {info?.status ? (
+            <LockOutlined
+              onClick={(e) => {
+                showLockUserModal(false);
+                e.stopPropagation();
+              }}
+            />
+          ) : (
+            <UnlockOutlined
+              onClick={(e) => {
+                showLockUserModal(true);
+                e.stopPropagation();
+              }}
+            />
+          )}
         </>
       ),
     },

@@ -2,10 +2,10 @@ import useTable from "@/hook/useTable";
 import { Button, Table } from "antd";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { columns } from "./columns";
 import { IngrediantAPI } from "@/services/Admin/Ingredient";
 import { useState } from "react";
 import routerLinks from "@/utils/router-links";
+import { columns } from "../Staff/columns";
 const WareHouse = () => {
   const { tableData, loading, fetchRows, onDelete } = useTable(
     IngrediantAPI.getAllIngredient,
@@ -32,9 +32,9 @@ const WareHouse = () => {
         rowKey="id"
         loading={loading}
         onRow={(record) => ({
-          onClick: () => {
-            navigate(routerLinks("AddIngredient"), { state: { ...record } });
-          },
+          // onClick: () => {
+          //   navigate(routerLinks("AddIngredient"), { state: { ...record } });
+          // },
         })}
       />
     </div>
