@@ -9,6 +9,8 @@ const Util = (name) => {
     Staff: "/admin/Staff",
     AddStaff: "/admin/AddStaff",
     EditStaff: "/admin/EditStaff",
+    Promotion: "/admin/Promotion",
+    AddPromotion: "/admin/Promotion/Add",
 
     Ingredient: "/admin/Ingredient",
     AddIngredient: "/admin/Ingredient/add",

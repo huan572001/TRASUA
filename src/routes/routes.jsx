@@ -36,6 +36,18 @@ export const routesAdmin = [
     path: routerLinks("EditStaff"),
     component: React.lazy(() => import("@/pages/Admin/staff/EditStaff")),
   },
+  {
+    label: " statistical",
+    path: routerLinks("Promotion"),
+    component: React.lazy(() => import("@/pages/Admin/Promotion")),
+  },
+  {
+    label: " statistical",
+    path: routerLinks("AddPromotion"),
+    component: React.lazy(() =>
+      import("@/pages/Admin/Promotion/CreatePromotion")
+    ),
+  },
 ];
 export const routesUser = [
   {
