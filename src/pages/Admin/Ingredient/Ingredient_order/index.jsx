@@ -12,7 +12,6 @@ const FormIngredient = () => {
   const navigate = useNavigate();
   const onFinish = async () => {
     if (listVT.length > 0) {
-      console.log(listVT, "hihi");
     } else {
       showError();
     }

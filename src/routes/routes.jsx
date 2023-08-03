@@ -60,6 +60,11 @@ export const routesUser = [
     path: routerLinks("OrderCustomer"),
     component: React.lazy(() => import("@/pages/Customer/order")),
   },
+  {
+    label: "OrderCustomer",
+    path: routerLinks("Evaluate"),
+    component: React.lazy(() => import("@/pages/Customer/Evaluate")),
+  },
 ];
 export const routesStaff = [
   {

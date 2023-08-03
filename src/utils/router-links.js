@@ -18,7 +18,6 @@ const Util = (name) => {
     orderMaterials: "/admin/orderMaterials",
     EditIngredient: "/admin/EditIngredient",
 
-    OrderCustomer: "/Customer/OrderCustomer",
     LoginCustomer: "/Customer/login",
     Register: "/Customer/Register",
     ListProduct: "/",
@@ -27,6 +26,8 @@ const Util = (name) => {
 
     Admin: "/admin",
     Customer: "/Customer",
+    OrderCustomer: "/Customer/OrderCustomer",
+    Evaluate: "/Customer/Evaluate",
   };
   return array[name];
 };

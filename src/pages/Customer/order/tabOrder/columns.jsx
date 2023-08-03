@@ -17,29 +17,35 @@ export const columns = () => {
       key: "1",
       dataIndex: "id",
     },
+
     {
-      title: "Địa chỉ nhận",
-      key: "4",
-      dataIndex: "staff_id",
-    },
-    {
-      title: "Số điện thoại",
-      key: "2",
-      dataIndex: "customer_id",
-    },
-    {
-      title: "Tổng tiền",
+      title: "Địa chỉ",
       key: "3",
       dataIndex: "address",
+    },
+    {
+      title: "Thời gian đặt",
+      key: "3",
+      render: (_, info) => (
+        <>{moment(new Date(info?.date)).format("HH:mm:ss DD/MM/YYYY")}</>
+      ),
     },
     {
       title: "Hoạt động",
       key: "3",
       render: (_, info) => (
         <>
-          <EyeOutlined onClick={() => detailOrder()} />
-          {"  | "}
-          <DeleteOutlined onClick={() => showDeleteOderModal()} />
+          <EyeOutlined onClick={() => detailOrder(info?.id)} />
+
+          {info?.status === null ? (
+            <>
+              {"  | "}
+
+              <DeleteOutlined onClick={() => showDeleteOderModal()} />
+            </>
+          ) : (
+            ""
+          )}
         </>
       ),
     },

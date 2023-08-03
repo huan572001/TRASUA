@@ -21,6 +21,14 @@ const Info = ({ data }) => {
           Đơn hàng
         </Card>
         <Card
+          className="mb-2"
+          onClick={() => {
+            navigate(routerLinks("Evaluate"));
+          }}
+        >
+          Đánh giá
+        </Card>
+        <Card
           onClick={() => {
             auth.logout();
             navigate(routerLinks("ListProduct"));
@@ -29,6 +37,7 @@ const Info = ({ data }) => {
           Đăng xuất
         </Card>
       </Card>
+      <Outlet />
     </>
   );
 };

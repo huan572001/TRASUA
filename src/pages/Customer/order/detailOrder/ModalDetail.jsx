@@ -1,19 +1,26 @@
 import { Button, Card, Col, Form, Input, Modal, Row, Select } from "antd";
 import { useEffect, useState } from "react";
 import { OrderAPI } from "@/services/Admin/order";
-import { detailproduct } from "@/pages/ListProduct/detailProduct/ModalDetail";
+import { detailproduct } from "../../listProduct/detailProduct/ModalDetail";
+
 const Product = ({ info }) => {
-  const [data, setData] = useState([1, 1, 1, 1, , 1, , 1]);
+  const [data, setData] = useState([]);
+  const [total, setTotal] = useState(0);
   useEffect(() => {
-    // const getData = async () => {
-    //   try {
-    //     const req = await OrderAPI.getOrderById(info);
-    //     if (req?.success) {
-    //       setData(req?.data);
-    //     }
-    //   } catch (error) {}
-    // };
-    // getData();
+    const getData = async () => {
+      try {
+        const req = await OrderAPI.getOrderById(info);
+        if (req?.success) {
+          let a = 0;
+          setData(req?.data);
+          req?.data.forEach((e) => {
+            a += e.price * e.quantity;
+          });
+          setTotal(a);
+        }
+      } catch (error) {}
+    };
+    getData();
   }, []);
 
   return (
@@ -37,6 +44,7 @@ const Product = ({ info }) => {
           </Card>
         );
       })}
+      <div>{`Tổng tiền: ${total} `}</div>
     </>
   );
 };

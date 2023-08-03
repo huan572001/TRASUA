@@ -43,6 +43,20 @@ const HeaderCustomer = () => {
       key: "3",
       label: (
         <>
+          <div
+            onClick={() => {
+              navigate(routerLinks("Evaluate"));
+            }}
+          >
+            Đánh giá
+          </div>
+        </>
+      ),
+    },
+    {
+      key: "4",
+      label: (
+        <>
           <div onClick={() => auth.logout()}>Đăng xuất</div>
         </>
       ),
