@@ -3,14 +3,14 @@ import { keyUser } from "@/constant/auth";
 import { CustomerAPI } from "@/services/Customer";
 import { Button, Card, Form, Rate } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import { values } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const FormEvaluate = ({ setOpen, data, setLoadAPI }) => {
+const EditEvaluate = ({ setOpen, data, setLoading }) => {
   const [form] = Form.useForm();
   const [avatarPreview, setAvatarPreview] = useState(
     "https://icon-library.com/images/facebook-loading-icon/facebook-loading-icon-15.jpg"
   );
+
   const user = JSON.parse(localStorage.getItem(keyUser));
   const handleChangeIMG = (e) => {
     const reader = new FileReader();
@@ -22,9 +22,9 @@ const FormEvaluate = ({ setOpen, data, setLoadAPI }) => {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
-  const createEvalute = async (data) => {
+  const createEvalute = async (info) => {
     try {
-      const rq = await CustomerAPI.craeteEvaluateByUser(data);
+      const rq = await CustomerAPI.editEvaluate(info, data?.id);
       if (rq?.success) {
         showConfirmSuccess();
         setAvatarPreview(
@@ -32,19 +32,27 @@ const FormEvaluate = ({ setOpen, data, setLoadAPI }) => {
         );
         form.resetFields();
         setOpen(false);
-        setLoadAPI((e) => (e += 1));
+        setLoading((e) => (e += 1));
       }
     } catch (error) {
+      console.log(error);
       showError();
     }
   };
+  useEffect(() => {
+    form.setFieldsValue(data);
+    if (data?.img !== null) {
+      setAvatarPreview(data?.img);
+    } else {
+      setAvatarPreview(
+        "https://icon-library.com/images/facebook-loading-icon/facebook-loading-icon-15.jpg"
+      );
+    }
+  }, [data]);
   const onFinish = (values) => {
     const data2 = {
       ...values,
       img: avatarPreview,
-      product_id: data?.product_id,
-      id_orderitem: data?.id,
-      customer_id: user.data?.id,
     };
     createEvalute(data2);
   };
@@ -57,7 +65,7 @@ const FormEvaluate = ({ setOpen, data, setLoadAPI }) => {
         <div className="flex justify-center">
           <Card className="w-2/4">
             <div className="flex justify-between">
-              <h1>Đánh giá</h1>
+              <h1>Chỉnh sửa đánh giá</h1>
               <div
                 className="text-xl text-red-600 "
                 onClick={() => setOpen(false)}
@@ -85,39 +93,42 @@ const FormEvaluate = ({ setOpen, data, setLoadAPI }) => {
                 onChange={handleChangeIMG}
               />
             </div>
-
-            <Form form={form} layout="vertical" onFinish={onFinish}>
-              <Form.Item
-                name="start"
-                rules={[
-                  {
-                    required: true,
-                    message: "không được để trống!",
-                  },
-                ]}
-              >
-                <Rate allowHalf defaultValue={5} />
-              </Form.Item>
-              <Form.Item
-                label="Mô tả"
-                name="comment"
-                rules={[
-                  {
-                    required: true,
-                    message: "không được để trống!",
-                  },
-                ]}
-              >
-                <TextArea rows={4} />
-              </Form.Item>
-              <Form.Item>
-                <Button htmlType="submit">Lưu</Button>
-              </Form.Item>
-            </Form>
+            {data ? (
+              <Form form={form} layout="vertical" onFinish={onFinish}>
+                <Form.Item
+                  name="start"
+                  rules={[
+                    {
+                      required: true,
+                      message: "không được để trống!",
+                    },
+                  ]}
+                >
+                  <Rate allowHalf />
+                </Form.Item>
+                <Form.Item
+                  label="Mô tả"
+                  name="comment"
+                  rules={[
+                    {
+                      required: true,
+                      message: "không được để trống!",
+                    },
+                  ]}
+                >
+                  <TextArea rows={4} />
+                </Form.Item>
+                <Form.Item>
+                  <Button htmlType="submit">Lưu</Button>
+                </Form.Item>
+              </Form>
+            ) : (
+              ""
+            )}
           </Card>
         </div>
       </div>
     </>
   );
 };
-export default FormEvaluate;
+export default EditEvaluate;

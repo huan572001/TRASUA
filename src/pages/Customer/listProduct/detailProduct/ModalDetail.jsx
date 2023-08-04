@@ -1,8 +1,9 @@
-import { Button, Col, Form, Input, Modal, Row, Select } from 'antd';
-import './ModalDetail.less';
-import { product } from '@/assets';
-import { useState } from 'react';
-import { addProduct } from '../handal';
+import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
+import "./ModalDetail.less";
+import { product } from "@/assets";
+import { useState } from "react";
+import { addProduct } from "../handal";
+import ListEvaluate from "../ListEvaluate";
 const { TextArea } = Input;
 const FormProduct = ({ info }) => {
   const [count, setCount] = useState(1);
@@ -20,7 +21,7 @@ const FormProduct = ({ info }) => {
             </div>
           </Col>
           <Col span={12}>
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: "center" }}>
               <div>{info?.name}</div>
               <div>{info?.price} VND</div>
               <Button.Group>
@@ -48,6 +49,7 @@ const FormProduct = ({ info }) => {
           </Col>
         </Row>
       </div>
+      <ListEvaluate id={info?.id} />
     </>
   );
 };

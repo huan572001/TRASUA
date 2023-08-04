@@ -2,7 +2,6 @@ import { Button, Card, Col, Row } from "antd";
 import React, { useState } from "react";
 import "./index.less";
 import { detailproduct } from "./detailProduct/ModalDetail";
-import { addProduct } from "./handal";
 import { useEffect } from "react";
 import { notAuthAPI } from "@/services/notAuth";
 import { useDispatch, useSelector } from "react-redux";

@@ -57,7 +57,14 @@ const HeaderCustomer = () => {
       key: "4",
       label: (
         <>
-          <div onClick={() => auth.logout()}>Đăng xuất</div>
+          <div
+            onClick={() => {
+              navigate("/");
+              auth.logout();
+            }}
+          >
+            Đăng xuất
+          </div>
         </>
       ),
     },

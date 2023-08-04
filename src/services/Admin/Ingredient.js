@@ -1,9 +1,9 @@
-import { STAFF_API_PATH } from '@/constant/api';
-import axiosClient from '../axiosClient';
+import { STAFF_API_PATH } from "@/constant/api";
+import axiosClient from "../axiosClient";
 
 export const IngrediantAPI = {
   getAllIngredient: async () => {
-    const url = `/${STAFF_API_PATH}/all-ingre`;
+    const url = `/${STAFF_API_PATH}/all-ingredient`;
     return axiosClient.get(url);
   },
   addIngredientOrder: async (data) => {

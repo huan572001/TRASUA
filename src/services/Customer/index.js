@@ -30,4 +30,12 @@ export const CustomerAPI = {
     const url = `/${CUSTOMER_API_PATH}/allOrderItemDone/${data}`;
     return axiosClient.get(url);
   },
+  craeteEvaluateByUser: async (data) => {
+    const url = `/${CUSTOMER_API_PATH}/evaluate-customer`;
+    return axiosClient.post(url, data);
+  },
+  editEvaluate: async (data, id) => {
+    const url = `/${CUSTOMER_API_PATH}/evaluate-edit/${id}`;
+    return axiosClient.put(url, data);
+  },
 };
