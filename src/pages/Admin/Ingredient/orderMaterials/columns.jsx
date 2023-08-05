@@ -5,15 +5,9 @@ export const columns = (onDelete) => {
   const navigate = useNavigate();
   return [
     {
-      title: "Tên Vật tư",
-      key: "1",
-      dataIndex: "name",
-    },
-    {
       title: "Mã hóa đơn",
       key: "4",
-      dataIndex: "measure_id",
-      render: (_, info) => <>{info?.measure_id === 1 ? "KG" : "Cái"}</>,
+      dataIndex: "ingredient_order_id",
     },
     {
       title: "Số lượng",

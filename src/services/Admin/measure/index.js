@@ -1,5 +1,5 @@
 import { STAFF_API_PATH } from "@/constant/api";
-import axiosClient from "../axiosClient";
+import axiosClient from "@/services/axiosClient";
 
 export const MeaseumAPI = {
   getAllMeaseum: async () => {

@@ -9,7 +9,8 @@ import routerLinks from "@/utils/router-links";
 const index = () => {
   const { tableData, loading, fetchRows, onDelete } = useTable(
     IngrediantAPI.getAllIngredient,
-    "data"
+    "data",
+    IngrediantAPI.deleteIngredient
   );
   // const [data, setdata] = useState([]);
   const navigate = useNavigate();

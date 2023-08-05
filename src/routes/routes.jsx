@@ -104,7 +104,7 @@ export const routesWarehouse = [
     label: "Create Ingredient",
     path: routerLinks("EditIngredient"),
     component: React.lazy(() =>
-      import("@/pages/Admin/Ingredient/editIngredient")
+      import("@/pages/Admin/Ingredient/editIngredient_Order")
     ),
   },
 ];

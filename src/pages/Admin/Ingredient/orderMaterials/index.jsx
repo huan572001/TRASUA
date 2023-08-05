@@ -7,7 +7,7 @@ import { columns } from "./columns";
 import { useEffect } from "react";
 const FormIngredient = () => {
   const { tableData, loading, fetchRows, onDelete } = useTable(
-    IngrediantAPI.getAllIngredient,
+    IngrediantAPI.getAllIngredientOrder,
     "data"
   );
   const navigate = useNavigate();

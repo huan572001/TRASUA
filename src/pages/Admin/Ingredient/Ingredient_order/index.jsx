@@ -4,32 +4,44 @@ import { IngrediantAPI } from "@/services/Admin/Ingredient";
 import { Button, Card, Form, Input } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import routerLinks from "@/utils/router-links";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusSquareOutlined } from "@ant-design/icons";
 import CardIngredient from "./CardIngredientOrder";
 const FormIngredient = () => {
   const [listVT, setListVT] = useState([]);
+  const [ingredient, setIngredient] = useState([]);
   const navigate = useNavigate();
+  const auth = JSON.parse(localStorage.getItem(keyUser));
+
+  const getAllProduct = async () => {
+    try {
+      const rq = await IngrediantAPI.getAllIngredient();
+      if (rq?.success) {
+        setIngredient(rq?.data);
+      }
+    } catch (error) {}
+  };
+  useEffect(() => {
+    getAllProduct();
+  }, []);
   const onFinish = async () => {
     if (listVT.length > 0) {
     } else {
       showError();
     }
-    // let data = {
-    //   price: Number(value?.price),
-    //   quantity: Number(value?.quantity),
-    //   ingredient_id: info?.state?.id,
-    //   staff_id: auth?.data?.id,
-    // };
-    // try {
-    //   const req = await IngrediantAPI.addIngredientOrder(data);
-    //   if (req?.success) {
-    //     navigate(routerLinks("Ingredient"));
-    //     showConfirmSuccess();
-    //   }
-    // } catch (error) {
-    //   showError();
-    // }
+    let data = {
+      staff_id: auth?.data?.id,
+      data: listVT,
+    };
+    try {
+      const req = await IngrediantAPI.addIngredientOrder(data);
+      if (req?.success) {
+        navigate(routerLinks("Ingredient"));
+        showConfirmSuccess();
+      }
+    } catch (error) {
+      showError();
+    }
   };
   const deleteVT = (index) => {
     let tmp = [...listVT];
@@ -39,7 +51,11 @@ const FormIngredient = () => {
   return (
     <Card title="Tạo hóa đơn vật tư">
       <h1>Thêm vât tư</h1>
-      <CardIngredient setData={setListVT} />
+      <CardIngredient
+        setData={setListVT}
+        ingredient={ingredient}
+        setIngredient={setIngredient}
+      />
       <h1>Danh sách vật tư</h1>
       {listVT?.map((e, index) => {
         return (
@@ -47,7 +63,7 @@ const FormIngredient = () => {
             <div className="flex justify-between">
               <div>Tên sản phẩm: {e?.name}</div>
               <div>Đơn vị tính: {e?.measure_id}</div>
-              <div>Số lượng: {e?.quantity}</div>
+              <div>Số lượng: {e?.qty}</div>
               <div>Giá: {e?.price}</div>
               <div className="text-red-600" onClick={() => deleteVT(index)}>
                 Xóa

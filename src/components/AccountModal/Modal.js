@@ -120,7 +120,7 @@ export const showError = (value) => {
     buttons: "Đồng ý",
   });
 };
-export const showDeleteBanner = (name, onAccept) => {
+export const showDeleteBanner = (onAccept) => {
   swal({
     title: `Bạn có muốn xóa banner này?`,
     text: `Khi xóa ${name} không thể khôi phục bạn có muốn tiếp tục?`,
@@ -133,7 +133,19 @@ export const showDeleteBanner = (name, onAccept) => {
     }
   });
 };
-
+export const showDelete = (name, onAccept) => {
+  swal({
+    title: `Bạn có muốn xóa ?`,
+    text: `Khi xóa bạn không thể khôi phục bạn có muốn tiếp tục?`,
+    icon: "warning",
+    // dangerMode: true,
+    buttons: ["Hủy", "Đồng Ý"],
+  }).then((yes) => {
+    if (yes) {
+      onAccept();
+    }
+  });
+};
 export const showUpdateUserEditSuccess = (setSubmitting) => {
   Swal.fire({
     heightAuto: false,
