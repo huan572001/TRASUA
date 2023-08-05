@@ -45,6 +45,11 @@ const LayoutIngredient = [
     key: "orderMaterials",
     icon: <UserAddOutlined />,
   },
+  {
+    label: "Đơn vị vật tư",
+    key: "Measure",
+    icon: <UserAddOutlined />,
+  },
 ];
 const Layout = [
   {

@@ -107,6 +107,21 @@ export const routesWarehouse = [
       import("@/pages/Admin/Ingredient/editIngredient")
     ),
   },
+  {
+    label: "Measure",
+    path: routerLinks("Measure"),
+    component: React.lazy(() => import("@/pages/Admin/measure")),
+  },
+  {
+    label: "CreateMeasure",
+    path: routerLinks("CreateMeasure"),
+    component: React.lazy(() => import("@/pages/Admin/measure/createMeasure")),
+  },
+  {
+    label: "EditMeasure",
+    path: routerLinks("EditMeasure"),
+    component: React.lazy(() => import("@/pages/Admin/measure/editMeasure")),
+  },
 ];
 const routes = [
   {

@@ -17,6 +17,9 @@ const Util = (name) => {
     CreateIngredient: "/admin/CreateIngredient",
     orderMaterials: "/admin/orderMaterials",
     EditIngredient: "/admin/EditIngredient",
+    Measure: "/admin/Measure",
+    CreateMeasure: "/admin/CreateMeasure",
+    EditMeasure: "/admin/EditMeasure",
 
     LoginCustomer: "/Customer/login",
     Register: "/Customer/Register",
