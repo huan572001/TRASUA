@@ -5,6 +5,7 @@ import useTable from "@/hook/useTable";
 import { Button, Table } from "antd";
 import { columns } from "./columns";
 import { useEffect } from "react";
+import { detailOrderIngredient } from "./detail_Ingredient_Order";
 const FormIngredient = () => {
   const { tableData, loading, fetchRows, onDelete } = useTable(
     IngrediantAPI.getAllIngredientOrder,
@@ -36,7 +37,7 @@ const FormIngredient = () => {
         loading={loading}
         onRow={(record) => ({
           onClick: () => {
-            // navigate(routerLinks("AddIngredient"), { state: { ...record } });
+            detailOrderIngredient(record);
           },
         })}
       />

@@ -7,7 +7,11 @@ export const IngrediantAPI = {
     return axiosClient.get(url);
   },
   getAllIngredientOrder: async () => {
-    const url = `/${STAFF_API_PATH}/all-i_order_i`;
+    const url = `/${STAFF_API_PATH}/all-order_item`;
+    return axiosClient.get(url);
+  },
+  getAllIngredientOrderById: async (id) => {
+    const url = `/${STAFF_API_PATH}/all-i_order_i/${id}`;
     return axiosClient.get(url);
   },
   addIngredientOrder: async (data) => {

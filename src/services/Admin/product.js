@@ -1,5 +1,5 @@
-import { STAFF_API_PATH } from '@/constant/api';
-import axiosClient from '../axiosClient';
+import { STAFF_API_PATH } from "@/constant/api";
+import axiosClient from "../axiosClient";
 
 export const ProductAPI = {
   deleteProduct: async (id) => {
