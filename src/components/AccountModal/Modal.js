@@ -120,6 +120,28 @@ export const showError = (value) => {
     buttons: "Đồng ý",
   });
 };
+export const showSuccess = (value) => {
+  swal({
+    title: value ? value : "Thực hiện Thành công",
+    text: `Thành công`,
+    icon: "success",
+    // dangerMode: true,
+    buttons: "Đồng ý",
+  });
+};
+export const showWarning = (value, onAccept) => {
+  swal({
+    title: value ? value : "Bạn có chắc muốn thực hiện hành động này chứ?",
+    text: `Sau khi thực hiện bạn sẽ không thể khôi phục!`,
+    icon: "warning",
+    // dangerMode: true,
+    buttons: "Đồng ý",
+  }).then((yes) => {
+    if (yes) {
+      onAccept();
+    }
+  });
+};
 export const showDeleteBanner = (onAccept) => {
   swal({
     title: `Bạn có muốn xóa banner này?`,

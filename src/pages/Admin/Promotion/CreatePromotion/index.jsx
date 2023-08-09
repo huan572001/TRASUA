@@ -4,24 +4,37 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import routerLinks from "@/utils/router-links";
 import moment from "moment";
+import { async } from "q";
+import { notAuthAPI } from "@/services/notAuth";
+import { keyUser } from "@/constant/auth";
+import { PromosionAPI } from "@/services/Admin/promotion";
+import { showError, showSuccess } from "@/components/AccountModal/Modal";
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 const CreateProduct = () => {
   const [option, setOption] = useState([]);
   const [listVT, setListVT] = useState([]);
-
+  const [products, setProducts] = useState([]);
+  const user = JSON.parse(localStorage.getItem(keyUser));
   const navigate = useNavigate();
-  const onFinish = (values) => {
-    // let data = [];
-    // let recipre = [];
-    // listVT.forEach((e) => {
-    //   recipre.push({
-    //     ingredient_id: e,
-    //     quantity: values[e],
-    //   });
-    // });
-    // data = { ...values, recipre, image: avatarPreview };
+  const onFinish = async (values) => {
+    console.log(user);
+    let data = {
+      data: listVT,
+      staff_id: user?.data?.id,
+      percent: values.percent,
+      start_day: new Date(values?.date[0]),
+      end_day: new Date(values?.date[1]),
+    };
+    try {
+      const rq = await PromosionAPI.createPromotion(data);
+      if (rq?.success) {
+        showSuccess("Tạo khuyến mãi thành công");
+      }
+    } catch (error) {
+      showError();
+    }
   };
 
   const onChangeDate = (value) => {
@@ -30,19 +43,18 @@ const CreateProduct = () => {
   const handleChange = (value) => {
     setListVT(value);
   };
+  const getListProduct = async () => {
+    try {
+      const req = await notAuthAPI.getAllProduct();
+      if (req?.success) {
+        setProducts(req.data);
+      }
+    } catch (error) {}
+  };
   useEffect(() => {
+    getListProduct();
     // getAllIngredient(setOption);
   }, []);
-  const formatOption = () => {
-    let tmp = [];
-    option.forEach((e) => {
-      tmp.push({
-        value: e?.id,
-        label: e?.name,
-      });
-    });
-    return tmp;
-  };
   const getIngrediantByID = (id) => {
     let tmp = "";
     option.forEach((e) => {
@@ -76,7 +88,7 @@ const CreateProduct = () => {
             <Form.Item
               style={{ marginRight: "24px" }}
               label="Phần trăm giảm"
-              name="name"
+              name="percent"
               rules={[
                 {
                   required: true,
@@ -90,7 +102,7 @@ const CreateProduct = () => {
           <Col span={13}>
             <Form.Item
               label="Thời gian khuyến mãi"
-              name="price"
+              name="date"
               rules={[
                 {
                   required: true,
@@ -112,28 +124,15 @@ const CreateProduct = () => {
           }}
           placeholder="Tags Mode"
           onChange={handleChange}
-          options={formatOption()}
-        />
-        <Row>
-          {listVT.map((child, index) => {
+        >
+          {products?.map((e, index) => {
             return (
-              <Col key={index} span={6}>
-                <Form.Item
-                  label={getIngrediantByID(child)}
-                  name={`${child}`}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Username is required!",
-                    },
-                  ]}
-                >
-                  <Input type="number" />
-                </Form.Item>
-              </Col>
+              <Option key={index} value={e?.id}>
+                {e?.name}
+              </Option>
             );
           })}
-        </Row>
+        </Select>
 
         <Form.Item>
           <Button htmlType="submit">Tạo sản phẩm</Button>

@@ -2,7 +2,11 @@ import {
   showConfirmError,
   showConfirmSuccess,
   showDeleteOderModal,
+  showError,
+  showSuccess,
+  showWarning,
 } from "@/components/AccountModal/Modal";
+import { useEffect } from "react";
 import { useCallback, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -20,7 +24,6 @@ const useTable = (fetchData, dataFieldName, deleteData) => {
     amount: 10,
     search: "",
   });
-
   const onPageChange = (params) => {
     setParams((pre) => ({
       ...pre,
@@ -47,7 +50,7 @@ const useTable = (fetchData, dataFieldName, deleteData) => {
           setTableData((pre) => ({
             ...pre,
             data: res[dataFieldName] || [],
-            total: res?.tong,
+            total: res?.count,
           }));
         }
       } catch (err) {
@@ -76,13 +79,13 @@ const useTable = (fetchData, dataFieldName, deleteData) => {
     navigate(`${location.pathname}/${id}`);
   };
 
-  const onDelete = async (id) => {
+  const onDelete = async (id, valueSuccess, valueErorr) => {
     try {
-      showDeleteOderModal(async () => {
+      showWarning(valueSuccess, async () => {
         try {
           const res = await deleteData(id);
           if (res?.success) {
-            showConfirmSuccess();
+            showSuccess();
             if (
               params.page === Math.ceil(tableData.total / params.amount) &&
               tableData.total % params.amount === 1
@@ -94,14 +97,14 @@ const useTable = (fetchData, dataFieldName, deleteData) => {
               fetchRows(params);
             }
           } else {
-            showConfirmError();
+            showError(res?.mgs);
           }
         } catch (error) {
-          showConfirmError();
+          showError(valueErorr);
         }
       });
     } catch (error) {
-      showConfirmError();
+      showError();
     }
   };
 

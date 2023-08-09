@@ -1,6 +1,8 @@
 import {
   showDeleteOderModal,
+  showError,
   showLockUserModal,
+  showSuccess,
 } from "@/components/AccountModal/Modal";
 import {
   DeleteOutlined,
@@ -10,30 +12,62 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import routerLinks from "@/utils/router-links";
-
-export const columns = (onDelete) => {
+import { StaffAPI } from "@/services/Admin/staff";
+import { async } from "q";
+const lockUser = async (id) => {
+  try {
+    const rq = await StaffAPI.lockStaff(id);
+    if (rq?.success) {
+      showSuccess();
+    }
+  } catch (error) {
+    showError();
+  }
+};
+const unLockUser = async (id) => {
+  try {
+    const rq = await StaffAPI.unlLockStaff(id);
+    if (rq?.success) {
+      showSuccess();
+    }
+  } catch (error) {
+    showError();
+  }
+};
+export const columns = (onDelete, fetchRows) => {
   const navigate = useNavigate();
   return [
     {
       title: "Tên nhân vin",
       key: "1",
-      dataIndex: "name",
+      dataIndex: "fullname",
     },
     {
       title: "Mã nhân viên",
       key: "4",
-      dataIndex: "measure_id",
-      render: (_, info) => <>{info?.measure_id === 1 ? "KG" : "Cái"}</>,
+      dataIndex: "id",
     },
     {
       title: "Số điện thoại",
       key: "4",
-      dataIndex: "quantity",
+      dataIndex: "phone",
+    },
+    {
+      title: "giới tính",
+      key: "4",
+      render: (_, info) => <>{info?.gender ? "Name" : "Nữ"}</>,
     },
     {
       title: "Ngày sinh",
       key: "4",
-      dataIndex: "quantity",
+      dataIndex: "birthday",
+    },
+    {
+      title: "Trạng thái",
+      key: "4",
+      render: (_, info) => (
+        <>{info?.isAcctive ? "Đang hoạt động" : "Vô hiệu"}</>
+      ),
     },
     {
       title: "Hoạt động",
@@ -42,7 +76,7 @@ export const columns = (onDelete) => {
         <>
           <DeleteOutlined
             onClick={(e) => {
-              onDelete();
+              onDelete(info?.id);
               e.stopPropagation();
             }}
           />
@@ -52,17 +86,23 @@ export const columns = (onDelete) => {
               navigate(routerLinks("EditStaff"), { state: { ...info } });
             }}
           />
-          {info?.status ? (
-            <LockOutlined
+          {info?.isAcctive ? (
+            <UnlockOutlined
               onClick={(e) => {
-                showLockUserModal(false);
+                showLockUserModal(true, async () => {
+                  await unLockUser(info?.id);
+                  fetchRows();
+                });
                 e.stopPropagation();
               }}
             />
           ) : (
-            <UnlockOutlined
+            <LockOutlined
               onClick={(e) => {
-                showLockUserModal(true);
+                showLockUserModal(false, async () => {
+                  await lockUser(info?.id);
+                  fetchRows();
+                });
                 e.stopPropagation();
               }}
             />

@@ -7,22 +7,27 @@ export const columns = (onDelete) => {
     {
       title: "Mã khuyến mãi",
       key: "1",
-      dataIndex: "name",
+      dataIndex: "id",
     },
     {
       title: "Thời gian bắt đầu",
       key: "1",
-      dataIndex: "price",
+      dataIndex: "start_day",
     },
     {
       title: "Thời gian kết thúc",
       key: "4",
-      dataIndex: "soluong",
+      dataIndex: "end_day",
     },
     {
       title: "Sản phẩm áp dụng khuyến mãi",
-      key: "4",
-      dataIndex: "soluong",
+      key: "6",
+      dataIndex: "product.name",
+    },
+    {
+      title: "Nhân viên tạo khuyến mãi",
+      key: "5",
+      dataIndex: "staff.fullname",
     },
     {
       title: "Hoạt động",
@@ -31,7 +36,7 @@ export const columns = (onDelete) => {
         <>
           <DeleteOutlined
             onClick={(e) => {
-              onDelete();
+              onDelete(info?.id, "Bạn có chắc muốn xóa Khuyến mãi này không!");
               e.stopPropagation();
             }}
           />

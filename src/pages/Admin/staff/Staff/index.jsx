@@ -1,21 +1,33 @@
 import useTable from "@/hook/useTable";
-import { Button, Table } from "antd";
+import { Button, Pagination, Table } from "antd";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { columns } from "./columns";
 import { IngrediantAPI } from "@/services/Admin/Ingredient";
 import { useState } from "react";
 import routerLinks from "@/utils/router-links";
-const Staff11 = () => {
-  const { tableData, loading, fetchRows, onDelete } = useTable(
-    IngrediantAPI.getAllIngredient,
-    "data"
-  );
+import { columns } from "../Staff/columns";
+import { StaffAPI } from "@/services/Admin/staff";
+const WareHouse = () => {
+  const {
+    tableData,
+    loading,
+    fetchRows,
+    onDelete,
+    onPageChange,
+    params,
+    onPageSizeChange,
+  } = useTable(StaffAPI.getAllStaff, "data", StaffAPI.deleteStaff);
   // const [data, setdata] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetchRows();
+    fetchRows(params);
   }, []);
+  const findData = () => {
+    const newData = tableData?.data?.filter((e) => {
+      return e?.roleId === 2;
+    });
+    return newData;
+  };
 
   return (
     <div>
@@ -27,17 +39,31 @@ const Staff11 = () => {
         Danh sach nhân viên kinh doanh
       </h1>
       <Table
-        columns={columns(onDelete)}
-        dataSource={tableData?.data}
+        columns={columns(onDelete, () => fetchRows(params))}
+        dataSource={findData()}
         rowKey="id"
         loading={loading}
+        pagination={false}
         onRow={(record) => ({
           // onClick: () => {
           //   navigate(routerLinks("AddIngredient"), { state: { ...record } });
           // },
         })}
       />
+      <Pagination
+        className="ant-table-pagination ant-table-pagination-right"
+        total={tableData?.total}
+        showQuickJumper
+        current={params?.page}
+        showSizeChanger={true}
+        onChange={(page) => {
+          onPageChange({ page: page });
+        }}
+        onShowSizeChange={(size) => {
+          onPageSizeChange({ size: size });
+        }}
+      />
     </div>
   );
 };
-export default Staff11;
+export default WareHouse;

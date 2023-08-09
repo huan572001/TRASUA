@@ -1,10 +1,10 @@
 import { Button, Card, Form, Input, Select } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import routerLinks from "@/utils/router-links";
-import { MeaseumAPI } from "@/services/Admin/measure";
 import { useEffect, useState } from "react";
 import { IngrediantAPI } from "@/services/Admin/Ingredient";
 import { showConfirmSuccess, showError } from "@/components/AccountModal/Modal";
+import { MeasureAPI } from "@/services/Admin/measure";
 const CreateIngredient = () => {
   const navigate = useNavigate();
   const state = useLocation();
@@ -13,7 +13,7 @@ const CreateIngredient = () => {
   console.log(state);
   const getAllMeasure = async () => {
     try {
-      const rq = await MeaseumAPI.getAllMeaseum();
+      const rq = await MeasureAPI.getAllMeasure();
       if (rq?.success) {
         setMeasure(rq?.data);
       }

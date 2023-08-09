@@ -7,13 +7,14 @@ import routerLinks from "@/utils/router-links";
 import useTable from "@/hook/useTable";
 import { notAuthAPI } from "@/services/notAuth";
 import { ProductAPI } from "@/services/Admin/product";
+import { PromosionAPI } from "@/services/Admin/promotion";
 // import { notAuthAPI } from "@/services/notAuth";
 // import useTable from "@/hook/useTable";
 const index = () => {
   const { tableData, loading, fetchRows, onDelete } = useTable(
-    notAuthAPI.getAllProduct,
+    PromosionAPI.getAllPromosionNow,
     "data",
-    ProductAPI.deleteProduct
+    PromosionAPI.deletePromotion
   );
   // const [data, setdata] = useState([]);
   const navigate = useNavigate();
