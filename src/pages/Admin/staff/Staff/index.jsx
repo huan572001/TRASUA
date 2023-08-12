@@ -8,6 +8,8 @@ import routerLinks from "@/utils/router-links";
 import { columns } from "../Staff/columns";
 import { StaffAPI } from "@/services/Admin/staff";
 import BannerSearchForm from "./BannerSearchForm";
+import { detailIngredientStaff } from "./detailIngradient/ModalDetail";
+import { detailOrderStaff } from "./detailOrder/ModalDetail";
 const WareHouse = ({
   tableData,
   params,
@@ -41,9 +43,9 @@ const WareHouse = ({
         loading={loading}
         pagination={false}
         onRow={(record) => ({
-          // onClick: () => {
-          //   navigate(routerLinks("AddIngredient"), { state: { ...record } });
-          // },
+          onClick: () => {
+            detailOrderStaff(record);
+          },
         })}
       />
       <Pagination

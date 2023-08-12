@@ -43,7 +43,7 @@ const index = () => {
         onReset={(e) => onReset(e)}
       />
       <Table
-        columns={columns(onDelete)}
+        columns={columns(onDelete, () => fetchRows(params))}
         dataSource={tableData?.data}
         rowKey="id"
         loading={loading}

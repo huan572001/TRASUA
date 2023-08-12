@@ -26,6 +26,11 @@ const LayoutAdmin = [
     key: "Promotion",
     icon: <UserAddOutlined />,
   },
+  {
+    label: "Quản lý khách hàng",
+    key: "CustomerAdmin",
+    icon: <UserAddOutlined />,
+  },
 ];
 const LayoutStaff = [
   {

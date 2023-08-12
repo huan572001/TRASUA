@@ -1,9 +1,41 @@
-import { showDeleteOderModal } from "@/components/AccountModal/Modal";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  showDeleteOderModal,
+  showError,
+  showLockProductModal,
+  showLockUserModal,
+  showSuccess,
+} from "@/components/AccountModal/Modal";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  LockOutlined,
+  UnlockOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { deleteProduct } from "./handal";
 import routerLinks from "@/utils/router-links";
-export const columns = (onDelete) => {
+import { ProductAPI } from "@/services/Admin/product";
+const lock = async (id) => {
+  try {
+    const rq = await ProductAPI.lock(id);
+    if (rq?.success) {
+      showSuccess();
+    }
+  } catch (error) {
+    showError();
+  }
+};
+const unLock = async (id) => {
+  try {
+    const rq = await ProductAPI.unlLock(id);
+    if (rq?.success) {
+      showSuccess();
+    }
+  } catch (error) {
+    showError();
+  }
+};
+export const columns = (onDelete, fetchRows) => {
   const navigate = useNavigate();
   return [
     {
@@ -36,9 +68,13 @@ export const columns = (onDelete) => {
       key: "4",
       dataIndex: "descript",
     },
-
     {
-      title: "Trang thai",
+      title: "Trạng thái",
+      key: "4",
+      render: (_, info) => <>{info?.activate ? "Khóa" : "Hoạt động"}</>,
+    },
+    {
+      title: "Hoạt động",
       key: "8",
       render: (_, info) => (
         <>
@@ -54,6 +90,27 @@ export const columns = (onDelete) => {
               navigate(routerLinks("EditProduct"), { state: { ...info } });
             }}
           />
+          {info?.activate ? (
+            <LockOutlined
+              onClick={(e) => {
+                showLockProductModal(false, async () => {
+                  await lock(info?.id);
+                  fetchRows();
+                });
+                e.stopPropagation();
+              }}
+            />
+          ) : (
+            <UnlockOutlined
+              onClick={(e) => {
+                showLockProductModal(true, async () => {
+                  await unLock(info?.id);
+                  fetchRows();
+                });
+                e.stopPropagation();
+              }}
+            />
+          )}
         </>
       ),
     },

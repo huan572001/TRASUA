@@ -1,7 +1,7 @@
-import { Button, Card, Col, Form, Input, Modal, Row, Select } from 'antd';
-import { useEffect, useState } from 'react';
-import { OrderAPI } from '@/services/Admin/order';
-import { detailproduct } from '@/pages/ListProduct/detailProduct/ModalDetail';
+import { Button, Card, Col, Form, Input, Modal, Row, Select } from "antd";
+import { useEffect, useState } from "react";
+import { OrderAPI } from "@/services/Admin/order";
+import { detailproduct } from "@/pages/ListProduct/detailProduct/ModalDetail";
 const Product = ({ info }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -18,6 +18,7 @@ const Product = ({ info }) => {
 
   return (
     <>
+      <>Danh sách sản phẩm hóa đơn</>
       {data?.map((e, index) => {
         return (
           <Card key={index} onClick={() => detailproduct(e?.product)}>

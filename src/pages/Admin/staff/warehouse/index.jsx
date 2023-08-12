@@ -1,13 +1,9 @@
-import useTable from "@/hook/useTable";
 import { Button, Pagination, Table } from "antd";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { IngrediantAPI } from "@/services/Admin/Ingredient";
-import { useState } from "react";
-import routerLinks from "@/utils/router-links";
+
 import { columns } from "../Staff/columns";
-import { StaffAPI } from "@/services/Admin/staff";
-import BannerSearchForm from "../Staff/BannerSearchForm";
+
+import { detailOrderStaff } from "../Staff/detailOrder/ModalDetail";
+import { detailIngredientStaff } from "../Staff/detailIngradient/ModalDetail";
 const WareHouse = ({
   tableData,
   params,
@@ -40,9 +36,9 @@ const WareHouse = ({
         loading={loading}
         pagination={false}
         onRow={(record) => ({
-          // onClick: () => {
-          //   navigate(routerLinks("AddIngredient"), { state: { ...record } });
-          // },
+          onClick: () => {
+            detailIngredientStaff(record);
+          },
         })}
       />
       <Pagination

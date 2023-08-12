@@ -3,7 +3,7 @@ import axiosClient from "../axiosClient";
 
 export const StaffAPI = {
   getAllStaff: async (params) => {
-    const url = `/${STAFF_API_PATH}/find-acount?search=${params?.search}&page=${params?.page}&limit=${params?.amount}`;
+    const url = `/${STAFF_API_PATH}/find-acount?search=${params?.search}&page=${params?.page}&limit=${params?.amount}&isAcctive=`;
     return axiosClient.get(url);
   },
   createStaff: async (params) => {
@@ -38,5 +38,13 @@ export const StaffAPI = {
   editStaff: async (id, data) => {
     const url = `/${STAFF_API_PATH}/edit-myif-staff/${id}`;
     return axiosClient.put(url, data);
+  },
+  getAllingredientOrderByStaffId: async (id) => {
+    const url = `/${STAFF_API_PATH}/all-ingredient-staff/${id}`;
+    return axiosClient.get(url);
+  },
+  getAllOrderByStaffId: async (id) => {
+    const url = `/${STAFF_API_PATH}/all-order-staff/${id}`;
+    return axiosClient.get(url);
   },
 };

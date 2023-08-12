@@ -90,6 +90,20 @@ export const showLockOrderModal = (action, onAccept) => {
     }
   });
 };
+export const showLockProductModal = (action, onAccept) => {
+  swal({
+    title: action
+      ? `Bạn có muốn khóa sản phẩm này không?`
+      : "Bạn có muốn mở khóa sản phẩm này không?",
+    icon: "warning",
+    // dangerMode: true,
+    buttons: ["Hủy", "Đồng Ý"],
+  }).then((yes) => {
+    if (yes) {
+      onAccept();
+    }
+  });
+};
 export const showApproveModal = (action, onAccept) => {
   swal({
     title: action

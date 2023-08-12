@@ -1,25 +1,17 @@
-// import { ADMIN_API_PATH } from '@/constant/api';
-// import axiosClient from '../axiosClient';
+import { STAFF_API_PATH } from "@/constant/api";
+import axiosClient from "../axiosClient";
 
-// export const UserAPI = {
-//   getUser: async () => {
-//     const url = `/${ADMIN_API_PATH}/all-user`;
-//     return axiosClient.get(url);
-//   },
-//   getUserById: async (id) => {
-//     const url = `/${ADMIN_API_PATH}/getUserById/${id}`;
-//     return axiosClient.get(url);
-//   },
-//   editUser: async (id, data) => {
-//     const url = `/${ADMIN_API_PATH}/updateUserById/${id}`;
-//     return axiosClient.put(url, data);
-//   },
-//   getOrderByUser: async (id) => {
-//     const url = `/${ADMIN_API_PATH}/order-user/${id}`;
-//     return axiosClient.get(url);
-//   },
-//   getProductByOrder: async (id) => {
-//     const url = `/${ADMIN_API_PATH}/detail-order/${id}`;
-//     return axiosClient.get(url);
-//   },
-// };
+export const UserAPI = {
+  getUser: async (params) => {
+    const url = `/${STAFF_API_PATH}/find-acount-customer?search=${params?.search}&page=${params?.page}&limit=${params?.amount}&isAcctive=`;
+    return axiosClient.get(url);
+  },
+  lock: async (id) => {
+    const url = `/${STAFF_API_PATH}/lock-account-customer`;
+    return axiosClient.put(url, { id: id });
+  },
+  unlLock: async (id) => {
+    const url = `/${STAFF_API_PATH}/unlock-account-customer`;
+    return axiosClient.put(url, { id: id });
+  },
+};

@@ -13,6 +13,7 @@ const Util = (name) => {
     EditStaff: "/admin/EditStaff",
     Promotion: "/admin/Promotion",
     AddPromotion: "/admin/Promotion/Add",
+    CustomerAdmin: "/admin/CustomerAdmin",
 
     Ingredient: "/admin/Ingredient",
     AddIngredient: "/admin/Ingredient/add",

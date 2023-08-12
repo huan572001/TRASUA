@@ -1,47 +1,105 @@
-import { OrderedListOutlined } from '@ant-design/icons';
-import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
-import { listOrder } from './listOrder';
-
-export const columns = () => {
+import {
+  LockOutlined,
+  OrderedListOutlined,
+  UnlockOutlined,
+} from "@ant-design/icons";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { listOrder } from "./listOrder";
+import {
+  showError,
+  showLockUserModal,
+  showSuccess,
+} from "@/components/AccountModal/Modal";
+import { UserAPI } from "@/services/Admin/user";
+const lock = async (id) => {
+  try {
+    const rq = await UserAPI.lock(id);
+    if (rq?.success) {
+      showSuccess();
+    }
+  } catch (error) {
+    showError();
+  }
+};
+const unLock = async (id) => {
+  try {
+    const rq = await UserAPI.unlLock(id);
+    if (rq?.success) {
+      showSuccess();
+    }
+  } catch (error) {
+    showError();
+  }
+};
+export const columns = (fetchRows) => {
   const navigate = useNavigate();
+
   return [
     {
-      title: 'Tên khách hàng',
-      key: '1',
-      dataIndex: 'name',
+      title: "Tên khách hàng",
+      key: "1",
+      dataIndex: "fullname",
     },
     {
-      title: 'Email',
-      key: '2',
-      dataIndex: 'email',
+      title: "Email",
+      key: "2",
+      dataIndex: "email",
     },
     {
-      title: 'Số điện thoại',
-      key: '3',
-      dataIndex: 'phone',
+      title: "Số điện thoại",
+      key: "3",
+      dataIndex: "phone",
     },
     {
-      title: 'Ngày sinh',
-      key: '4',
-      render: (_, info) => <>{moment(info?.bithday).format('DD/MM/YYYY')}</>,
+      title: "Ngày sinh",
+      key: "4",
+      render: (_, info) => <>{moment(info?.bithday).format("DD/MM/YYYY")}</>,
     },
     {
-      title: 'Giới tính',
-      key: '4',
+      title: "Giới tính",
+      key: "4",
       render: (_, info) => <>{info?.gender ? <>Nam</> : <>Nư</>}</>,
     },
     {
-      title: 'Hoạt động',
-      key: '4',
+      title: "Trạng thái",
+      key: "4",
+      render: (_, info) => (
+        <>{info?.isAcctive ? <>Vô hiệu</> : <>Hoạt động</>}</>
+      ),
+    },
+    {
+      title: "Hoạt động",
+      key: "4",
       render: (_, info) => (
         <>
-          <OrderedListOutlined
+          {/* <OrderedListOutlined
             onClick={(e) => {
               e.stopPropagation();
-              listOrder(info?.id);
+              // listOrder(info?.id);
             }}
-          />
+          /> */}
+          {info?.isAcctive ? (
+            <LockOutlined
+              onClick={(e) => {
+                showLockUserModal(false, async () => {
+                  await lock(info?.id);
+                  fetchRows();
+                });
+                e.stopPropagation();
+              }}
+            />
+          ) : (
+            <UnlockOutlined
+              onClick={(e) => {
+                showLockUserModal(true, async () => {
+                  await unLock(info?.id);
+                  fetchRows();
+                });
+                e.stopPropagation();
+              }}
+            />
+          )}
         </>
       ),
     },

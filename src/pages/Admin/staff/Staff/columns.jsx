@@ -87,20 +87,20 @@ export const columns = (onDelete, fetchRows) => {
             }}
           />
           {info?.isAcctive ? (
-            <UnlockOutlined
+            <LockOutlined
               onClick={(e) => {
                 showLockUserModal(true, async () => {
-                  await unLockUser(info?.id);
+                  await lockUser(info?.id);
                   fetchRows();
                 });
                 e.stopPropagation();
               }}
             />
           ) : (
-            <LockOutlined
+            <UnlockOutlined
               onClick={(e) => {
                 showLockUserModal(false, async () => {
-                  await lockUser(info?.id);
+                  await unLockUser(info?.id);
                   fetchRows();
                 });
                 e.stopPropagation();

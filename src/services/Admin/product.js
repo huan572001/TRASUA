@@ -3,7 +3,7 @@ import axiosClient from "../axiosClient";
 
 export const ProductAPI = {
   getAllProduct: async (params) => {
-    const url = `until/getAllProduct?search=${params?.search}&page=${params?.page}&limit=${params?.amount}`;
+    const url = `until/getAllProduct?search=${params?.search}&page=${params?.page}&limit=${params?.amount}&activate=`;
     return axiosClient.get(url);
   },
   deleteProduct: async (id) => {
@@ -29,5 +29,13 @@ export const ProductAPI = {
   getRecipreById: async (id) => {
     const url = `/product/recipre/${id}`;
     return axiosClient.get(url);
+  },
+  lock: async (id) => {
+    const url = `/${STAFF_API_PATH}/lock-product/${id}`;
+    return axiosClient.put(url);
+  },
+  unlLock: async (id) => {
+    const url = `/${STAFF_API_PATH}/un-lock-product/${id}`;
+    return axiosClient.put(url);
   },
 };

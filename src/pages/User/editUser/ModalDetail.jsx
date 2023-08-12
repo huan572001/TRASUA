@@ -8,26 +8,26 @@ import {
   Row,
   Select,
   TreeSelect,
-} from 'antd';
-import './ModalDetail.less';
-import { useState } from 'react';
-import moment from 'moment';
-import { editUser } from '../handal';
+} from "antd";
+import "./ModalDetail.less";
+import { useState } from "react";
+import moment from "moment";
+// import { editUser } from "../handal";
 const { TextArea } = Input;
 const FormProduct = ({ info }) => {
   const [open, setOpen] = useState(true);
   const onFinish = (values) => {
-    editUser(info?.id, values);
+    // editUser(info?.id, values);
   };
   return (
     <>
       <div className="BodyBanner">
         <div className="imgBanner">
           {info?.image ? (
-            <img style={{ maxWidth: '100%' }} src={info?.image} alt="logo" />
+            <img style={{ maxWidth: "100%" }} src={info?.image} alt="logo" />
           ) : (
             <img
-              style={{ maxWidth: '100%' }}
+              style={{ maxWidth: "100%" }}
               src="https://png.pngtree.com/png-vector/20190811/ourlarge/pngtree-coorful-user-icon-on-gray-background-png-image_1690151.jpg"
               alt="logo"
             />
@@ -48,7 +48,7 @@ const FormProduct = ({ info }) => {
           <Row className="myRow">
             <Col span={11}>
               <Form.Item
-                style={{ marginRight: '24px' }}
+                style={{ marginRight: "24px" }}
                 label="Tên khách hàng"
                 name="name"
               >
@@ -64,14 +64,14 @@ const FormProduct = ({ info }) => {
           <Row className="myRow">
             <Col span={11}>
               <Form.Item
-                style={{ marginRight: '24px' }}
+                style={{ marginRight: "24px" }}
                 label="Giới tính"
                 name="garder"
               >
                 <TreeSelect
                   treeData={[
-                    { value: true, label: 'Nam' },
-                    { value: false, label: 'Nữ' },
+                    { value: true, label: "Nam" },
+                    { value: false, label: "Nữ" },
                   ]}
                 />
               </Form.Item>
@@ -86,7 +86,7 @@ const FormProduct = ({ info }) => {
           <Row className="myRow">
             <Col span={11}>
               <Form.Item
-                style={{ marginRight: '24px' }}
+                style={{ marginRight: "24px" }}
                 label="Số điện thoại"
                 name="phone"
               >
