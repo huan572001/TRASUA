@@ -21,7 +21,9 @@ const HeaderCustomer = () => {
       key: "1",
       label: (
         <>
-          <div>Thông tin cá nhân</div>
+          <div onClick={() => navigate(routerLinks("ProfileCustomer"))}>
+            Thông tin cá nhân
+          </div>
         </>
       ),
     },

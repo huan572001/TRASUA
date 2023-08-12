@@ -11,7 +11,14 @@ const Info = ({ data }) => {
   return (
     <>
       <Card>
-        <Card className="mb-2 ">Thông tin cá nhân</Card>
+        <Card
+          className="mb-2 "
+          onClick={() => {
+            navigate(routerLinks("ProfileCustomer"));
+          }}
+        >
+          Thông tin cá nhân
+        </Card>
         <Card
           className="mb-2"
           onClick={() => {

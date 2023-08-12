@@ -12,6 +12,11 @@ export const routesAdmin = [
     component: React.lazy(() => import("@/pages/ListProduct/CreateProduct")),
   },
   {
+    label: "List Order",
+    path: routerLinks("EditProduct"),
+    component: React.lazy(() => import("@/pages/ListProduct/editProduct")),
+  },
+  {
     label: "List product",
     path: routerLinks("AdminProduct"),
     component: React.lazy(() => import("@/pages/ListProduct/index")),
@@ -65,12 +70,24 @@ export const routesUser = [
     path: routerLinks("Evaluate"),
     component: React.lazy(() => import("@/pages/Customer/Evaluate")),
   },
+  {
+    label: "OrderCustomer",
+    path: routerLinks("ProfileCustomer"),
+    component: React.lazy(() => import("@/pages/Customer/profile")),
+  },
 ];
 export const routesStaff = [
   {
     label: "List Order",
     path: routerLinks("ListOrder"),
     component: React.lazy(() => import("@/pages/Order")),
+  },
+];
+export const routesStaffAll = [
+  {
+    label: "Profile",
+    path: routerLinks("ProfileSaff"),
+    component: React.lazy(() => import("@/pages/Admin/Profile")),
   },
 ];
 export const routesWarehouse = [

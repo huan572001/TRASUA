@@ -30,4 +30,12 @@ export const IngrediantAPI = {
     const url = `/${STAFF_API_PATH}/delete-ingredient/${data}`;
     return axiosClient.delete(url);
   },
+  lockOrder: async (data) => {
+    const url = `/${STAFF_API_PATH}/cancel-import-ingredient/${data}`;
+    return axiosClient.put(url);
+  },
+  unLockOrder: async (data) => {
+    const url = `/${STAFF_API_PATH}/uncancel-import-ingredient/${data}`;
+    return axiosClient.put(url);
+  },
 };

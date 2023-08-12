@@ -5,8 +5,8 @@ export const notAuthAPI = {
     const url = `/auth/register`;
     return axiosClient.post(url, data);
   },
-  getAllProduct: async () => {
-    const url = `/product/all`;
+  getAllProduct: async (data) => {
+    const url = `/until/getAllProduct?search=${data.search}&page=${data.page}&limit=${data.amount}`;
     return axiosClient.get(url);
   },
   getAllRateProductById: async (data) => {

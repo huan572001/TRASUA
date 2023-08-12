@@ -31,7 +31,7 @@ const FormIngredient = () => {
         Tạo hóa đơn vật tư
       </Button>
       <Table
-        columns={columns(onDelete)}
+        columns={columns(onDelete, fetchRows)}
         dataSource={tableData?.data}
         rowKey="id"
         loading={loading}

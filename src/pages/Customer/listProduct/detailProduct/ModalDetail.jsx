@@ -2,11 +2,14 @@ import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import "./ModalDetail.less";
 import { product } from "@/assets";
 import { useState } from "react";
-import { addProduct } from "../handal";
+// import { addProduct } from "../handal";
 import ListEvaluate from "../ListEvaluate";
+import { CustomerAPI } from "@/services/Customer";
+import { showError } from "@/components/AccountModal/Modal";
 const { TextArea } = Input;
-const FormProduct = ({ info }) => {
+const FormProduct = ({ info, addProduct }) => {
   const [count, setCount] = useState(1);
+
   return (
     <>
       <div className="BodyBanner">
@@ -53,11 +56,11 @@ const FormProduct = ({ info }) => {
     </>
   );
 };
-export const detailproduct = (info) => {
+export const detailproduct = (info, addProduct) => {
   return Modal.info({
     centered: true,
     maskClosable: true,
-    content: <FormProduct info={info} />,
+    content: <FormProduct info={info} addProduct={addProduct} />,
     icon: null,
     closable: true,
     width: 568,

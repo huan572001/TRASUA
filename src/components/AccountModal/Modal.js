@@ -76,7 +76,20 @@ export const showLockUserModal = (action, onAccept) => {
     }
   });
 };
-
+export const showLockOrderModal = (action, onAccept) => {
+  swal({
+    title: action
+      ? `Bạn có muốn hủy hóa đơn này không?`
+      : "Bạn có muốn hoàn tác hóa đơn này không?",
+    icon: "warning",
+    // dangerMode: true,
+    buttons: ["Hủy", "Đồng Ý"],
+  }).then((yes) => {
+    if (yes) {
+      onAccept();
+    }
+  });
+};
 export const showApproveModal = (action, onAccept) => {
   swal({
     title: action
@@ -157,7 +170,7 @@ export const showDeleteBanner = (onAccept) => {
 };
 export const showDelete = (name, onAccept) => {
   swal({
-    title: `Bạn có muốn xóa ?`,
+    title: `${name ? name : "Bạn có muốn xóa ?"}`,
     text: `Khi xóa bạn không thể khôi phục bạn có muốn tiếp tục?`,
     icon: "warning",
     // dangerMode: true,

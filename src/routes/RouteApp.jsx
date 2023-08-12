@@ -8,6 +8,7 @@ import routes, {
   routesUser,
   routesStaff,
   routesWarehouse,
+  routesStaffAll,
 } from "./routes";
 import Customer from "@/layout/Customer";
 import LoginCustomer from "@/pages/Customer/login";
@@ -32,11 +33,11 @@ const getPageRoute = (isAuthen) => {
 const getPageRouteAdmin = (isAuthen) => {
   let R = [];
   if (isAuthen?.data?.roleId === 1) {
-    R = [...routesAdmin];
+    R = [...routesAdmin, ...routesStaffAll];
   } else if (isAuthen?.data?.roleId === 2) {
-    R = [...routesStaff];
+    R = [...routesStaff, ...routesStaffAll];
   } else if (isAuthen?.data?.roleId === 3) {
-    R = [...routesWarehouse];
+    R = [...routesWarehouse, ...routesStaffAll];
   }
   return R.map((route) => {
     const Comp = route?.component;

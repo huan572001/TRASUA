@@ -10,6 +10,7 @@ const OrderCustomer = () => {
   const [order, setOrder] = useState([]);
   const [orderF, setOrderF] = useState([]);
   const [orderT, setOrderT] = useState([]);
+  const [loadAPI, setLoadAPI] = useState(0);
   const user = JSON.parse(localStorage.getItem(keyUser));
   const getAllOrder = async () => {
     try {
@@ -39,7 +40,7 @@ const OrderCustomer = () => {
     getAllOrder();
     getAllOrderT();
     getAllOrderF();
-  }, []);
+  }, [loadAPI]);
   return (
     <>
       <Row>
@@ -49,7 +50,7 @@ const OrderCustomer = () => {
         <Col span={18}>
           <Tabs>
             <Tabs.TabPane tab="Chờ xác nhận" key="1">
-              <TabOrder data={order} />
+              <TabOrder data={order} setLoadAPI={setLoadAPI} />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Đã nhận" key="2">
               <TabOrder data={orderT} />

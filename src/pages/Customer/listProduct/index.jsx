@@ -5,21 +5,26 @@ import { detailproduct } from "./detailProduct/ModalDetail";
 import { useEffect } from "react";
 import { notAuthAPI } from "@/services/notAuth";
 import { useDispatch, useSelector } from "react-redux";
+import useTable from "@/hook/useTable";
+import BannerSearchForm from "@/pages/Admin/staff/Staff/BannerSearchForm";
+import { CustomerAPI } from "@/services/Customer";
+import { values } from "lodash";
+import { showError } from "@/components/AccountModal/Modal";
 const ListProduct = () => {
-  const [data, setData] = useState([
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    { id: 6 },
-    { id: 7 },
-    { id: 8 },
-  ]);
+  const {
+    tableData,
+    loading,
+    fetchRows,
+    onDelete,
+    onPageChange,
+    params,
+    onPageSizeChange,
+    onReset,
+  } = useTable(notAuthAPI.getAllProduct, "data");
   const dispatch = useDispatch();
   const dataTest = useSelector((state) => state.card);
   useEffect(() => {
-    getListProduct();
+    fetchRows(params);
     const arrCard = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : [];
@@ -27,18 +32,11 @@ const ListProduct = () => {
       type: "SET_CARD",
       payload: arrCard.length,
     });
-  }, []);
+  }, [params]);
 
-  const getListProduct = async () => {
-    try {
-      const req = await notAuthAPI.getAllProduct();
-      if (req?.success) {
-        setData(req.data);
-      }
-    } catch (error) {}
-  };
   const addProduct = (data, sl) => {
     let arrCard = [];
+    let check = [];
     let n = true;
     arrCard = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
@@ -56,16 +54,42 @@ const ListProduct = () => {
     if (n) {
       arrCard.push({ ...data, sl: sl ? sl : 1 });
     }
-    localStorage.setItem("cart", JSON.stringify(arrCard));
-    dispatch({
-      type: "SET_CARD",
-      payload: arrCard.length,
+    arrCard.forEach((e) => {
+      check.push({
+        id: e?.id,
+        quantity: e?.sl,
+      });
     });
+    checkOrder(check, arrCard);
+  };
+  const checkOrder = async (values, arrCard) => {
+    try {
+      const rq = await CustomerAPI.checkOrder(values);
+      if (rq?.success) {
+        localStorage.setItem("cart", JSON.stringify(arrCard));
+        dispatch({
+          type: "SET_CARD",
+          payload: arrCard.length,
+        });
+      } else {
+        showError("Sản phẩm không con đủ số lượng");
+      }
+    } catch (error) {
+      showError("Sản phẩm không con đủ số lượng");
+    }
   };
   return (
     <div>
+      <div className="flex justify-center">
+        <BannerSearchForm
+          fetchRows={fetchRows}
+          params={params}
+          onReset={onReset}
+        />
+      </div>
+
       <Row gutter={10} justify="center">
-        {data.map((child, index) => {
+        {tableData?.data?.map((child, index) => {
           return (
             <Col
               key={index}
@@ -76,16 +100,30 @@ const ListProduct = () => {
               className="gutter-row"
             >
               <Card>
-                <img
-                  style={{ width: "100%" }}
-                  alt="example"
-                  src={
-                    child?.image
-                      ? child?.image
-                      : "https://giadinh.mediacdn.vn/296230595582509056/2023/2/14/tra-sua5-1676369055517942036678.jpeg"
-                  }
-                  onClick={() => detailproduct(child)}
-                />
+                <div className="flex justify-end">
+                  {child["promotion.percent"] !== null ? (
+                    <Card className="w-12 h-12 bg-amber-300 absolute p-0 promotion">
+                      <div className="text-center">
+                        <div>Giảm</div>
+                        <div>{child["promotion.percent"]}%</div>
+                      </div>
+                    </Card>
+                  ) : (
+                    ""
+                  )}
+
+                  <img
+                    style={{ width: "100%" }}
+                    alt="example"
+                    src={
+                      child?.image
+                        ? child?.image
+                        : "https://giadinh.mediacdn.vn/296230595582509056/2023/2/14/tra-sua5-1676369055517942036678.jpeg"
+                    }
+                    onClick={() => detailproduct(child, addProduct)}
+                  />
+                </div>
+
                 <div className="card">
                   <div>
                     <div>{child?.name}</div>

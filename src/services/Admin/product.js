@@ -2,12 +2,20 @@ import { STAFF_API_PATH } from "@/constant/api";
 import axiosClient from "../axiosClient";
 
 export const ProductAPI = {
+  getAllProduct: async (params) => {
+    const url = `until/getAllProduct?search=${params?.search}&page=${params?.page}&limit=${params?.amount}`;
+    return axiosClient.get(url);
+  },
   deleteProduct: async (id) => {
     const url = `/${STAFF_API_PATH}/delete/${id}`;
     return axiosClient.delete(url);
   },
   editProduct: async (id, data) => {
-    const url = `/${ADMIN_API_PATH}/edit-product/${id}`;
+    const url = `/${STAFF_API_PATH}/edit/${id}`;
+    return axiosClient.put(url, data);
+  },
+  editRecipe: async (id, data) => {
+    const url = `/product/recipre-update/${id}`;
     return axiosClient.put(url, data);
   },
   createProduct: async (data) => {
@@ -15,6 +23,10 @@ export const ProductAPI = {
     return axiosClient.post(url, data);
   },
   getProductById: async (id) => {
+    const url = `/product/recipre/${id}`;
+    return axiosClient.get(url);
+  },
+  getRecipreById: async (id) => {
     const url = `/product/recipre/${id}`;
     return axiosClient.get(url);
   },

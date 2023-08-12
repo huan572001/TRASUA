@@ -38,4 +38,24 @@ export const CustomerAPI = {
     const url = `/${CUSTOMER_API_PATH}/evaluate-edit/${id}`;
     return axiosClient.put(url, data);
   },
+  deleteOrder: async (id) => {
+    const url = `/${CUSTOMER_API_PATH}/cancle-order/${id}`;
+    return axiosClient.put(url);
+  },
+  getProfile: async (data) => {
+    const url = `/${CUSTOMER_API_PATH}/view-myif/${data}`;
+    return axiosClient.get(url);
+  },
+  editProfile: async (data, id) => {
+    const url = `/${CUSTOMER_API_PATH}/update-profile/${id}`;
+    return axiosClient.put(url, data);
+  },
+  changeForPassWord: async (id, data) => {
+    const url = `/${CUSTOMER_API_PATH}/change-password/${id}`;
+    return axiosClient.put(url, data);
+  },
+  checkOrder: async (data) => {
+    const url = `/${CUSTOMER_API_PATH}/check-order`;
+    return axiosClient.post(url, { data: [...data] });
+  },
 };

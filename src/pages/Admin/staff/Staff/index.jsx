@@ -7,21 +7,16 @@ import { useState } from "react";
 import routerLinks from "@/utils/router-links";
 import { columns } from "../Staff/columns";
 import { StaffAPI } from "@/services/Admin/staff";
-const WareHouse = () => {
-  const {
-    tableData,
-    loading,
-    fetchRows,
-    onDelete,
-    onPageChange,
-    params,
-    onPageSizeChange,
-  } = useTable(StaffAPI.getAllStaff, "data", StaffAPI.deleteStaff);
-  // const [data, setdata] = useState([]);
-  const navigate = useNavigate();
-  useEffect(() => {
-    fetchRows(params);
-  }, []);
+import BannerSearchForm from "./BannerSearchForm";
+const WareHouse = ({
+  tableData,
+  params,
+  onPageChange,
+  onPageSizeChange,
+  fetchRows,
+  onDelete,
+  loading,
+}) => {
   const findData = () => {
     const newData = tableData?.data?.filter((e) => {
       return e?.roleId === 2;
@@ -38,6 +33,7 @@ const WareHouse = () => {
       >
         Danh sach nhân viên kinh doanh
       </h1>
+
       <Table
         columns={columns(onDelete, () => fetchRows(params))}
         dataSource={findData()}

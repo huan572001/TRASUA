@@ -53,8 +53,8 @@ const LayoutIngredient = [
 ];
 const Layout = [
   {
-    label: "Dashboard",
-    key: "Dashboard",
+    label: "Thông tin cá nhân",
+    key: "ProfileSaff",
     icon: <HomeOutlined />,
   },
 ];

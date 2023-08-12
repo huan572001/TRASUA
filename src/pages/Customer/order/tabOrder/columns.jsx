@@ -6,10 +6,28 @@ import {
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { detailOrder } from "../detailOrder/ModalDetail";
-import { showDeleteOderModal } from "@/components/AccountModal/Modal";
+import {
+  showDelete,
+  showDeleteOderModal,
+  showError,
+  showSuccess,
+} from "@/components/AccountModal/Modal";
+import { CustomerAPI } from "@/services/Customer";
 // import { listOrder } from './listOrder';
-
-export const columns = () => {
+const deleteOrder = async (id, setLoadAPI) => {
+  try {
+    const rq = await CustomerAPI.deleteOrder(id);
+    if (rq?.success) {
+      showSuccess("Hủy đơn hàng thành công!");
+      setLoadAPI((e) => (e += 1));
+    } else {
+      showError();
+    }
+  } catch (error) {
+    showError();
+  }
+};
+export const columns = (setLoadAPI) => {
   const navigate = useNavigate();
   return [
     {
@@ -41,7 +59,13 @@ export const columns = () => {
             <>
               {"  | "}
 
-              <DeleteOutlined onClick={() => showDeleteOderModal()} />
+              <DeleteOutlined
+                onClick={() =>
+                  showDelete("Ban có chắc muốn hủy đơn hàng này không?", () =>
+                    deleteOrder(info?.id, setLoadAPI)
+                  )
+                }
+              />
             </>
           ) : (
             ""

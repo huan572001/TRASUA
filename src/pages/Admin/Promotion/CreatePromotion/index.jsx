@@ -31,6 +31,7 @@ const CreateProduct = () => {
       const rq = await PromosionAPI.createPromotion(data);
       if (rq?.success) {
         showSuccess("Tạo khuyến mãi thành công");
+        navigate(routerLinks("Promotion"));
       }
     } catch (error) {
       showError();
@@ -45,9 +46,9 @@ const CreateProduct = () => {
   };
   const getListProduct = async () => {
     try {
-      const req = await notAuthAPI.getAllProduct();
+      const req = await PromosionAPI.getAllPromosionHave();
       if (req?.success) {
-        setProducts(req.data);
+        setProducts(req?.data);
       }
     } catch (error) {}
   };
@@ -117,22 +118,32 @@ const CreateProduct = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Select
-          mode="tags"
-          style={{
-            width: "100%",
-          }}
-          placeholder="Tags Mode"
-          onChange={handleChange}
+        <Form.Item
+          name={"đsads"}
+          rules={[
+            {
+              required: true,
+              message: "Username is required!",
+            },
+          ]}
         >
-          {products?.map((e, index) => {
-            return (
-              <Option key={index} value={e?.id}>
-                {e?.name}
-              </Option>
-            );
-          })}
-        </Select>
+          <Select
+            mode="tags"
+            style={{
+              width: "100%",
+            }}
+            placeholder="Tags Mode"
+            onChange={handleChange}
+          >
+            {products?.map((e, index) => {
+              return (
+                <Option key={index} value={e?.id}>
+                  {e?.name}
+                </Option>
+              );
+            })}
+          </Select>
+        </Form.Item>
 
         <Form.Item>
           <Button htmlType="submit">Tạo sản phẩm</Button>

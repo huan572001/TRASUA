@@ -24,7 +24,8 @@ const CreateProduct = () => {
       });
     });
     data = { ...values, recipre, image: avatarPreview };
-    createProduct(data, () => navigate(routerLinks("AdminProduct")));
+    console.log(data);
+    // createProduct(data, () => navigate(routerLinks("AdminProduct")));
   };
   const handleChange = (value) => {
     setListVT(value);

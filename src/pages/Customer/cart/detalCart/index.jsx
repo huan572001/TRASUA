@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import "../index.less";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { CustomerAPI } from "@/services/Customer";
+import { showError } from "@/components/AccountModal/Modal";
 const Detail = ({ data, setList, setTotal }) => {
   const [count, setCount] = useState(data?.sl ? data?.sl : 1);
   const dispatch = useDispatch();
@@ -19,13 +21,50 @@ const Detail = ({ data, setList, setTotal }) => {
       payload: tmp.length,
     });
   };
-
-  useEffect(() => {
-    setTotal((total) => {
-      const newList = total.filter((item) => item.id !== data?.id);
-      return [...newList, { id: data?.id, price: data?.price * count }];
+  const addProduct = () => {
+    let arrCard = [];
+    let check = [];
+    arrCard = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
+    arrCard.forEach((element) => {
+      if (element?.id === data?.id) {
+        element.sl += 1;
+      }
     });
-  }, [count]);
+    arrCard.forEach((e) => {
+      check.push({
+        id: e?.id,
+        quantity: e?.sl,
+      });
+    });
+    checkOrder(check, arrCard);
+  };
+  const checkOrder = async (values, arrCard) => {
+    try {
+      const rq = await CustomerAPI.checkOrder(values);
+      if (rq?.success) {
+        localStorage.setItem("cart", JSON.stringify(arrCard));
+        setCount((c) => c + 1);
+        setTotal((total) => {
+          const newList = total.filter((item) => item.id !== data?.id);
+          return [
+            ...newList,
+            {
+              id: data?.id,
+              price:
+                ((data?.price * (100 - data["promotion.percent"])) / 100) *
+                count,
+            },
+          ];
+        });
+      } else {
+        showError("Sản phẩm không con đủ số lượng");
+      }
+    } catch (error) {
+      showError("Sản phẩm không con đủ số lượng");
+    }
+  };
   return (
     <Card style={{ width: "100%" }}>
       <Row>
@@ -46,7 +85,19 @@ const Detail = ({ data, setList, setTotal }) => {
         </Col>
         <Col span={12}>
           <div className="cardHeader">
-            <div>{data?.price}</div>
+            <div>
+              {data["promotion.percent"] !== null ? (
+                <>
+                  <div className="line-through">{data?.price}</div>
+                  <div>
+                    {(data?.price * (100 - data["promotion.percent"])) / 100}
+                  </div>
+                </>
+              ) : (
+                <div>{data?.price}</div>
+              )}
+            </div>
+
             <Button.Group>
               <Button
                 onClick={() => {
@@ -58,14 +109,16 @@ const Detail = ({ data, setList, setTotal }) => {
               <Button>{count}</Button>
               <Button
                 onClick={() => {
-                  setCount((c) => c + 1);
+                  addProduct();
                 }}
               >
                 +
               </Button>
             </Button.Group>
             <div>
-              {data?.price}x{count}={data?.price * count}
+              {(data?.price * (100 - data["promotion.percent"])) / 100}x{count}=
+              {((data?.price * (100 - data["promotion.percent"])) / 100) *
+                count}
             </div>
             <div onClick={() => deleteChild()}>Xóa</div>
           </div>

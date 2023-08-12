@@ -1,12 +1,38 @@
-import { Button, Form, Input, Select } from "antd";
+import { Button, DatePicker, Form, Input, Select } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import routerLinks from "@/utils/router-links";
+import { useEffect, useState } from "react";
+import { StaffAPI } from "@/services/Admin/staff";
+import { showError, showSuccess } from "@/components/AccountModal/Modal";
 const EditStaff = () => {
   const state = useLocation();
+  const [role, setRole] = useState([]);
   const navigate = useNavigate();
+  useEffect(() => {
+    getAllRole();
+  }, []);
+  const getAllRole = async () => {
+    try {
+      const rq = await StaffAPI.getAllRole();
+      if (rq?.success) {
+        setRole(rq?.data);
+      }
+    } catch (error) {}
+  };
+  const editStaff = async (data) => {
+    try {
+      const rq = await StaffAPI.editStaff({ ...data, id: state?.state?.id });
+      if (rq?.success) {
+        showSuccess("Chỉnh sửa thành công");
+        navigate(routerLinks("Staff"));
+      }
+    } catch (error) {
+      console.log(error);
+      showError("Email hoặc sô điện thoại bị trùng!");
+    }
+  };
   const onChange = (value) => {
-    console.log(value);
-    navigate(routerLinks("Staff"));
+    editStaff(value);
   };
   return (
     <>
@@ -20,10 +46,10 @@ const EditStaff = () => {
       <Form
         onFinish={onChange}
         initialValues={{
-          fullname: state?.state?.name,
+          fullname: state?.state?.fullname,
           email: state?.state?.email,
           phone: state?.state?.phone,
-          role: state?.state?.role,
+          role: state?.state?.roleId,
         }}
       >
         <Form.Item
@@ -39,6 +65,36 @@ const EditStaff = () => {
         <Form.Item name="phone" rules={[{ required: true }]} label="SDT">
           <Input placeholder="Phone" />
         </Form.Item>
+        <Form.Item name="address" rules={[{ required: true }]} label="Địa chỉ">
+          <Input placeholder="Địa chỉ" />
+        </Form.Item>
+        <Form.Item
+          name="birthday"
+          rules={[{ required: true }]}
+          label="Ngày sinh"
+        >
+          <DatePicker />
+        </Form.Item>
+        <Form.Item name="gender" rules={[{ required: true }]} label="Giới tính">
+          <Select
+            showSearch
+            placeholder="Giới tính"
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            options={[
+              {
+                value: "1",
+                label: "Nam",
+              },
+              {
+                value: "0",
+                label: "Nữ",
+              },
+            ]}
+          />
+        </Form.Item>
         <Form.Item name="role" rules={[{ required: true }]} label="Quyền">
           <Select
             showSearch
@@ -47,21 +103,15 @@ const EditStaff = () => {
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
-            options={[
-              {
-                value: "1",
-                label: "kg",
-              },
-              {
-                value: "2",
-                label: "g",
-              },
-              {
-                value: "3",
-                label: "cai",
-              },
-            ]}
-          />
+          >
+            {role?.map((e, index) => {
+              return (
+                <Option key={index} value={e?.id}>
+                  {e?.role_name}
+                </Option>
+              );
+            })}
+          </Select>
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit">Lưu</Button>

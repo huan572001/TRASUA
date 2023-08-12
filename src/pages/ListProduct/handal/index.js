@@ -1,9 +1,11 @@
 import {
   showConfirmError,
   showConfirmSuccess,
-} from '@/components/AccountModal/Modal';
-import { IngrediantAPI } from '@/services/Admin/Ingredient';
-import { ProductAPI } from '@/services/Admin/product';
+  showError,
+  showSuccess,
+} from "@/components/AccountModal/Modal";
+import { IngrediantAPI } from "@/services/Admin/Ingredient";
+import { ProductAPI } from "@/services/Admin/product";
 
 export const deleteProduct = async (id) => {
   try {
@@ -23,18 +25,6 @@ export const createProduct = async (data, load) => {
     if (a?.success) {
       showConfirmSuccess();
       load();
-    } else {
-      showConfirmError();
-    }
-  } catch (error) {
-    showConfirmError();
-  }
-};
-export const editProduct = async (id, data) => {
-  try {
-    const a = await ProductAPI.editProduct(id, data);
-    if (a) {
-      showConfirmSuccess();
     } else {
       showConfirmError();
     }

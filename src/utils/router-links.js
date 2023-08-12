@@ -3,8 +3,10 @@ const Util = (name) => {
     Login: "/auth/login",
     ListUser: "/ListUser",
     ListOrder: "/admin/ListOrder",
+    ProfileSaff: "/admin/profile",
     AdminProduct: "/admin/ListProduct",
     CreateProduct: "/admin/createProduct",
+    EditProduct: "/admin/EditProduct",
     statistical: "/admin/statistical",
     Staff: "/admin/Staff",
     AddStaff: "/admin/AddStaff",
@@ -26,6 +28,7 @@ const Util = (name) => {
     ListProduct: "/",
     Payment: "/Payment",
     Cart: "/Cart",
+    ProfileCustomer: "/Customer/profile",
 
     Admin: "/admin",
     Customer: "/Customer",
