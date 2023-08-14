@@ -7,6 +7,7 @@ import {
   Modal,
   Row,
   Select,
+  Spin,
   TreeSelect,
 } from "antd";
 import "./ModalDetail.less";
@@ -16,11 +17,14 @@ import moment from "moment";
 const { TextArea } = Input;
 const FormProduct = ({ info }) => {
   const [open, setOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
+
   const onFinish = (values) => {
+    // setLoading(true);
     // editUser(info?.id, values);
   };
   return (
-    <>
+    <Spin spinning={loading}>
       <div className="BodyBanner">
         <div className="imgBanner">
           {info?.image ? (
@@ -111,7 +115,7 @@ const FormProduct = ({ info }) => {
           )}
         </Form>
       </div>
-    </>
+    </Spin>
   );
 };
 export const detailUser = (info) => {

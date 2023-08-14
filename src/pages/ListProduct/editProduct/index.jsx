@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
+import { Button, Col, Form, Input, Modal, Row, Select, Spin } from "antd";
 import { useEffect } from "react";
 import { getAllIngredient } from "../handal";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ const { TextArea } = Input;
 const EditProduct = () => {
   const [option, setOption] = useState([]);
   const [listVT, setListVT] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [reci, setreci] = useState({});
   const [avatarPreview, setAvatarPreview] = useState(
     "https://icon-library.com/images/facebook-loading-icon/facebook-loading-icon-15.jpg"
@@ -29,6 +30,7 @@ const EditProduct = () => {
       });
     });
     data = { ...values, image: avatarPreview };
+    setLoading(true);
     editProduct(state?.state?.id, data, recipre);
   };
   const handleChange = (value) => {
@@ -59,10 +61,12 @@ const EditProduct = () => {
       if (a?.success) {
         showSuccess("Chỉnh sửa sản phẩm thành công");
         navigate(routerLinks("AdminProduct"));
+        setLoading(false);
       }
     } catch (error) {
       console.log("đasad");
       showError();
+      setLoading(false);
     }
   };
   const getRecipeById = async (id) => {
@@ -100,107 +104,109 @@ const EditProduct = () => {
   };
   return (
     <>
-      <h1>Chỉnh sửa sản phẩm</h1>
-      <div
-        style={{
-          width: 300,
-          height: 300,
-          marginBottom: 50,
-        }}
-      >
-        <img
-          src={avatarPreview}
-          alt="Ảnh Sản Phẩm"
-          style={{ width: "100%", height: "100%" }}
-        />
-        <input
-          type="file"
-          name="avatar"
-          placeholder="ảnh"
-          onChange={handleChangeIMG}
-        />
-      </div>
-      {listVT?.length > 0 ? (
-        <Form
-          layout="vertical"
-          onFinish={onFinish}
-          initialValues={{
-            ...state?.state,
-            ...reci,
+      <Spin spinning={loading}>
+        <h1>Chỉnh sửa sản phẩm</h1>
+        <div
+          style={{
+            width: 300,
+            height: 300,
+            marginBottom: 50,
           }}
         >
-          <Row className="myRow">
-            <Col span={11}>
-              <Form.Item
-                style={{ marginRight: "24px" }}
-                label="Tên sản phẩm"
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Username is required!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={13}>
-              <Form.Item
-                label="Giá sản phẩm"
-                name="price"
-                rules={[
-                  {
-                    required: true,
-                    message: "Username is required!",
-                  },
-                ]}
-              >
-                <Input type="number" />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Select
-            mode="tags"
-            style={{
-              width: "100%",
-            }}
-            placeholder="Tags Mode"
-            onChange={handleChange}
-            options={formatOption()}
-            defaultValue={[...listVT]}
+          <img
+            src={avatarPreview}
+            alt="Ảnh Sản Phẩm"
+            style={{ width: "100%", height: "100%" }}
           />
-          <Row>
-            {listVT.map((child, index) => {
-              return (
-                <Col key={index} span={6}>
-                  <Form.Item
-                    label={getIngrediantByID(child)}
-                    name={`${child}`}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Username is required!",
-                      },
-                    ]}
-                  >
-                    <Input type="number" />
-                  </Form.Item>
-                </Col>
-              );
-            })}
-          </Row>
+          <input
+            type="file"
+            name="avatar"
+            placeholder="ảnh"
+            onChange={handleChangeIMG}
+          />
+        </div>
+        {listVT?.length > 0 ? (
+          <Form
+            layout="vertical"
+            onFinish={onFinish}
+            initialValues={{
+              ...state?.state,
+              ...reci,
+            }}
+          >
+            <Row className="myRow">
+              <Col span={11}>
+                <Form.Item
+                  style={{ marginRight: "24px" }}
+                  label="Tên sản phẩm"
+                  name="name"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Username is required!",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+              </Col>
+              <Col span={13}>
+                <Form.Item
+                  label="Giá sản phẩm"
+                  name="price"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Username is required!",
+                    },
+                  ]}
+                >
+                  <Input type="number" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Select
+              mode="tags"
+              style={{
+                width: "100%",
+              }}
+              placeholder="Tags Mode"
+              onChange={handleChange}
+              options={formatOption()}
+              defaultValue={[...listVT]}
+            />
+            <Row>
+              {listVT.map((child, index) => {
+                return (
+                  <Col key={index} span={6}>
+                    <Form.Item
+                      label={getIngrediantByID(child)}
+                      name={`${child}`}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Username is required!",
+                        },
+                      ]}
+                    >
+                      <Input type="number" />
+                    </Form.Item>
+                  </Col>
+                );
+              })}
+            </Row>
 
-          <Form.Item label="Mô tả" name="descript">
-            <TextArea rows={4} />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">Tạo sản phẩm</Button>
-          </Form.Item>
-        </Form>
-      ) : (
-        ""
-      )}
+            <Form.Item label="Mô tả" name="descript">
+              <TextArea rows={4} />
+            </Form.Item>
+            <Form.Item>
+              <Button htmlType="submit">Tạo sản phẩm</Button>
+            </Form.Item>
+          </Form>
+        ) : (
+          ""
+        )}
+      </Spin>
     </>
   );
 };

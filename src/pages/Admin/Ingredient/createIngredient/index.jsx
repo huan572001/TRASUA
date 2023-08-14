@@ -1,4 +1,4 @@
-import { Button, Card, Form, Input, Select } from "antd";
+import { Button, Card, Form, Input, Select, Spin } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import routerLinks from "@/utils/router-links";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import { MeasureAPI } from "@/services/Admin/measure";
 const CreateIngredient = () => {
   const navigate = useNavigate();
   const state = useLocation();
+  const [loading, setLoading] = useState(false);
   const [measure, setMeasure] = useState([]);
   const { Option } = Select;
   console.log(state);
@@ -28,9 +29,11 @@ const CreateIngredient = () => {
       } else {
         showError(rq?.msg);
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
       showError();
+      setLoading(false);
     }
   };
   const update = async (data) => {
@@ -45,7 +48,9 @@ const CreateIngredient = () => {
       } else {
         showError(rq?.msg);
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       showError();
     }
   };
@@ -53,6 +58,7 @@ const CreateIngredient = () => {
     getAllMeasure();
   }, []);
   const onChange = (value) => {
+    setLoading(true);
     if (state?.state === null) {
       create(value);
     } else {
@@ -60,7 +66,7 @@ const CreateIngredient = () => {
     }
   };
   return (
-    <>
+    <Spin spinning={loading}>
       <Card title={state?.state === null ? "Tạo vật tư" : "Chỉnh sửa vật tư"}>
         <Form
           onFinish={onChange}
@@ -98,7 +104,7 @@ const CreateIngredient = () => {
           </Form.Item>
         </Form>
       </Card>
-    </>
+    </Spin>
   );
 };
 export default CreateIngredient;
