@@ -1,13 +1,13 @@
-import { showDeleteOderModal } from '@/components/AccountModal/Modal';
-import { DeleteOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { showDeleteOderModal } from "@/components/AccountModal/Modal";
+import { DeleteOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 export const columns = (onDelete) => {
   const navigate = useNavigate();
   return [
     {
-      title: 'Ảnh',
-      key: '5',
+      title: "Ảnh",
+      key: "5",
       render: (_, info) => (
         <>
           <img
@@ -20,19 +20,24 @@ export const columns = (onDelete) => {
       ),
     },
     {
-      title: 'Tên sản phẩm',
-      key: '1',
-      dataIndex: 'name',
+      title: "Tên sản phẩm",
+      key: "1",
+      dataIndex: "name",
     },
     {
-      title: 'Giá sản phẩm',
-      key: '1',
-      dataIndex: 'price',
+      title: "Giá sản phẩm",
+      key: "1",
+      dataIndex: "price",
     },
     {
-      title: 'Số lượng bán được',
-      key: '4',
-      dataIndex: 'soluong',
+      title: "Số lượng bán được",
+      key: "4",
+      dataIndex: "sl",
+    },
+    {
+      title: "Tổng tiền",
+      key: "4",
+      dataIndex: "dg",
     },
   ];
 };

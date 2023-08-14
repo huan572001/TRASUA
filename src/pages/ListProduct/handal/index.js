@@ -19,19 +19,7 @@ export const deleteProduct = async (id) => {
     showConfirmError();
   }
 };
-export const createProduct = async (data, load) => {
-  try {
-    const a = await ProductAPI.createProduct(data);
-    if (a?.success) {
-      showConfirmSuccess();
-      load();
-    } else {
-      showConfirmError();
-    }
-  } catch (error) {
-    showConfirmError();
-  }
-};
+
 export const getAllIngredient = async (setData) => {
   try {
     const a = await IngrediantAPI.getAllIngredient();

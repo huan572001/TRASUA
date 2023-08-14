@@ -1,4 +1,4 @@
-import { Button, Card, Col, Row } from "antd";
+import { Button, Card, Col, Row, message } from "antd";
 import React, { useState } from "react";
 import "./index.less";
 import { detailproduct } from "./detailProduct/ModalDetail";
@@ -10,6 +10,7 @@ import BannerSearchForm from "@/pages/Admin/staff/Staff/BannerSearchForm";
 import { CustomerAPI } from "@/services/Customer";
 import { values } from "lodash";
 import { showError } from "@/components/AccountModal/Modal";
+import { ProductAPI } from "@/services/Admin/product";
 const ListProduct = () => {
   const {
     tableData,
@@ -20,7 +21,8 @@ const ListProduct = () => {
     params,
     onPageSizeChange,
     onReset,
-  } = useTable(notAuthAPI.getAllProduct, "data");
+  } = useTable(ProductAPI.getAllProduct, "data");
+  const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
   const dataTest = useSelector((state) => state.card);
   useEffect(() => {
@@ -71,6 +73,7 @@ const ListProduct = () => {
           type: "SET_CARD",
           payload: arrCard.length,
         });
+        success();
       } else {
         showError("Sản phẩm không con đủ số lượng");
       }
@@ -78,8 +81,16 @@ const ListProduct = () => {
       showError("Sản phẩm không con đủ số lượng");
     }
   };
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Thêm vào giỏ hàng thành công",
+    });
+  };
   return (
     <div>
+      {contextHolder}
       <div className="flex justify-center">
         <BannerSearchForm
           fetchRows={fetchRows}
