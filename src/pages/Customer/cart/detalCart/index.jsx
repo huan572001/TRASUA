@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CustomerAPI } from "@/services/Customer";
 import { showError } from "@/components/AccountModal/Modal";
-const Detail = ({ data, setList, setTotal }) => {
+const Detail = ({ data, setList }) => {
   const [count, setCount] = useState(data?.sl ? data?.sl : 1);
   const dispatch = useDispatch();
   const deleteChild = () => {
@@ -46,24 +46,27 @@ const Detail = ({ data, setList, setTotal }) => {
       if (rq?.success) {
         localStorage.setItem("cart", JSON.stringify(arrCard));
         setCount((c) => c + 1);
-        setTotal((total) => {
-          const newList = total.filter((item) => item.id !== data?.id);
-          return [
-            ...newList,
-            {
-              id: data?.id,
-              price:
-                ((data?.price * (100 - data["promotion.percent"])) / 100) *
-                count,
-            },
-          ];
-        });
+        setList(arrCard);
       } else {
         showError("Sản phẩm không con đủ số lượng");
       }
     } catch (error) {
       showError("Sản phẩm không con đủ số lượng");
     }
+  };
+  const setListData = () => {
+    let arrCard = [];
+    arrCard = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
+    arrCard.forEach((element) => {
+      if (element?.id === data?.id) {
+        element.sl -= 1;
+      }
+    });
+    localStorage.setItem("cart", JSON.stringify(arrCard));
+    setCount((c) => c - 1);
+    setList(arrCard);
   };
   return (
     <Card style={{ width: "100%" }}>
@@ -101,7 +104,7 @@ const Detail = ({ data, setList, setTotal }) => {
             <Button.Group>
               <Button
                 onClick={() => {
-                  count === 1 ? null : setCount((c) => c - 1);
+                  count === 1 ? null : setListData();
                 }}
               >
                 -
