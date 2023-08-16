@@ -10,7 +10,7 @@ const CardIngredient = ({ setData, ingredient, setIngredient }) => {
     const data = ingredient.find((item) => item?.id === value?.id);
     setData((e) => [
       ...e,
-      { ...value, name: data?.name, measure_id: data?.measure?.name },
+      { ...value, name: data?.name, measure_id: data["measure.name"] },
     ]);
     setIngredient((e) => {
       return e.filter((item) => item?.id !== value?.id);
@@ -22,11 +22,11 @@ const CardIngredient = ({ setData, ingredient, setIngredient }) => {
     <>
       <Card>
         <Form onFinish={handleChange} form={form}>
-          <Form.Item label="sản phẩm" name="id" rules={[{ required: true }]}>
+          <Form.Item label="Sản phẩm" name="id" rules={[{ required: true }]}>
             <Select>
               {ingredient?.map((item) => (
                 <Option key={item?.id} value={item?.id}>
-                  {item?.name} : {item?.measure?.name}
+                  {item?.name} : {item["measure.name"]}
                 </Option>
               ))}
             </Select>
@@ -41,7 +41,7 @@ const CardIngredient = ({ setData, ingredient, setIngredient }) => {
             <Input type="number" />
           </Form.Item>
           <Form.Item
-            label="sô lượng nhập"
+            label="Sô lượng nhập"
             name="qty"
             rules={[{ required: true }]}
             normalize={normalizeNumber}

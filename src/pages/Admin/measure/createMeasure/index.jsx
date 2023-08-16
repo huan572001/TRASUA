@@ -17,7 +17,7 @@ const createMeasure = () => {
         showConfirmSuccess();
         navigate(routerLinks("Measure"));
       } else {
-        showError("Tao khong thanh cong");
+        showError("Tạo không thành công");
       }
     } catch (error) {
       showError();
@@ -31,15 +31,22 @@ const createMeasure = () => {
           fontSize: "40px",
         }}
       >
-        Thêm nhân viên
+        Thêm đơn vị vật tư
       </h1>
       <Form onFinish={onChange}>
         <Form.Item
           name="name"
-          rules={[{ required: true, whitespace: true }, { max: 150 }]}
-          label="Ten don vi vat tu"
+          rules={[
+            {
+              required: true,
+              whitespace: true,
+              message: "Không thể để trống tên vật tư",
+            },
+            { max: 150 },
+          ]}
+          label="Tên đơn vị vật tư"
         >
-          <Input placeholder="ten vat tu" />
+          <Input placeholder="tên vật tư" />
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit">Tạo</Button>

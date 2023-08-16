@@ -27,7 +27,7 @@ const Staff = () => {
         navigate(routerLinks("Staff"));
       }
     } catch (error) {
-      showError("Email hoặc sô điện thoại bị trùng!");
+      showError("Email hoặc số điện thoại bị trùng!");
     }
   };
   const onChange = (value) => {

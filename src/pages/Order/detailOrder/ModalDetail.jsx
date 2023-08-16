@@ -18,7 +18,7 @@ const Product = ({ info }) => {
 
   return (
     <>
-      <>Danh sách sản phẩm hóa đơn</>
+      <>Danh sách hóa đơn sản phẩm</>
       {data?.map((e, index) => {
         return (
           <Card key={index} onClick={() => detailproduct(e?.product)}>
@@ -32,7 +32,7 @@ const Product = ({ info }) => {
                 />
               </Col>
               <Col span={6}>Tên: {e?.product?.name}</Col>
-              <Col span={6}>giá: {e?.product?.price}</Col>
+              <Col span={6}>Giá: {e?.product?.price}</Col>
               <Col span={6}>Số lượng: {e?.quantity}</Col>
             </Row>
           </Card>

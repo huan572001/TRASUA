@@ -33,7 +33,7 @@ const WareHouse = ({
           fontSize: "40px",
         }}
       >
-        Danh sach nhân viên kinh doanh
+        Danh sách nhân viên kinh doanh
       </h1>
 
       <Table

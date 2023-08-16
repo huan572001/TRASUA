@@ -200,7 +200,7 @@ const EditProduct = () => {
               <TextArea rows={4} />
             </Form.Item>
             <Form.Item>
-              <Button htmlType="submit">Tạo sản phẩm</Button>
+              <Button htmlType="submit">Lưu</Button>
             </Form.Item>
           </Form>
         ) : (

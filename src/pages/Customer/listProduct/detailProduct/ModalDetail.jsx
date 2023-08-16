@@ -46,7 +46,7 @@ const FormProduct = ({ info, addProduct }) => {
               </Button.Group>
               <div>{info?.descript}</div>
               <Button className="btn" onClick={() => addProduct(info, count)}>
-                Them vao gio hang
+                Thêm vào giỏ hàng
               </Button>
             </div>
           </Col>

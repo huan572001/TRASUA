@@ -28,7 +28,7 @@ const EditStaff = () => {
       }
     } catch (error) {
       console.log(error);
-      showError("Email hoặc sô điện thoại bị trùng!");
+      showError("Email hoặc số điện thoại bị trùng!");
     }
   };
   const onChange = (value) => {

@@ -75,10 +75,10 @@ const ListProduct = () => {
         });
         success();
       } else {
-        showError("Sản phẩm không con đủ số lượng");
+        showError("Sản phẩm không còn đủ nguyên liệu");
       }
     } catch (error) {
-      showError("Sản phẩm không con đủ số lượng");
+      showError("Sản phẩm không còn đủ nguyên liệu");
     }
   };
 
@@ -140,7 +140,7 @@ const ListProduct = () => {
                     <div>{child?.name}</div>
                     <div>{child?.price}</div>
                     <Button className="btn" onClick={() => addProduct(child)}>
-                      Them vao gio hang
+                      Thêm vào giỏ hàng
                     </Button>
                   </div>
                 </div>

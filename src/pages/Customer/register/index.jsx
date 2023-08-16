@@ -26,7 +26,11 @@ const Register = () => {
       <div className="register">
         <div className="signup">
           <div className="signup-connect">
-            <h1>Đăng ký</h1>
+            <img
+              alt="logo"
+              src="https://uploads-ssl.webflow.com/5fb85f26f126ce08d792d2d9/639d4fb26949fb0d309d5aba_logo-phuc-long-coffee-and-tea.jpg"
+            />
+            <span>Cửa hàng Phúc Long</span>
           </div>
           <div className="signup-classic">
             <h2>Chào mừng bạn đến với cửa hàng</h2>
@@ -131,7 +135,7 @@ const Register = () => {
                 </Button>
                 Or
                 <div onClick={() => navigate(routerLinks("LoginCustomer"))}>
-                  login now!
+                  <a className="login-form-forgot"> Login now!</a>
                 </div>
               </Form.Item>
             </Form>

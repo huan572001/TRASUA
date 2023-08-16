@@ -31,10 +31,14 @@ const LoginCustomer = () => {
       <div className="login">
         <div className="signup">
           <div className="signup-connect">
-            <h1>Login</h1>
+            <img
+              alt="logo"
+              src="https://uploads-ssl.webflow.com/5fb85f26f126ce08d792d2d9/639d4fb26949fb0d309d5aba_logo-phuc-long-coffee-and-tea.jpg"
+            />
+            <span>Cửa hàng Phúc Long</span>
           </div>
           <div className="signup-classic">
-            <h2>welcome, honored guests</h2>
+            <h2>Welcome, Honored guests</h2>
             <Form
               name="normal_login"
               className="login-form"
@@ -90,11 +94,13 @@ const LoginCustomer = () => {
                 </Button>
                 Or{" "}
                 <div onClick={() => navigate(routerLinks("Register"))}>
-                  register now!
+                  {/* Register now! */}
+                  <a className="login-form-forgot">Register now!</a>
                 </div>
               </Form.Item>
               <div onClick={() => navigate(routerLinks("Login"))}>
-                Staff click here
+                {/* Staff click here */}
+                <a className="login-form-forgot"> Staff click here</a>
               </div>
             </Form>
           </div>

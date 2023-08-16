@@ -1,30 +1,38 @@
 import { useAuth } from "@/context/AuthProvider";
 import {
+  AreaChartOutlined,
+  AuditOutlined,
+  ContainerOutlined,
+  DollarOutlined,
+  ExceptionOutlined,
+  GoldOutlined,
   HomeOutlined,
+  ScheduleOutlined,
+  TeamOutlined,
   UnorderedListOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
 // import { Books, BellRing, Stack, User } from '@/assets';
 const LayoutAdmin = [
   {
-    label: "Quản lý sản phâm",
+    label: "Quản lý sản phẩm",
     key: "AdminProduct",
     icon: <UnorderedListOutlined />,
   },
   {
     label: "Thống kê",
     key: "statistical",
-    icon: <UserAddOutlined />,
+    icon: <AreaChartOutlined />,
   },
   {
     label: "Quản lý nhân viên",
     key: "Staff",
-    icon: <UserAddOutlined />,
+    icon: <TeamOutlined />,
   },
   {
     label: "Quản lý khuyến mãi",
     key: "Promotion",
-    icon: <UserAddOutlined />,
+    icon: <DollarOutlined />,
   },
   {
     label: "Quản lý khách hàng",
@@ -34,33 +42,33 @@ const LayoutAdmin = [
 ];
 const LayoutStaff = [
   {
-    label: "Quản lý Order",
+    label: "Quản lý đơn hàng",
     key: "ListOrder",
-    icon: <UserAddOutlined />,
+    icon: <ScheduleOutlined />,
   },
 ];
 const LayoutIngredient = [
   {
-    label: "Quản lý Vat tu",
+    label: "Quản lý vật tư",
     key: "Ingredient",
-    icon: <UserAddOutlined />,
+    icon: <ContainerOutlined />,
   },
   {
     label: "Hóa đơn vật tư",
     key: "orderMaterials",
-    icon: <UserAddOutlined />,
+    icon: <ExceptionOutlined />,
   },
   {
     label: "Đơn vị vật tư",
     key: "Measure",
-    icon: <UserAddOutlined />,
+    icon: <GoldOutlined />,
   },
 ];
 const Layout = [
   {
     label: "Thông tin cá nhân",
     key: "ProfileSaff",
-    icon: <HomeOutlined />,
+    icon: <AuditOutlined />,
   },
 ];
 

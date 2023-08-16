@@ -14,8 +14,8 @@ const CardProduct = ({ e }) => {
             }}
           />
         </Col>
-        <Col span={5}> Tên: {e?.name}</Col>
-        <Col span={5}>giá: {e?.price}</Col>
+        <Col span={5}>Tên: {e?.name}</Col>
+        <Col span={5}>Giá: {e?.price}</Col>
         <Col span={5}>Số lượng: {e?.quantity}</Col>
         <Col span={4}>
           Thời gian: {moment(new Date(e?.date)).format("HH:mm:ss DD/MM/YYYY")}

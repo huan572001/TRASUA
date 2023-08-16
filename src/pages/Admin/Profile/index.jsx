@@ -144,7 +144,7 @@ const ProfileStaff = () => {
                       setEdit(true);
                     }}
                   >
-                    hủy
+                    Hủy
                   </Button>
                 </div>
               )}

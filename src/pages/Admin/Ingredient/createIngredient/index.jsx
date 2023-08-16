@@ -84,7 +84,7 @@ const CreateIngredient = () => {
           <Form.Item name="measure_id" rules={[{ required: true }]}>
             <Select
               showSearch
-              placeholder="đơn vị"
+              placeholder="Đơn vị"
               optionFilterProp="children"
               filterOption={(input, option) =>
                 (option?.label ?? "")

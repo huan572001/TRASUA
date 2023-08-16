@@ -59,7 +59,7 @@ export const columns = (fetchRows) => {
     {
       title: "Giới tính",
       key: "4",
-      render: (_, info) => <>{info?.gender ? <>Nam</> : <>Nư</>}</>,
+      render: (_, info) => <>{info?.gender ? <>Nam</> : <>Nữ</>}</>,
     },
     {
       title: "Trạng thái",

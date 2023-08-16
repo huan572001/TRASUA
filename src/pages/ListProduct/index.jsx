@@ -29,7 +29,7 @@ const index = () => {
           fontSize: "40px",
         }}
       >
-        Danh sach san pham
+        Danh sách sản phẩm
       </h1>
       <Button
         className="btn"

@@ -52,6 +52,7 @@ const FormIngredient = () => {
     tmp.splice(index, 1);
     setListVT(tmp);
   };
+  console.log(listVT);
   return (
     <Spin spinning={loading}>
       <Card title="Tạo hóa đơn vật tư">
