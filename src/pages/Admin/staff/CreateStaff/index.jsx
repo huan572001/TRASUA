@@ -4,6 +4,7 @@ import routerLinks from "@/utils/router-links";
 import { StaffAPI } from "@/services/Admin/staff";
 import { useEffect, useState } from "react";
 import { showError, showSuccess } from "@/components/AccountModal/Modal";
+import moment from "moment";
 
 const Staff = () => {
   const [role, setRole] = useState([]);
@@ -34,7 +35,13 @@ const Staff = () => {
     console.log(value);
     createStaff(value);
   };
+  const disabledDate = (current) => {
+    // Lấy thời gian hiện tại
+    const today = moment();
 
+    // Giới hạn chỉ được chọn từ ngày cách thời gian hiện tại 18 năm
+    return current && current >= today.subtract(18, "years");
+  };
   return (
     <>
       <h1
@@ -66,7 +73,7 @@ const Staff = () => {
           rules={[{ required: true }]}
           label="Ngày sinh"
         >
-          <DatePicker />
+          <DatePicker disabledDate={disabledDate} />
         </Form.Item>
         <Form.Item name="gender" rules={[{ required: true }]} label="Giới tính">
           <Select

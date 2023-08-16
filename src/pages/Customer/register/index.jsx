@@ -6,6 +6,7 @@ import "./index.less";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { notAuthAPI } from "@/services/notAuth";
 import { showConfirmSuccess, showError } from "@/components/AccountModal/Modal";
+import moment from "moment";
 const Register = () => {
   const navigate = useNavigate();
   const onFinish = (value) => {
@@ -20,6 +21,13 @@ const Register = () => {
     } catch (error) {
       showError();
     }
+  };
+  const disabledDate = (current) => {
+    // Lấy thời gian hiện tại
+    const today = moment();
+
+    // Giới hạn chỉ được chọn từ ngày cách thời gian hiện tại 18 năm
+    return current && current >= today.subtract(14, "years");
   };
   return (
     <>
@@ -94,12 +102,16 @@ const Register = () => {
                     required: true,
                     message: "Không được để trống!",
                   },
+                  {
+                    pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
+                    message: "Invalid phone number!",
+                  },
                 ]}
               >
                 <Input
                   prefix={<LockOutlined className="site-form-item-icon" />}
-                  type="phone"
                   placeholder="Số điện thoại"
+                  type="number"
                 />
               </Form.Item>
               <Form.Item
@@ -116,15 +128,33 @@ const Register = () => {
                   placeholder="Địa chỉ"
                 />
               </Form.Item>
-              {/* <Form.Item name="gender" label="Giới tính">
+              <Form.Item
+                name="gender"
+                label="Giới tính"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được để trống",
+                  },
+                ]}
+              >
                 <Radio.Group>
                   <Radio value="1">Nam</Radio>
                   <Radio value="0">Nữ</Radio>
                 </Radio.Group>
-              </Form.Item> */}
-              {/* <Form.Item name="birthday" label="DatePicker">
-                <DatePicker />
-              </Form.Item> */}
+              </Form.Item>
+              <Form.Item
+                name="birthday"
+                label="DatePicker"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được để trống",
+                  },
+                ]}
+              >
+                <DatePicker disabledDate={disabledDate} />
+              </Form.Item>
               <Form.Item>
                 <Button
                   type="primary"
