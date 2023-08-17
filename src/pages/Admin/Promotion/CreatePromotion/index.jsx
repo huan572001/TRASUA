@@ -146,7 +146,7 @@ const CreateProduct = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button htmlType="submit">Tạo sản phẩm</Button>
+          <Button htmlType="submit">Tạo khuyến mãi</Button>
         </Form.Item>
       </Form>
     </>

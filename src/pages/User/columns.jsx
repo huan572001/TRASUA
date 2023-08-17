@@ -65,7 +65,7 @@ export const columns = (fetchRows) => {
       title: "Trạng thái",
       key: "4",
       render: (_, info) => (
-        <>{info?.isAcctive ? <>Vô hiệu</> : <>Hoạt động</>}</>
+        <>{info?.isAcctive === 1 ? <>Vô hiệu</> : <>Hoạt động</>}</>
       ),
     },
     {
@@ -79,7 +79,7 @@ export const columns = (fetchRows) => {
               // listOrder(info?.id);
             }}
           /> */}
-          {info?.isAcctive ? (
+          {info?.isAcctive === 1 ? (
             <LockOutlined
               onClick={(e) => {
                 showLockUserModal(false, async () => {

@@ -60,7 +60,7 @@ const Product = () => {
           onClick: () => {},
         })}
       />
-      <div>Tổng: {tableData?.total} vnd</div>
+      <div>Tổng: {tableData?.total} VND</div>
     </div>
   );
 };

@@ -59,14 +59,14 @@ export const columns = (onDelete, fetchRows) => {
     {
       title: "Trạng thái",
       key: "5",
-      render: (_, info) => <>{info?.activate === 0 ? "Hủy" : "Hoàn thành"}</>,
+      render: (_, info) => <>{info?.activate === 1 ? "Hủy" : "Hoàn thành"}</>,
     },
     {
       title: "Hoạt động",
       key: "8",
       render: (_, info) => (
         <>
-          {info?.activate === 0 ? (
+          {info?.activate === 1 ? (
             <LockOutlined
               onClick={(e) => {
                 e.stopPropagation();

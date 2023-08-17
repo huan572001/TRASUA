@@ -25,11 +25,7 @@ const CardIngredient = ({ setData, ingredient, setIngredient }) => {
           <Form.Item
             label="Sản phẩm"
             name="id"
-            rules={[
-              { required: true, message: "Không được để trống!" },
-              { whitespace: true, message: "Không được để khoảng trắng!" },
-              { max: 255, message: "chiều dài không vượt quá 255" },
-            ]}
+            rules={[{ required: true, message: "Không được để trống!" }]}
           >
             <Select>
               {ingredient?.map((item) => (

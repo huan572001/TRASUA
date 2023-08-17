@@ -73,7 +73,7 @@ const HeaderCustomer = () => {
   ];
   return (
     <Header className="header" style={{ position: "sticky" }}>
-      <div onClick={() => navigate("/")}>logo</div>
+      <div onClick={() => navigate("/")}></div>
       <div className="listMenu">
         {auth?.user?.data && !auth?.user?.data?.roleId ? (
           ""

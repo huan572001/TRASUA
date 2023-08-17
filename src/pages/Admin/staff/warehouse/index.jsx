@@ -26,7 +26,7 @@ const WareHouse = ({
           fontSize: "40px",
         }}
       >
-        Danh sach nhân viên kho
+        Danh sách nhân viên kho
       </h1>
 
       <Table

@@ -25,7 +25,7 @@ const BannerSearchForm = ({ fetchRows, params, onReset }) => {
             }}
           >
             <div className="w-[288px] pr-6">
-              <p style={{ fontWeight: "bold" }}>Tìm kiếm tên</p>
+              <p style={{ fontWeight: "bold" }}>Tìm kiếm tên: </p>
               <div className="flex">
                 <Form.Item name="titleBanner">
                   <Input
@@ -60,7 +60,7 @@ const BannerSearchForm = ({ fetchRows, params, onReset }) => {
                       marginLeft: "24px",
                     }}
                   >
-                    tìm kiếm
+                    Tìm kiếm
                   </Button>
                 </div>
               </div>

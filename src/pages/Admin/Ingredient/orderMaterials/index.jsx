@@ -22,7 +22,7 @@ const FormIngredient = () => {
           fontSize: "40px",
         }}
       >
-        Danh sach Hóa đơn Vat tu
+        Danh sach Hóa đơn Vật tư
       </h1>
       <Button
         className="btn"

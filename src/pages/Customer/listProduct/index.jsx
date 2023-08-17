@@ -138,7 +138,7 @@ const ListProduct = () => {
                 <div className="card">
                   <div>
                     <div>{child?.name}</div>
-                    <div>{child?.price}</div>
+                    <div>{child?.price} VND</div>
                     <Button className="btn" onClick={() => addProduct(child)}>
                       Thêm vào giỏ hàng
                     </Button>

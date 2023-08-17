@@ -1,4 +1,5 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 export const columns = (onDelete) => {
@@ -13,11 +14,17 @@ export const columns = (onDelete) => {
       title: "Thời gian bắt đầu",
       key: "1",
       dataIndex: "start_day",
+      render: (_, info) => (
+        <>{moment(info.start_day).format("YYYY-MM-DD HH:mm:ss")}</>
+      ),
     },
     {
       title: "Thời gian kết thúc",
       key: "4",
       dataIndex: "end_day",
+      render: (_, info) => (
+        <>{moment(info.end_day).format("YYYY-MM-DD HH:mm:ss")}</>
+      ),
     },
     {
       title: "Sản phẩm áp dụng khuyến mãi",

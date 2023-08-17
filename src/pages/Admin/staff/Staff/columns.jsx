@@ -66,7 +66,7 @@ export const columns = (onDelete, fetchRows) => {
       title: "Trạng thái",
       key: "4",
       render: (_, info) => (
-        <>{info?.isAcctive ? "Đang hoạt động" : "Vô hiệu"}</>
+        <>{info?.isAcctive === 0 ? "Đang hoạt động" : "Vô hiệu"}</>
       ),
     },
     {
@@ -86,7 +86,7 @@ export const columns = (onDelete, fetchRows) => {
               navigate(routerLinks("EditStaff"), { state: { ...info } });
             }}
           />
-          {info?.isAcctive ? (
+          {info?.isAcctive === 1 ? (
             <LockOutlined
               onClick={(e) => {
                 showLockUserModal(true, async () => {

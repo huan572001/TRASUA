@@ -190,11 +190,15 @@ const EditProduct = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Username is required!",
+                          message: "Công thức nhập vào không được là chữ",
+                        },
+                        {
+                          pattern: /^-?\d*(\.\d*)?$/, // Điều kiện: 10-11 chữ số
+                          message: "Công thức nhập vào không được là chữ",
                         },
                       ]}
                     >
-                      <Input type="number" min={0} />
+                      <Input min={0} />
                     </Form.Item>
                   </Col>
                 );

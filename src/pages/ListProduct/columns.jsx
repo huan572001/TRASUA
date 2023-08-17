@@ -71,7 +71,7 @@ export const columns = (onDelete, fetchRows) => {
     {
       title: "Trạng thái",
       key: "4",
-      render: (_, info) => <>{info?.activate ? "Khóa" : "Hoạt động"}</>,
+      render: (_, info) => <>{info?.activate === 1 ? "Khóa" : "Hoạt động"}</>,
     },
     {
       title: "Hoạt động",
@@ -90,7 +90,7 @@ export const columns = (onDelete, fetchRows) => {
               navigate(routerLinks("EditProduct"), { state: { ...info } });
             }}
           />
-          {info?.activate ? (
+          {info?.activate === 1 ? (
             <LockOutlined
               onClick={(e) => {
                 showLockProductModal(false, async () => {

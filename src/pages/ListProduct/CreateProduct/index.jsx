@@ -166,7 +166,7 @@ const CreateProduct = () => {
                       },
                     ]}
                   >
-                    <Input type="number" min={0} />
+                    <Input type="float" min={0} />
                   </Form.Item>
                 </Col>
               );

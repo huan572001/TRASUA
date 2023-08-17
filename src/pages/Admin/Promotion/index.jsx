@@ -29,7 +29,7 @@ const index = () => {
           fontSize: "40px",
         }}
       >
-        Danh sach khuyến mãi
+        Danh sách khuyến mãi
       </h1>
       <Button
         className="btn"
