@@ -77,11 +77,22 @@ const CreateIngredient = () => {
         >
           <Form.Item
             name="name"
-            rules={[{ required: true, whitespace: true }, { max: 150 }]}
+            rules={[
+              {
+                required: true,
+
+                message: "Không được để trống!",
+              },
+              { whitespace: true, message: "Không được để khoảng trắng!" },
+              { max: 150, message: "chiều dài không vượt quá 150" },
+            ]}
           >
             <Input placeholder="Tên vật tư" />
           </Form.Item>
-          <Form.Item name="measure_id" rules={[{ required: true }]}>
+          <Form.Item
+            name="measure_id"
+            rules={[{ required: true, message: "Không được để trống!" }]}
+          >
             <Select
               showSearch
               placeholder="Đơn vị"

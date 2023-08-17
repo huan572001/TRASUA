@@ -22,21 +22,48 @@ const ChangeForPassWord = ({ id, setpassWord }) => {
         <Form.Item
           label={"Mật khẩu cũ"}
           name={"passwordOld"}
-          rules={[{ required: true }]}
+          rules={[
+            {
+              required: true,
+
+              message: "Không được để trống!",
+            },
+            { whitespace: true, message: "Không được để khoảng trắng!" },
+            { max: 40, message: "chiều dài không vượt quá 40" },
+            { max: 6, message: "chiều dài nhỏ hơn 6" },
+          ]}
         >
           <Input type="password" />
         </Form.Item>
         <Form.Item
           label={"Mật khẩu mới"}
           name={"passwordNew"}
-          rules={[{ required: true }]}
+          rules={[
+            {
+              required: true,
+
+              message: "Không được để trống!",
+            },
+            { whitespace: true, message: "Không được để khoảng trắng!" },
+            { max: 40, message: "chiều dài không vượt quá 40" },
+            { max: 6, message: "chiều dài nhỏ hơn 6" },
+          ]}
         >
           <Input type="password" />
         </Form.Item>
         <Form.Item
           label={"Xác nhận mật khẩu mới"}
           name={"passwordConfirm"}
-          rules={[{ required: true }]}
+          rules={[
+            {
+              required: true,
+
+              message: "Không được để trống!",
+            },
+            { whitespace: true, message: "Không được để khoảng trắng!" },
+            { max: 40, message: "chiều dài không vượt quá 40" },
+            { max: 6, message: "chiều dài nhỏ hơn 6" },
+          ]}
         >
           <Input type="password" />
         </Form.Item>

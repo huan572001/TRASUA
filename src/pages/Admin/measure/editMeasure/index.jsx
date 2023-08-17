@@ -54,8 +54,11 @@ const EditMeasure = () => {
           rules={[
             {
               required: true,
-              message: "Không thể bỏ trống tên đơn vị vật tư!",
+
+              message: "Không được để trống!",
             },
+            { whitespace: true, message: "Không được để khoảng trắng!" },
+            { max: 255, message: "chiều dài không vượt quá 255" },
           ]}
         >
           <Input type="string" />

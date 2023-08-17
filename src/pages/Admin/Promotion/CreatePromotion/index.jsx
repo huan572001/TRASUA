@@ -93,7 +93,7 @@ const CreateProduct = () => {
               rules={[
                 {
                   required: true,
-                  message: "Username is required!",
+                  message: "Không được để trống!",
                 },
               ]}
             >
@@ -107,7 +107,7 @@ const CreateProduct = () => {
               rules={[
                 {
                   required: true,
-                  message: "Username is required!",
+                  message: "Không được để trống!",
                 },
               ]}
             >
@@ -123,7 +123,7 @@ const CreateProduct = () => {
           rules={[
             {
               required: true,
-              message: "Username is required!",
+              message: "Không được để trống!",
             },
           ]}
         >

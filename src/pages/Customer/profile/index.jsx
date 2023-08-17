@@ -66,42 +66,88 @@ const Profile = () => {
                 >
                   <Form.Item
                     name="fullname"
-                    rules={[{ required: true, whitespace: true }, { max: 150 }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Không được để trống!",
+                      },
+                      {
+                        whitespace: true,
+                        message: "Không được để khoảng trắng!",
+                      },
+                      { max: 255, message: "chiều dài không vượt quá 255" },
+                    ]}
                     label="Họ tên"
                   >
                     <Input placeholder="Họ tên" />
                   </Form.Item>
                   <Form.Item
                     name="email"
-                    rules={[{ required: true }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Không được để trống!",
+                      },
+                      {
+                        whitespace: true,
+                        message: "Không được để khoảng trắng!",
+                      },
+                      { max: 255, message: "chiều dài không vượt quá 255" },
+                    ]}
                     label="Email"
                   >
                     <Input placeholder="Email" type="email" />
                   </Form.Item>
                   <Form.Item
                     name="phone"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true },
+                      {
+                        pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
+                        message: "Invalid phone number!",
+                      },
+                    ]}
                     label="SDT"
                   >
                     <Input placeholder="Phone" />
                   </Form.Item>
                   <Form.Item
                     name="address"
-                    rules={[{ required: true }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Không được để trống!",
+                      },
+                      {
+                        whitespace: true,
+                        message: "Không được để khoảng trắng!",
+                      },
+                      { max: 255, message: "chiều dài không vượt quá 255" },
+                    ]}
                     label="Địa chỉ"
                   >
                     <Input placeholder="Địa chỉ" />
                   </Form.Item>
                   <Form.Item
                     name="birthday"
-                    rules={[{ required: true }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Không được để trống!",
+                      },
+                    ]}
                     label="Ngày sinh"
                   >
                     <DatePicker />
                   </Form.Item>
                   <Form.Item
                     name="gender"
-                    rules={[{ required: true }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Không được để trống!",
+                      },
+                    ]}
                     label="Giới tính"
                   >
                     <Select

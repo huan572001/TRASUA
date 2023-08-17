@@ -48,8 +48,13 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống",
+                    message: "Không được để trống!",
                   },
+                  {
+                    whitespace: true,
+                    message: "Không được để khoảng trắng!",
+                  },
+                  { max: 255, message: "chiều dài không vượt quá 255" },
                   {
                     type: "email",
                   },
@@ -68,10 +73,11 @@ const Register = () => {
                     message: "Không được để trống!",
                   },
                   {
-                    min: 6,
-                    max: 12,
-                    message: "min: 6 max: 12,",
+                    whitespace: true,
+                    message: "Không được để khoảng trắng!",
                   },
+                  { max: 40, message: "chiều dài không vượt quá 40" },
+                  { min: 6, message: "chiều dài không nhỏ hơn 6" },
                 ]}
               >
                 <Input
@@ -88,6 +94,11 @@ const Register = () => {
                     required: true,
                     message: "Không được để trống!",
                   },
+                  {
+                    whitespace: true,
+                    message: "Không được để khoảng trắng!",
+                  },
+                  { max: 255, message: "chiều dài không vượt quá 255" },
                 ]}
               >
                 <Input
@@ -121,6 +132,11 @@ const Register = () => {
                     required: true,
                     message: "Không được để trống!",
                   },
+                  {
+                    whitespace: true,
+                    message: "Không được để khoảng trắng!",
+                  },
+                  { max: 255, message: "chiều dài không vượt quá 255" },
                 ]}
               >
                 <Input

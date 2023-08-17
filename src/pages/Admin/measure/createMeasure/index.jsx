@@ -39,10 +39,11 @@ const createMeasure = () => {
           rules={[
             {
               required: true,
-              whitespace: true,
-              message: "Không thể để trống tên vật tư",
+
+              message: "Không được để trống!",
             },
-            { max: 150 },
+            { whitespace: true, message: "Không được để khoảng trắng!" },
+            { max: 255, message: "chiều dài không vượt quá 255" },
           ]}
           label="Tên đơn vị vật tư"
         >

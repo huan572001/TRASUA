@@ -55,12 +55,37 @@ const FormProduct = ({ info }) => {
                 style={{ marginRight: "24px" }}
                 label="Tên khách hàng"
                 name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được để trống!",
+                  },
+                  {
+                    whitespace: true,
+                    message: "Không được để khoảng trắng!",
+                  },
+                  { max: 255, message: "chiều dài không vượt quá 255" },
+                ]}
               >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={13}>
-              <Form.Item label="Email" name="email">
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được để trống!",
+                  },
+                  {
+                    whitespace: true,
+                    message: "Không được để khoảng trắng!",
+                  },
+                  { max: 255, message: "chiều dài không vượt quá 255" },
+                ]}
+              >
                 <Input />
               </Form.Item>
             </Col>
@@ -71,6 +96,12 @@ const FormProduct = ({ info }) => {
                 style={{ marginRight: "24px" }}
                 label="Giới tính"
                 name="garder"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được để trống!",
+                  },
+                ]}
               >
                 <TreeSelect
                   treeData={[
@@ -81,7 +112,16 @@ const FormProduct = ({ info }) => {
               </Form.Item>
             </Col>
             <Col span={13}>
-              <Form.Item label="Ngày sinh" name="birthday">
+              <Form.Item
+                label="Ngày sinh"
+                name="birthday"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được để trống!",
+                  },
+                ]}
+              >
                 <DatePicker />
                 {/* <Input /> */}
               </Form.Item>

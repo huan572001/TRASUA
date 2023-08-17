@@ -54,6 +54,10 @@ const LoginCustomer = () => {
                     required: true,
                     message: "Please input your Phone!",
                   },
+                  {
+                    pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
+                    message: "Invalid phone number!",
+                  },
                 ]}
               >
                 <Input

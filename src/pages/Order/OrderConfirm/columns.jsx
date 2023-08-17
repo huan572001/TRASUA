@@ -17,14 +17,19 @@ export const columns = (setLoad) => {
       dataIndex: "id",
     },
     {
+      title: "Tên khách hàng",
+      key: "2",
+      dataIndex: "customer.fullname",
+    },
+    {
+      title: "Ngày",
+      key: "2",
+      dataIndex: "date",
+    },
+    {
       title: "Địa chỉ",
       key: "3",
       dataIndex: "address",
-    },
-    {
-      title: "UserId",
-      key: "2",
-      dataIndex: "customer_id",
     },
     {
       title: "Hoạt động",

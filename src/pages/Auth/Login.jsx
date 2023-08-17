@@ -1,12 +1,12 @@
-import Vite from '@/assets/logo.png';
-import { loginError } from '@/components/AccountModal/Modal';
-import { useAuth } from '@/context/AuthProvider';
-import { AuthService } from '@/services';
-import { Button, Form, Input, Row } from 'antd';
-import FormItem from 'antd/es/form/FormItem';
-import { Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './index.less';
+import Vite from "@/assets/logo.png";
+import { loginError } from "@/components/AccountModal/Modal";
+import { useAuth } from "@/context/AuthProvider";
+import { AuthService } from "@/services";
+import { Button, Form, Input, Row } from "antd";
+import FormItem from "antd/es/form/FormItem";
+import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
+import "./index.less";
 
 const Login = () => {
   const auth = useAuth();
@@ -23,7 +23,7 @@ const Login = () => {
         };
 
         auth.login(data);
-        navigate('/Admin');
+        navigate("/Admin");
       } else {
         loginError();
       }
@@ -36,10 +36,10 @@ const Login = () => {
     <Fragment>
       <div
         style={{
-          height: '100vh',
-          width: '100vw',
-          overflowY: 'hidden',
-          backgroundColor: '#f8f8f8',
+          height: "100vh",
+          width: "100vw",
+          overflowY: "hidden",
+          backgroundColor: "#f8f8f8",
         }}
       >
         <div className="form-Login">
@@ -51,7 +51,17 @@ const Login = () => {
             <span>Cửa hàng Phúc Long</span>
           </div>
           <Form onFinish={onFinished}>
-            <FormItem name="phone" rules={[{ required: true }]} hasFeedback>
+            <FormItem
+              name="phone"
+              rules={[
+                { required: true },
+                {
+                  pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
+                  message: "Invalid phone number!",
+                },
+              ]}
+              hasFeedback
+            >
               <Input placeholder={`Phone`} />
             </FormItem>
 

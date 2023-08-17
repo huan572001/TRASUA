@@ -54,28 +54,81 @@ const Staff = () => {
       <Form onFinish={onChange}>
         <Form.Item
           name="fullname"
-          rules={[{ required: true, whitespace: true }, { max: 150 }]}
+          rules={[
+            {
+              required: true,
+              message: "Không được để trống!",
+            },
+            { whitespace: true, message: "Không được để khoảng trắng!" },
+            { max: 255, message: "chiều dài không vượt quá 255" },
+          ]}
           label="Họ tên"
         >
           <Input placeholder="Họ tên" />
         </Form.Item>
-        <Form.Item name="email" rules={[{ required: true }]} label="Email">
+        <Form.Item
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: "Không được để trống!",
+            },
+            { whitespace: true, message: "Không được để khoảng trắng!" },
+            { max: 255, message: "chiều dài không vượt quá 255" },
+          ]}
+          label="Email"
+        >
           <Input placeholder="Email" type="email" />
         </Form.Item>
-        <Form.Item name="phone" rules={[{ required: true }]} label="SDT">
+        <Form.Item
+          name="phone"
+          rules={[
+            { required: true },
+            {
+              pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
+              message: "Invalid phone number!",
+            },
+          ]}
+          label="SDT"
+        >
           <Input placeholder="Phone" />
         </Form.Item>
-        <Form.Item name="address" rules={[{ required: true }]} label="Địa chỉ">
+        <Form.Item
+          name="address"
+          rules={[
+            {
+              required: true,
+              message: "Không được để trống!",
+            },
+            { whitespace: true, message: "Không được để khoảng trắng!" },
+            { max: 255, message: "chiều dài không vượt quá 255" },
+          ]}
+          label="Địa chỉ"
+        >
           <Input placeholder="Địa chỉ" />
         </Form.Item>
         <Form.Item
           name="birthday"
-          rules={[{ required: true }]}
+          rules={[
+            {
+              required: true,
+              message: "Không được để trống!",
+            },
+          ]}
           label="Ngày sinh"
         >
           <DatePicker disabledDate={disabledDate} />
         </Form.Item>
-        <Form.Item name="gender" rules={[{ required: true }]} label="Giới tính">
+        <Form.Item
+          name="gender"
+          rules={[
+            {
+              required: true,
+              message: "Không được để trống!",
+            },
+          ]}
+          label="Giới tính"
+        >
           <Select
             showSearch
             placeholder="Giới tính"
@@ -95,7 +148,16 @@ const Staff = () => {
             ]}
           />
         </Form.Item>
-        <Form.Item name="roleId" rules={[{ required: true }]} label="Quyền">
+        <Form.Item
+          name="roleId"
+          rules={[
+            {
+              required: true,
+              message: "Không được để trống!",
+            },
+          ]}
+          label="Quyền"
+        >
           <Select
             showSearch
             placeholder="Quyền"

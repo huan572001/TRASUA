@@ -80,7 +80,7 @@ const CreateProduct = () => {
               rules={[
                 {
                   required: true,
-                  message: "Username is required!",
+                  message: "Không được để trống!",
                 },
               ]}
             >
@@ -94,7 +94,7 @@ const CreateProduct = () => {
               rules={[
                 {
                   required: true,
-                  message: "Username is required!",
+                  message: "Không được để trống!",
                 },
               ]}
             >
@@ -128,7 +128,7 @@ const CreateProduct = () => {
                     },
                   ]}
                 >
-                  <Input type="number" />
+                  <Input type="number" min={0} />
                 </Form.Item>
               </Col>
             );

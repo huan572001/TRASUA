@@ -143,8 +143,13 @@ const EditProduct = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Username is required!",
+                      message: "Không được để trống!",
                     },
+                    {
+                      whitespace: true,
+                      message: "Không được để khoảng trắng!",
+                    },
+                    { max: 255, message: "chiều dài không vượt quá 255" },
                   ]}
                 >
                   <Input />
@@ -157,11 +162,11 @@ const EditProduct = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Username is required!",
+                      message: "Không được để trống!",
                     },
                   ]}
                 >
-                  <Input type="number" />
+                  <Input type="number" min={0} />
                 </Form.Item>
               </Col>
             </Row>
@@ -189,14 +194,23 @@ const EditProduct = () => {
                         },
                       ]}
                     >
-                      <Input type="number" />
+                      <Input type="number" min={0} />
                     </Form.Item>
                   </Col>
                 );
               })}
             </Row>
 
-            <Form.Item label="Mô tả" name="descript">
+            <Form.Item
+              label="Mô tả"
+              name="descript"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được để trống!",
+                },
+              ]}
+            >
               <TextArea rows={4} />
             </Form.Item>
             <Form.Item>

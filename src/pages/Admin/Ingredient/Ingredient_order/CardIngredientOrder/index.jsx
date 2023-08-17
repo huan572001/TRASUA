@@ -22,7 +22,15 @@ const CardIngredient = ({ setData, ingredient, setIngredient }) => {
     <>
       <Card>
         <Form onFinish={handleChange} form={form}>
-          <Form.Item label="Sản phẩm" name="id" rules={[{ required: true }]}>
+          <Form.Item
+            label="Sản phẩm"
+            name="id"
+            rules={[
+              { required: true, message: "Không được để trống!" },
+              { whitespace: true, message: "Không được để khoảng trắng!" },
+              { max: 255, message: "chiều dài không vượt quá 255" },
+            ]}
+          >
             <Select>
               {ingredient?.map((item) => (
                 <Option key={item?.id} value={item?.id}>
@@ -35,18 +43,23 @@ const CardIngredient = ({ setData, ingredient, setIngredient }) => {
             style={{ marginRight: "24px" }}
             label="Giá nhập"
             name="price"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Không được để trống!" }]}
             normalize={normalizeNumber}
           >
-            <Input type="number" />
+            <Input type="number" min={0} />
           </Form.Item>
           <Form.Item
             label="Sô lượng nhập"
             name="qty"
-            rules={[{ required: true }]}
+            rules={[
+              {
+                required: true,
+                message: "Không được để trống!",
+              },
+            ]}
             normalize={normalizeNumber}
           >
-            <Input type="number" />
+            <Input type="number" min={0} />
           </Form.Item>
           <Form.Item>
             <Button htmlType="submit">Thêm</Button>
