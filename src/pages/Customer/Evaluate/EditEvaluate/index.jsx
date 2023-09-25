@@ -5,7 +5,7 @@ import { Button, Card, Form, Rate } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { useEffect, useState } from "react";
 
-const EditEvaluate = ({ setOpen, data, setLoading }) => {
+const EditEvaluate = ({ setOpen, data, setLoadAPI }) => {
   const [form] = Form.useForm();
   const [avatarPreview, setAvatarPreview] = useState(
     "https://icon-library.com/images/facebook-loading-icon/facebook-loading-icon-15.jpg"
@@ -25,6 +25,7 @@ const EditEvaluate = ({ setOpen, data, setLoading }) => {
   const createEvalute = async (info) => {
     try {
       const rq = await CustomerAPI.editEvaluate(info, data?.id);
+      console.log(rq);
       if (rq?.success) {
         showConfirmSuccess();
         setAvatarPreview(
@@ -32,7 +33,7 @@ const EditEvaluate = ({ setOpen, data, setLoading }) => {
         );
         form.resetFields();
         setOpen(false);
-        setLoading((e) => (e += 1));
+        setLoadAPI((e) => (e += 1));
       }
     } catch (error) {
       console.log(error);

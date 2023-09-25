@@ -321,3 +321,15 @@ export const showDeleteOderModal = (onAccept) => {
     }
   });
 };
+export const showSuccessOderModal = (onAccept) => {
+  swal({
+    title: "Bạn có muốn chắc chắn nhận đơn hàng này không",
+    icon: "warning",
+    // dangerMode: true,
+    buttons: ["Hủy", "Đồng Ý"],
+  }).then((yes) => {
+    if (yes) {
+      onAccept();
+    }
+  });
+};

@@ -13,4 +13,8 @@ export const notAuthAPI = {
     const url = `until/danhgia/${data}`;
     return axiosClient.get(url);
   },
+  sendMail: async (data) => {
+    const url = `auth/send-mail`;
+    return axiosClient.post(url, data);
+  },
 };

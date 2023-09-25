@@ -15,6 +15,7 @@ import LoginCustomer from "@/pages/Customer/login";
 import routerLinks from "@/utils/router-links";
 import ListProduct from "@/pages/Customer/listProduct";
 import Register from "@/pages/Customer/register";
+import ChangePassWord from "@/pages/Customer/ChanForPassWord";
 const getPageRoute = (isAuthen) => {
   let R = null;
   if (isAuthen?.data) {
@@ -56,6 +57,10 @@ const RenderRoutes = (isAuthen) => {
     {
       path: routerLinks("LoginCustomer"),
       element: <LoginCustomer />,
+    },
+    {
+      path: routerLinks("ForgotPassWord"),
+      element: <ChangePassWord />,
     },
     {
       path: routerLinks("Register"),

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { CustomerAPI } from "@/services/Customer";
 import { keyUser } from "@/constant/auth";
 import { showError, showSuccess } from "@/components/AccountModal/Modal";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import routerLinks from "@/utils/router-links";
 import moment from "moment";
 import ChangeForPassWord from "./changeForPassWord";
@@ -15,6 +15,7 @@ const Profile = () => {
   const [edit, setEdit] = useState(true);
   const [passWord, setpassWord] = useState(true);
   const formRef = React.useRef(null);
+  const navigate = useNavigate();
   useEffect(() => {
     getProfile();
   }, []);
@@ -29,10 +30,10 @@ const Profile = () => {
   const editProfile = async (value) => {
     try {
       const rq = await CustomerAPI.editProfile(value, user?.data?.id);
+      console.log(rq);
       if (rq?.success) {
         setEdit(true);
         showSuccess("Chỉnh sửa thành công");
-        Navigate(routerLinks("Staff"));
       } else {
         showError(rq?.msg);
       }

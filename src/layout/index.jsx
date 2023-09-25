@@ -1,16 +1,16 @@
-import { getFirstPathCode } from '@/utils/getFirstPathCode';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Breadcrumb, Card, Layout, Menu, Spin } from 'antd';
-import React, { Suspense, useEffect, useState } from 'react';
-import { useNavigate, Outlet, useLocation } from 'react-router-dom';
-import HeaderComponent from './Header';
-import './index.less';
-import listMenu from './menus';
-import Logo from '@/assets/logo.png';
-import ReactLogo from '@/assets/react.svg';
-import { keyToken } from '@/constant/auth';
-import routerLinks from '@/utils/router-links';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getFirstPathCode } from "@/utils/getFirstPathCode";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { Breadcrumb, Card, Layout, Menu, Spin } from "antd";
+import React, { Suspense, useEffect, useState } from "react";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
+import HeaderComponent from "./Header";
+import "./index.less";
+import listMenu from "./menus";
+import Logo from "@/assets/logo.png";
+import ReactLogo from "@/assets/react.svg";
+import { keyToken } from "@/constant/auth";
+import routerLinks from "@/utils/router-links";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const { Header, Sider, Content } = Layout;
 const LayoutPage = () => {
@@ -36,22 +36,22 @@ const LayoutPage = () => {
         collapsed={collapsed}
         width={270}
       >
-        <div className={'logo '}>
+        <div className={"logo "}>
           <img
             alt="logo"
             src="https://uploads-ssl.webflow.com/5fb85f26f126ce08d792d2d9/639d4fb26949fb0d309d5aba_logo-phuc-long-coffee-and-tea.jpg"
           />
-          <div className={collapsed ? 'hidden' : '' + 'logoName'}>
-            <div className={'name'}>Phuc long</div>
-            <div className={'hastag'}>#HHP</div>
+          <div className={collapsed ? "hidden" : "" + "logoName"}>
+            <div className={"name"}>Phuc long</div>
+            <div className={"hastag"}>#HH</div>
           </div>
         </div>
         <Menu
           className="menu"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={["1"]}
           onClick={(info) => {
             !localStorage.getItem(keyToken)
-              ? navigate(routerLinks('Login'), { replace: true })
+              ? navigate(routerLinks("Login"), { replace: true })
               : navigate(routerLinks(info.key));
           }}
           theme="#224922"
@@ -72,7 +72,7 @@ const LayoutPage = () => {
         >
           <Layout
             style={{
-              backgroundColor: '#F3F4F6',
+              backgroundColor: "#F3F4F6",
             }}
           >
             {/* <Breadcrumb style={{ margin: '16px 0' }}></Breadcrumb> */}
@@ -82,9 +82,9 @@ const LayoutPage = () => {
             >
               <div
                 style={{
-                  padding: '24px',
-                  height: '100%',
-                  overflow: 'auto',
+                  padding: "24px",
+                  height: "100%",
+                  overflow: "auto",
                 }}
               >
                 <Outlet />

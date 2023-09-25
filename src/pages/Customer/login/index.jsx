@@ -85,7 +85,12 @@ const LoginCustomer = () => {
                   <Checkbox>Remember me</Checkbox>
                 </Form.Item>
 
-                <a className="login-form-forgot">Forgot password</a>
+                <div
+                  onClick={() => navigate(routerLinks("ForgotPassWord"))}
+                  className="login-form-forgot"
+                >
+                  Forgot password
+                </div>
               </Form.Item>
 
               <Form.Item>

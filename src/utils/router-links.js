@@ -30,6 +30,7 @@ const Util = (name) => {
     Payment: "/Payment",
     Cart: "/Cart",
     ProfileCustomer: "/Customer/profile",
+    ForgotPassWord: "/Customer/ForgotPassWord",
 
     Admin: "/admin",
     Customer: "/Customer",

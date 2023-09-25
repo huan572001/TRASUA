@@ -48,6 +48,7 @@ const FormEvaluate = ({ setOpen, data, setLoadAPI }) => {
     };
     createEvalute(data2);
   };
+  console.log(data);
   return (
     <>
       <div

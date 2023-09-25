@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { cancelOrder, confirmOrder } from "../handal";
 import { ConfirmOrder } from "./modal";
 import { keyUser } from "@/constant/auth";
-import { showDeleteOderModal } from "@/components/AccountModal/Modal";
+import {
+  showDeleteOderModal,
+  showSuccessOderModal,
+} from "@/components/AccountModal/Modal";
 // import { listOrder } from './listOrder';
 
 export const columns = (setLoad) => {
@@ -39,7 +42,16 @@ export const columns = (setLoad) => {
           <CheckOutlined
             onClick={(e) => {
               e.stopPropagation();
-              ConfirmOrder(info, setLoad);
+              showSuccessOderModal(async () => {
+                const auth = JSON.parse(localStorage.getItem(keyUser));
+                if (
+                  await confirmOrder(info?.id, {
+                    staff_id: auth?.data?.id,
+                  })
+                ) {
+                  setLoad(true);
+                }
+              });
             }}
           />
           <Divider type="vertical" />
