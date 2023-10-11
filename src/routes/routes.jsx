@@ -65,6 +65,12 @@ export const routesUser = [
     path: routerLinks("Payment"),
     component: React.lazy(() => import("@/pages/Customer/Payment")),
   },
+  // thnah toán thành công
+  {
+    label: "PayMentDone",
+    path: routerLinks("PayMentDone"),
+    component: React.lazy(() => import("@/pages/Customer/thanh-cong")),
+  },
   {
     label: "OrderCustomer",
     path: routerLinks("OrderCustomer"),

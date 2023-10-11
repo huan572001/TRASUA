@@ -8,16 +8,31 @@ import {
 } from "@/components/AccountModal/Modal";
 import routerLinks from "@/utils/router-links";
 import { Button, Col, Form, Input, Row } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthProvider";
 import { CustomerAPI } from "@/services/Customer";
+import { values } from "lodash";
 
 const Payment = () => {
   const [open, setOpen] = useState(true);
   const [count, setCount] = useState(1);
   const total = useLocation();
   const auth = useAuth();
-  const navigate = useNavigate();
+
+  const VnPay = async () => {
+    try {
+      const req = await CustomerAPI.VnPay();
+      if (req?.success) {
+        // console.log(req);
+        window.open(req.data, "_blank");
+        // console.log(req.data);
+        // window.location.href = "/thanh-toan/thanh-cong";
+      }
+    } catch (error) {
+      showError();
+    }
+  };
+
   const onFinish = async (values) => {
     let input = { ...values };
     let listProduct = [];
@@ -89,6 +104,9 @@ const Payment = () => {
         </Row>
 
         <Button htmlType="submit">Đặt hàng</Button>
+      </Form>
+      <Form onFinish={VnPay}>
+        <Button htmlType="submit">Thanh Toan MoMo</Button>
       </Form>
     </>
   );

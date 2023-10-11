@@ -58,4 +58,9 @@ export const CustomerAPI = {
     const url = `/${CUSTOMER_API_PATH}/check-order`;
     return axiosClient.post(url, { data: [...data] });
   },
+  VnPay: async () => {
+    const url = `/${CUSTOMER_API_PATH}/create_payment_url`;
+    return axiosClient.post(url);
+    // return axiosClient.post(url, { data: [...data] });
+  },
 };
