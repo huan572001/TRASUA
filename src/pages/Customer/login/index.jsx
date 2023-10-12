@@ -6,6 +6,10 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { CustomerAPI } from "@/services/Customer";
 import { useAuth } from "@/context/AuthProvider";
 import { showError } from "@/components/AccountModal/Modal";
+import {
+  VALIDATION_PASSWORD_E002,
+  VALIDATION_PHONE_E002,
+} from "@/constant/validate";
 const LoginCustomer = () => {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -52,7 +56,7 @@ const LoginCustomer = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Phone!",
+                    message: VALIDATION_PHONE_E002,
                   },
                   {
                     pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
@@ -70,7 +74,7 @@ const LoginCustomer = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Password!",
+                    message: VALIDATION_PASSWORD_E002,
                   },
                 ]}
               >

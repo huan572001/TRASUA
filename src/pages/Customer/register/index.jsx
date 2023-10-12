@@ -7,6 +7,15 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { notAuthAPI } from "@/services/notAuth";
 import { showConfirmSuccess, showError } from "@/components/AccountModal/Modal";
 import moment from "moment";
+import {
+  SIGNUP_ADDRESS_ERROR,
+  SIGNUP_BIRTHDAY_ERROR,
+  SIGNUP_EMAIL_ERROR,
+  SIGNUP_GENDER_ERROR,
+  SIGNUP_NAME_ERROR,
+  SIGNUP_PHONE_ERROR,
+  VALIDATION_PASSWORD_E001,
+} from "@/constant/validate";
 const Register = () => {
   const navigate = useNavigate();
   const onFinish = (value) => {
@@ -48,7 +57,7 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống!",
+                    message: SIGNUP_EMAIL_ERROR,
                   },
                   {
                     whitespace: true,
@@ -70,7 +79,7 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống!",
+                    message: VALIDATION_PASSWORD_E001,
                   },
                   {
                     whitespace: true,
@@ -92,7 +101,7 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống!",
+                    message: SIGNUP_NAME_ERROR,
                   },
                   {
                     whitespace: true,
@@ -111,7 +120,7 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống!",
+                    message: SIGNUP_PHONE_ERROR,
                   },
                   {
                     pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
@@ -130,7 +139,7 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống!",
+                    message: SIGNUP_ADDRESS_ERROR,
                   },
                   {
                     whitespace: true,
@@ -150,7 +159,7 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống",
+                    message: SIGNUP_GENDER_ERROR,
                   },
                 ]}
               >
@@ -165,7 +174,7 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống",
+                    message: SIGNUP_BIRTHDAY_ERROR,
                   },
                 ]}
               >
