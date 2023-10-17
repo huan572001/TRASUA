@@ -111,7 +111,7 @@ const CreateIngredient = () => {
             </Select>
           </Form.Item>
           <Form.Item>
-            <Button htmlType="submit">Tạo</Button>
+            <Button htmlType="submit">Lưu</Button>
           </Form.Item>
         </Form>
       </Card>

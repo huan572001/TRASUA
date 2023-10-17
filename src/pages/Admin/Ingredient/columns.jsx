@@ -27,6 +27,12 @@ export const columns = (onDelete) => {
       dataIndex: "quantity",
     },
     {
+      title: "Giá trung bình",
+      key: "5",
+      dataIndex: "capital_price",
+    },
+
+    {
       title: "Hoạt động",
       key: "8",
       render: (_, info) => (
