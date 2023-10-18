@@ -11,6 +11,10 @@ import { CustomerAPI } from "@/services/Customer";
 import { values } from "lodash";
 import { showError } from "@/components/AccountModal/Modal";
 import { ProductAPI } from "@/services/Admin/product";
+import {
+  VALIDATION_ERROR_E002,
+  VALIDATION_SUCCES_E001,
+} from "@/constant/validate";
 const ListProduct = () => {
   const {
     tableData,
@@ -75,17 +79,17 @@ const ListProduct = () => {
         });
         success();
       } else {
-        showError("Sản phẩm không còn đủ nguyên liệu");
+        showError(VALIDATION_ERROR_E002);
       }
     } catch (error) {
-      showError("Sản phẩm không còn đủ nguyên liệu");
+      showError(VALIDATION_ERROR_E002);
     }
   };
 
   const success = () => {
     messageApi.open({
       type: "success",
-      content: "Thêm vào giỏ hàng thành công",
+      content: VALIDATION_SUCCES_E001,
     });
   };
   return (

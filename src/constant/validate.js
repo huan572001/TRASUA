@@ -10,3 +10,5 @@ export const SIGNUP_BIRTHDAY_ERROR = "Vui lòng nhập ngày sinh của bạn";
 export const VALIDATION_PHONE_E002 = "Số điện thoại không đúng định dạng";
 export const VALIDATION_PASSWORD_E002 =
   "Vui lòng nhập mật khẩu có độ dài từ 6-8 ký tự";
+export const VALIDATION_ERROR_E002 = "Sản phẩm không còn đủ nguyên liệu";
+export const VALIDATION_SUCCES_E001 = "Thêm vào giỏ hàng thành công";
