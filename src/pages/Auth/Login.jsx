@@ -25,7 +25,7 @@ const Login = () => {
         auth.login(data);
         navigate("/Admin");
       } else {
-        loginError();
+        loginError(res.msg);
       }
     } catch (err) {
       loginError();

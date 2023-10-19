@@ -14,9 +14,9 @@ export const informSucess = (handal, text) => {
     }
   });
 };
-export const loginError = (handal, text) => {
+export const loginError = (value, handal, text) => {
   swal({
-    title: "Tên đăng nhập hoặc mật khẩu không khớp !",
+    title: value ? value : "Tên đăng nhập hoặc mật khẩu không khớp !",
     text: text ? text : `Mời bạn đăng nhập lại.`,
     icon: "warning",
     // dangerMode: true,
