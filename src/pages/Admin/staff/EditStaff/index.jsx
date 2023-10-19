@@ -25,6 +25,8 @@ const EditStaff = () => {
       if (rq?.success) {
         showSuccess("Chỉnh sửa thành công");
         navigate(routerLinks("Staff"));
+      } else {
+        showError("Email hoặc số điện thoại bị trùng!");
       }
     } catch (error) {
       console.log(error);
@@ -50,6 +52,9 @@ const EditStaff = () => {
           email: state?.state?.email,
           phone: state?.state?.phone,
           role: state?.state?.roleId,
+          address: state?.state?.address,
+          // birthday: state?.state?.birthday,
+          gender: state?.state?.gender,
         }}
       >
         <Form.Item

@@ -79,7 +79,7 @@ export const columns = (fetchRows) => {
               // listOrder(info?.id);
             }}
           /> */}
-          {info?.isAcctive === 1 ? (
+          {info?.isAcctive === 0 ? (
             <LockOutlined
               onClick={(e) => {
                 showLockUserModal(false, async () => {

@@ -10,10 +10,10 @@ export const StaffAPI = {
     const url = `/${USER_API_PATH}/register-staff`;
     return axiosClient.post(url, params);
   },
-  editStaff: async (params) => {
-    console.log(params);
+  editStaff: async (data) => {
+    // console.log(params);
     const url = `/${STAFF_API_PATH}/edit-acount`;
-    return axiosClient.put(url, params);
+    return axiosClient.put(url, data);
   },
   deleteStaff: async (data) => {
     const url = `/${STAFF_API_PATH}/delete-acount/${data}`;
@@ -35,10 +35,10 @@ export const StaffAPI = {
     const url = `/${STAFF_API_PATH}/view-profile/${id}`;
     return axiosClient.get(url);
   },
-  editStaff: async (id, data) => {
-    const url = `/${STAFF_API_PATH}/edit-myif-staff/${id}`;
-    return axiosClient.put(url, data);
-  },
+  // editStaff: async (id, data) => {
+  //   const url = `/${STAFF_API_PATH}/edit-myif-staff/${id}`;
+  //   return axiosClient.put(url, data);
+  // },
   getAllingredientOrderByStaffId: async (id) => {
     const url = `/${STAFF_API_PATH}/all-ingredient-staff/${id}`;
     return axiosClient.get(url);

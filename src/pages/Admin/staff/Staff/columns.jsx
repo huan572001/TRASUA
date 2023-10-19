@@ -38,7 +38,7 @@ export const columns = (onDelete, fetchRows) => {
   const navigate = useNavigate();
   return [
     {
-      title: "Tên nhân vin",
+      title: "Tên nhân viên",
       key: "1",
       dataIndex: "fullname",
     },
@@ -53,9 +53,9 @@ export const columns = (onDelete, fetchRows) => {
       dataIndex: "phone",
     },
     {
-      title: "giới tính",
+      title: "Giới tính",
       key: "4",
-      render: (_, info) => <>{info?.gender ? "Name" : "Nữ"}</>,
+      render: (_, info) => <>{info?.gender ? "Nam" : "Nữ"}</>,
     },
     {
       title: "Ngày sinh",
@@ -86,7 +86,7 @@ export const columns = (onDelete, fetchRows) => {
               navigate(routerLinks("EditStaff"), { state: { ...info } });
             }}
           />
-          {info?.isAcctive === 1 ? (
+          {info?.isAcctive === 0 ? (
             <LockOutlined
               onClick={(e) => {
                 showLockUserModal(true, async () => {

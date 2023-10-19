@@ -24,8 +24,10 @@ const Staff = () => {
     try {
       const rq = await StaffAPI.createStaff({ ...data, password: "123456" });
       if (rq?.success) {
-        showSuccess("Tạo tài khoản thành công");
+        showSuccess(rq.msg);
         navigate(routerLinks("Staff"));
+      } else {
+        showError(rq.msg);
       }
     } catch (error) {
       showError("Email hoặc số điện thoại bị trùng!");
