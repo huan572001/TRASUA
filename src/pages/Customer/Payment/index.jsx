@@ -7,7 +7,7 @@ import {
   showError,
 } from "@/components/AccountModal/Modal";
 import routerLinks from "@/utils/router-links";
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, Radio, Row } from "antd";
 import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthProvider";
 import { CustomerAPI } from "@/services/Customer";
@@ -19,14 +19,11 @@ const Payment = () => {
   const total = useLocation();
   const auth = useAuth();
 
-  const VnPay = async () => {
+  const VnPay = async (data) => {
     try {
-      const req = await CustomerAPI.VnPay();
+      const req = await CustomerAPI.VnPay({ ...data, prize: total.state });
       if (req?.success) {
-        // console.log(req);
-        window.open(req.data, "_blank");
-        // console.log(req.data);
-        // window.location.href = "/thanh-toan/thanh-cong";
+        window.open(req.data, "_self");
       }
     } catch (error) {
       showError();
@@ -50,14 +47,18 @@ const Payment = () => {
       });
     });
     input = { ...input, data };
-    try {
-      const req = await CustomerAPI.checkOut(input);
+    if (values?.pay) {
+      try {
+        const req = await CustomerAPI.checkOut(input);
 
-      if (req?.success) {
-        buy();
+        if (req?.success) {
+          buy();
+        }
+      } catch (error) {
+        showError();
       }
-    } catch (error) {
-      showError();
+    } else {
+      VnPay(input);
     }
   };
   const buy = () => {
@@ -80,6 +81,12 @@ const Payment = () => {
               style={{ marginRight: "24px" }}
               label="Địa chỉ nhận hàng"
               name="address"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được để trống!",
+                },
+              ]}
             >
               <Input disabled={open} />
             </Form.Item>
@@ -92,10 +99,23 @@ const Payment = () => {
             )}
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>Phương thức thánh toán: </Col>
-          <Col span={12}>Thanh toán khi nhận hàng</Col>
-        </Row>
+        <Form.Item
+          style={{ marginRight: "24px" }}
+          label="Phương thức thánh toán:"
+          name="pay"
+          rules={[
+            {
+              required: true,
+              message: "Không được để trống!",
+            },
+          ]}
+        >
+          <Radio.Group>
+            <Radio value={true}>Thanh toán khi nhận hàng</Radio>
+            <Radio value={false}>Thanh Toan VNPay</Radio>
+          </Radio.Group>
+        </Form.Item>
+
         <Row>
           <Col span={12}>Tổng tiền: </Col>
           <Col span={12} style={{ color: "red" }}>
@@ -104,9 +124,6 @@ const Payment = () => {
         </Row>
 
         <Button htmlType="submit">Đặt hàng</Button>
-      </Form>
-      <Form onFinish={VnPay}>
-        <Button htmlType="submit">Thanh Toan MoMo</Button>
       </Form>
     </>
   );

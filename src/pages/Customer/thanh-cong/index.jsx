@@ -1,6 +1,11 @@
 // Import CSS của Ant Design
 
+import { useEffect } from "react";
+
 const PayMentDone = () => {
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify([]));
+  }, []);
   return (
     <>
       <h1>Thanh toán của bạn đã thành công</h1>
