@@ -7,11 +7,14 @@ import { columns2 } from "./columns2";
 import { StatiscalAPI } from "@/services/Admin/statistical";
 import PieChart from "./Chart";
 import moment from "moment";
+import * as XLSX from "xlsx";
+import { data } from "autoprefixer";
+import { saveAs } from "file-saver";
 const { RangePicker } = DatePicker;
 
 const Product = () => {
   const { tableData, loading, fetchRows, onDelete, params } = useTable(
-    StatiscalAPI.statisticalProduct,
+    StatiscalAPI.statisticalProductVer2,
     "datatk"
   );
   // const [data, setdata] = useState([]);
@@ -27,7 +30,6 @@ const Product = () => {
     });
   }, []);
   const onChange = (values) => {
-    console.log(values);
     fetchRows({
       page: 1,
       amount: 10,
@@ -41,6 +43,47 @@ const Product = () => {
     // Cho phép chọn các ngày trong quá khứ
     return current && current >= new Date();
   };
+
+  const handleExportExcelProduct = async () => {
+    console.log(tableData);
+    const workbook = XLSX.utils.book_new();
+    if (tableData.data.length === 0) {
+      message.error("Chưa có dữ liệu để xuất");
+    } else {
+      const modifiedData = tableData.data.map((item) => ({
+        Ảnh: item.image,
+        "Tên sản phẩm": item.name,
+        "Giá sản phẩm": item.price,
+        "Số lượng bán được": item.sl,
+        "Tổng tiền": item.profit,
+      }));
+
+      const ThongKeKhachHangTop = XLSX.utils.json_to_sheet(modifiedData);
+      XLSX.utils.book_append_sheet(workbook, ThongKeKhachHangTop, "");
+
+      // Tính tổng số đơn
+      const tongDon = modifiedData.reduce(
+        (total, item) => total + item["Số đơn hàng đã đặt mua"],
+        0
+      );
+      const tongDonRow = [{}, "Tổng số đơn đã đặt", tongDon];
+      XLSX.utils.sheet_add_aoa(ThongKeKhachHangTop, [tongDonRow], {
+        origin: -1,
+      });
+
+      // Xuất file
+      const excelBuffer = XLSX.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+      });
+      const dataBlob = new Blob([excelBuffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const fileName = "Thống kê khách hàng top";
+      saveAs(dataBlob, fileName);
+    }
+  };
+
   return (
     <div>
       <h1
@@ -51,6 +94,7 @@ const Product = () => {
         Thống kê số lượng và doanh thu theo sản phẩm
       </h1>
       <RangePicker onChange={onChange} disabledDate={disabledDate} />
+      <Button onClick={handleExportExcelProduct}>HIHI</Button>
       <Table
         columns={columns()}
         dataSource={tableData?.data}
@@ -74,6 +118,45 @@ const CustomerTop = () => {
   useEffect(() => {
     fetchRows();
   }, []);
+
+  const handleExportExcelCustomer = async () => {
+    const req = await StatiscalAPI.customerTop();
+    // console.log(req?.data);
+    const workbook = XLSX.utils.book_new();
+    if (req.data.length === 0) {
+      message.error("Chưa có dữ liệu để xuất");
+    } else {
+      const modifiedData = req.data.map((item) => ({
+        "Mã khách hàng": item.id,
+        "Tên khách hàng": item.fullname,
+        "Số đơn hàng đã đặt mua": item.orderCount,
+      }));
+
+      const ThongKeKhachHangTop = XLSX.utils.json_to_sheet(modifiedData);
+      XLSX.utils.book_append_sheet(workbook, ThongKeKhachHangTop, "");
+
+      // Tính tổng số đơn
+      const tongDon = modifiedData.reduce(
+        (total, item) => total + item["Số đơn hàng đã đặt mua"],
+        0
+      );
+      const tongDonRow = [{}, "Tổng số đơn đã đặt", tongDon];
+      XLSX.utils.sheet_add_aoa(ThongKeKhachHangTop, [tongDonRow], {
+        origin: -1,
+      });
+
+      // Xuất file
+      const excelBuffer = XLSX.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+      });
+      const dataBlob = new Blob([excelBuffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const fileName = "Thống kê khách hàng top";
+      saveAs(dataBlob, fileName);
+    }
+  };
   return (
     <div>
       <h1
@@ -83,6 +166,7 @@ const CustomerTop = () => {
       >
         Thống kê Khách hàng Top
       </h1>
+      <Button onClick={handleExportExcelCustomer}>HIHI</Button>
       <Table
         columns={columns2()}
         dataSource={tableData?.data}
