@@ -63,10 +63,10 @@ const Product = () => {
 
       // Tính tổng số đơn
       const tongDon = modifiedData.reduce(
-        (total, item) => total + item["Số đơn hàng đã đặt mua"],
+        (total, item) => total + item["Tổng tiền"],
         0
       );
-      const tongDonRow = [{}, "Tổng số đơn đã đặt", tongDon];
+      const tongDonRow = [{}, "Tổng số tiền", tongDon];
       XLSX.utils.sheet_add_aoa(ThongKeKhachHangTop, [tongDonRow], {
         origin: -1,
       });
@@ -79,7 +79,7 @@ const Product = () => {
       const dataBlob = new Blob([excelBuffer], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-      const fileName = "Thống kê khách hàng top";
+      const fileName = "Thống kê sản phẩm";
       saveAs(dataBlob, fileName);
     }
   };
@@ -94,7 +94,6 @@ const Product = () => {
         Thống kê số lượng và doanh thu theo sản phẩm
       </h1>
       <RangePicker onChange={onChange} disabledDate={disabledDate} />
-      <Button onClick={handleExportExcelProduct}>HIHI</Button>
       <Table
         columns={columns()}
         dataSource={tableData?.data}
@@ -105,6 +104,7 @@ const Product = () => {
         })}
       />
       <div>Tổng: {tableData?.total} VND</div>
+      <Button onClick={handleExportExcelProduct}>Xuất Excel</Button>
     </div>
   );
 };
@@ -166,7 +166,6 @@ const CustomerTop = () => {
       >
         Thống kê Khách hàng Top
       </h1>
-      <Button onClick={handleExportExcelCustomer}>HIHI</Button>
       <Table
         columns={columns2()}
         dataSource={tableData?.data}
@@ -176,6 +175,7 @@ const CustomerTop = () => {
           onClick: () => {},
         })}
       />
+      <Button onClick={handleExportExcelCustomer}>Xuất Excel</Button>
     </div>
   );
 };

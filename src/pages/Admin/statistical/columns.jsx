@@ -37,7 +37,7 @@ export const columns = (onDelete) => {
     {
       title: "Tổng tiền",
       key: "4",
-      dataIndex: "dg",
+      dataIndex: "profit",
     },
   ];
 };
