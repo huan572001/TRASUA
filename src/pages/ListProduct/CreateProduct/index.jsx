@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Button, Col, Form, Input, Modal, Row, Select, Spin } from "antd";
 import { useEffect } from "react";
 import { getAllIngredient } from "../handal";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import routerLinks from "@/utils/router-links";
 import {
-  showConfirmError,
   showConfirmSuccess,
   showError,
+  showSuccess,
 } from "@/components/AccountModal/Modal";
 import { ProductAPI } from "@/services/Admin/product";
 
@@ -17,11 +17,17 @@ const CreateProduct = () => {
   const [option, setOption] = useState([]);
   const [listVT, setListVT] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [reci, setreci] = useState({});
+  const [priceRecipe, setPriceRecipe] = useState(0);
+  const [dataRecipe, setDataRecipe] = useState([]);
   const [avatarPreview, setAvatarPreview] = useState(
     "https://icon-library.com/images/facebook-loading-icon/facebook-loading-icon-15.jpg"
   );
+  const state = useLocation();
+  let setTime = null;
   const navigate = useNavigate();
   const onFinish = (values) => {
+    console.log(values);
     let data = [];
     let recipre = [];
     listVT.forEach((e) => {
@@ -32,7 +38,11 @@ const CreateProduct = () => {
     });
     data = { ...values, recipre, image: avatarPreview };
     setLoading(true);
-    createProduct(data, () => navigate(routerLinks("AdminProduct")));
+    // if (state?.state?.id) {
+    //   editProduct(state?.state?.id, data, recipre);
+    // } else {
+    //   createProduct(data, () => navigate(routerLinks("AdminProduct")));
+    // }
   };
   const createProduct = async (data, load) => {
     try {
@@ -53,8 +63,15 @@ const CreateProduct = () => {
     setListVT(value);
   };
   useEffect(() => {
+    if (state?.state?.id) {
+      getRecipeById(state?.state?.id);
+      setAvatarPreview(state?.state?.image);
+    }
     getAllIngredient(setOption);
   }, []);
+  useEffect(() => {
+    getPriceRecepe(dataRecipe);
+  }, dataRecipe);
   const formatOption = () => {
     let tmp = [];
     option.forEach((e) => {
@@ -74,6 +91,27 @@ const CreateProduct = () => {
     });
     return tmp;
   };
+  const getRecipeById = async (id) => {
+    try {
+      const rq = await ProductAPI.getRecipreById(id);
+      if (rq?.success) {
+        let arr = {};
+        let VT = [];
+        let tmp = [];
+        rq?.data?.forEach((e) => {
+          arr[e?.ingredient?.id] = e?.quantity;
+          VT.push(e?.ingredient?.id);
+          tmp.push({
+            id: e?.ingredient?.id,
+            count: e?.quantity,
+          });
+        });
+        setListVT(VT);
+        setreci(arr);
+        setDataRecipe(tmp);
+      }
+    } catch (error) {}
+  };
   const handleChangeIMG = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -82,6 +120,159 @@ const CreateProduct = () => {
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+  };
+  const editProduct = async (id, data, recipre) => {
+    try {
+      const a = await ProductAPI.editProduct(id, data);
+
+      const rq = await ProductAPI.editRecipe(id, { recipe: recipre });
+
+      if (a?.success) {
+        showSuccess("Chỉnh sửa sản phẩm thành công");
+        navigate(routerLinks("AdminProduct"));
+        setLoading(false);
+      }
+    } catch (error) {
+      showError();
+      setLoading(false);
+    }
+  };
+
+  const getPriceRecepe = async (data) => {
+    try {
+      const rq = await ProductAPI.getPriceRecipe(data);
+      if (rq?.success) {
+        setPriceRecipe(rq?.data?.value);
+      }
+    } catch (error) {}
+  };
+  const FromProduct = () => {
+    return (
+      <Form
+        layout="vertical"
+        onFinish={onFinish}
+        initialValues={{
+          ...state?.state,
+          ...reci,
+        }}
+      >
+        <Row className="myRow">
+          <Col span={11}>
+            <Form.Item
+              style={{ marginRight: "24px" }}
+              label="Tên sản phẩm"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được để trống!",
+                },
+                {
+                  whitespace: true,
+                  message: "Không được để khoảng trắng!",
+                },
+                { max: 255, message: "chiều dài không vượt quá 255" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={13}>
+            <Form.Item
+              label="Giá sản phẩm"
+              name="price"
+              rules={[
+                {
+                  required: true,
+                  message: "Không được để trống!",
+                },
+              ]}
+            >
+              <Input type="number" min={0} />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Select
+          mode="tags"
+          style={{
+            width: "100%",
+          }}
+          placeholder="Tags Mode"
+          onChange={handleChange}
+          options={formatOption()}
+          defaultValue={listVT}
+        />
+
+        {listVT.map((child, index) => {
+          return (
+            <Col key={index} span={6}>
+              <Form.Item
+                label={getIngrediantByID(child)}
+                name={`${child}`}
+                rules={[
+                  {
+                    required: true,
+                    message: "Username is required!",
+                  },
+                ]}
+              >
+                <Input
+                  type="number"
+                  min={0}
+                  onChange={(e) => {
+                    if (setTime) {
+                      clearTimeout(setTime);
+                    }
+                    setTime = setTimeout(() => {
+                      let check = false;
+                      for (let i = 0; i < dataRecipe?.length; i++) {
+                        if (dataRecipe[i]?.id === child) {
+                          dataRecipe[i] = {
+                            id: dataRecipe[i]?.id,
+                            count: e?.target?.value,
+                          };
+                          setDataRecipe([...dataRecipe]);
+                          check = true;
+                        }
+                      }
+                      if (check === false) {
+                        setDataRecipe([
+                          ...dataRecipe,
+                          {
+                            id: child,
+                            count: e?.target?.value,
+                          },
+                        ]);
+                      }
+                    }, 1000);
+                  }}
+                />
+              </Form.Item>
+            </Col>
+          );
+        })}
+        <div>Giá gốc:{priceRecipe ? priceRecipe : 0}Vnd</div>
+        <Form.Item
+          label="Mô tả"
+          name="descript"
+          rules={[
+            {
+              required: true,
+              message: "Không được để trống!",
+            },
+            {
+              whitespace: true,
+              message: "Không được để khoảng trắng!",
+            },
+          ]}
+        >
+          <TextArea rows={4} />
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType="submit">Tạo sản phẩm</Button>
+        </Form.Item>
+      </Form>
+    );
   };
   return (
     <>
@@ -106,93 +297,15 @@ const CreateProduct = () => {
         />
       </div>
       <Spin spinning={loading}>
-        <Form layout="vertical" onFinish={onFinish}>
-          <Row className="myRow">
-            <Col span={11}>
-              <Form.Item
-                style={{ marginRight: "24px" }}
-                label="Tên sản phẩm"
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được để trống!",
-                  },
-                  {
-                    whitespace: true,
-                    message: "Không được để khoảng trắng!",
-                  },
-                  { max: 255, message: "chiều dài không vượt quá 255" },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={13}>
-              <Form.Item
-                label="Giá sản phẩm"
-                name="price"
-                rules={[
-                  {
-                    required: true,
-                    message: "Không được để trống!",
-                  },
-                ]}
-              >
-                <Input type="number" min={0} />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Select
-            mode="tags"
-            style={{
-              width: "100%",
-            }}
-            placeholder="Tags Mode"
-            onChange={handleChange}
-            options={formatOption()}
-          />
-          <Row>
-            {listVT.map((child, index) => {
-              return (
-                <Col key={index} span={6}>
-                  <Form.Item
-                    label={getIngrediantByID(child)}
-                    name={`${child}`}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Username is required!",
-                      },
-                    ]}
-                  >
-                    <Input type="float" min={0} />
-                  </Form.Item>
-                </Col>
-              );
-            })}
-          </Row>
-
-          <Form.Item
-            label="Mô tả"
-            name="descript"
-            rules={[
-              {
-                required: true,
-                message: "Không được để trống!",
-              },
-              {
-                whitespace: true,
-                message: "Không được để khoảng trắng!",
-              },
-            ]}
-          >
-            <TextArea rows={4} />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">Tạo sản phẩm</Button>
-          </Form.Item>
-        </Form>
+        {state?.state?.id ? (
+          listVT?.length > 0 ? (
+            <FromProduct />
+          ) : (
+            ""
+          )
+        ) : (
+          <FromProduct />
+        )}
       </Spin>
     </>
   );

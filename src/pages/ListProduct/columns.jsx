@@ -1,8 +1,6 @@
 import {
-  showDeleteOderModal,
   showError,
   showLockProductModal,
-  showLockUserModal,
   showSuccess,
 } from "@/components/AccountModal/Modal";
 import {
@@ -12,7 +10,6 @@ import {
   UnlockOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { deleteProduct } from "./handal";
 import routerLinks from "@/utils/router-links";
 import { ProductAPI } from "@/services/Admin/product";
 const lock = async (id) => {

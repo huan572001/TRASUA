@@ -14,7 +14,7 @@ export const routesAdmin = [
   {
     label: "List Order",
     path: routerLinks("EditProduct"),
-    component: React.lazy(() => import("@/pages/ListProduct/editProduct")),
+    component: React.lazy(() => import("@/pages/ListProduct/CreateProduct")),
   },
   {
     label: "List product",

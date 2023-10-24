@@ -38,4 +38,8 @@ export const ProductAPI = {
     const url = `/${STAFF_API_PATH}/un-lock-product/${id}`;
     return axiosClient.put(url);
   },
+  getPriceRecipe: async (data) => {
+    const url = `/product/getPriceRecipe`;
+    return axiosClient.post(url, data);
+  },
 };
