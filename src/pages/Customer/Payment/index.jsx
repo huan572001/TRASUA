@@ -18,7 +18,7 @@ const Payment = () => {
   const [count, setCount] = useState(1);
   const total = useLocation();
   const auth = useAuth();
-
+  const navigate = useNavigate();
   const VnPay = async (data) => {
     try {
       const req = await CustomerAPI.VnPay({ ...data, prize: total.state });
@@ -37,7 +37,7 @@ const Payment = () => {
       localStorage.getItem("cart") ? localStorage.getItem("cart") : "[]"
     );
     let data = [];
-
+    console.log(listProduct);
     listProduct.forEach((e) => {
       data.push({
         idCus: auth?.user?.data?.id,
