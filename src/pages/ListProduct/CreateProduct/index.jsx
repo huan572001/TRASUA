@@ -10,46 +10,39 @@ import {
   showSuccess,
 } from "@/components/AccountModal/Modal";
 import { ProductAPI } from "@/services/Admin/product";
+import SelectVT from "./selectVT";
 
 const { TextArea } = Input;
 
 const CreateProduct = () => {
-  const [option, setOption] = useState([]);
+  const [next, setNext] = useState(true);
   const [listVT, setListVT] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [reci, setreci] = useState({});
   const [priceRecipe, setPriceRecipe] = useState(0);
   const [dataRecipe, setDataRecipe] = useState([]);
-  const [avatarPreview, setAvatarPreview] = useState(
-    "https://icon-library.com/images/facebook-loading-icon/facebook-loading-icon-15.jpg"
-  );
+  const [avatarPreview, setAvatarPreview] = useState();
   const state = useLocation();
-  let setTime = null;
   const navigate = useNavigate();
   const onFinish = (values) => {
-    console.log(values);
     let data = [];
-    let recipre = [];
-    listVT.forEach((e) => {
-      recipre.push({
-        ingredient_id: e,
-        quantity: values[e],
-      });
-    });
-    data = { ...values, recipre, image: avatarPreview };
-    setLoading(true);
-    // if (state?.state?.id) {
-    //   editProduct(state?.state?.id, data, recipre);
-    // } else {
-    //   createProduct(data, () => navigate(routerLinks("AdminProduct")));
-    // }
+    data = { ...values, recipre: [...listVT], image: avatarPreview };
+    createProduct(data);
   };
-  const createProduct = async (data, load) => {
+  const createProduct = async (data) => {
     try {
-      const a = await ProductAPI.createProduct(data);
+      setLoading(true);
+      let a;
+      if (state?.state?.id) {
+        a = await ProductAPI.editProduct(state?.state?.id, data);
+        const rq = await ProductAPI.editRecipe(state?.state?.id, {
+          recipe: data?.recipre,
+        });
+      } else {
+        a = await ProductAPI.createProduct(data);
+      }
       if (a?.success) {
+        navigate(routerLinks("AdminProduct"));
         showConfirmSuccess();
-        load();
       } else {
         showError(a?.mgs);
       }
@@ -59,55 +52,34 @@ const CreateProduct = () => {
       setLoading(false);
     }
   };
-  const handleChange = (value) => {
-    setListVT(value);
-  };
+
   useEffect(() => {
     if (state?.state?.id) {
       getRecipeById(state?.state?.id);
       setAvatarPreview(state?.state?.image);
     }
-    getAllIngredient(setOption);
   }, []);
   useEffect(() => {
     getPriceRecepe(dataRecipe);
   }, dataRecipe);
-  const formatOption = () => {
-    let tmp = [];
-    option.forEach((e) => {
-      tmp.push({
-        value: e?.id,
-        label: e?.name,
-      });
-    });
-    return tmp;
-  };
-  const getIngrediantByID = (id) => {
-    let tmp = "";
-    option.forEach((e) => {
-      if (e?.id === id) {
-        tmp = e?.name;
-      }
-    });
-    return tmp;
-  };
+
   const getRecipeById = async (id) => {
     try {
       const rq = await ProductAPI.getRecipreById(id);
       if (rq?.success) {
-        let arr = {};
         let VT = [];
         let tmp = [];
         rq?.data?.forEach((e) => {
-          arr[e?.ingredient?.id] = e?.quantity;
-          VT.push(e?.ingredient?.id);
+          VT.push({
+            ingredient_id: e?.ingredient?.id,
+            quantity: e?.quantity,
+          });
           tmp.push({
             id: e?.ingredient?.id,
             count: e?.quantity,
           });
         });
         setListVT(VT);
-        setreci(arr);
         setDataRecipe(tmp);
       }
     } catch (error) {}
@@ -153,11 +125,10 @@ const CreateProduct = () => {
         onFinish={onFinish}
         initialValues={{
           ...state?.state,
-          ...reci,
         }}
       >
         <Row className="myRow">
-          <Col span={11}>
+          <Col span={10}>
             <Form.Item
               style={{ marginRight: "24px" }}
               label="Tên sản phẩm"
@@ -177,7 +148,7 @@ const CreateProduct = () => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={13}>
+          <Col span={10}>
             <Form.Item
               label="Giá sản phẩm"
               name="price"
@@ -191,67 +162,11 @@ const CreateProduct = () => {
               <Input type="number" min={0} />
             </Form.Item>
           </Col>
+          <Col span={4}>
+            <div>Giá gốc sản phẩm</div>
+            <div className="text-red-600 font-extrabold">{priceRecipe} VND</div>
+          </Col>
         </Row>
-        <Select
-          mode="tags"
-          style={{
-            width: "100%",
-          }}
-          placeholder="Tags Mode"
-          onChange={handleChange}
-          options={formatOption()}
-          defaultValue={listVT}
-        />
-
-        {listVT.map((child, index) => {
-          return (
-            <Col key={index} span={6}>
-              <Form.Item
-                label={getIngrediantByID(child)}
-                name={`${child}`}
-                rules={[
-                  {
-                    required: true,
-                    message: "Username is required!",
-                  },
-                ]}
-              >
-                <Input
-                  type="number"
-                  min={0}
-                  onChange={(e) => {
-                    if (setTime) {
-                      clearTimeout(setTime);
-                    }
-                    setTime = setTimeout(() => {
-                      let check = false;
-                      for (let i = 0; i < dataRecipe?.length; i++) {
-                        if (dataRecipe[i]?.id === child) {
-                          dataRecipe[i] = {
-                            id: dataRecipe[i]?.id,
-                            count: e?.target?.value,
-                          };
-                          setDataRecipe([...dataRecipe]);
-                          check = true;
-                        }
-                      }
-                      if (check === false) {
-                        setDataRecipe([
-                          ...dataRecipe,
-                          {
-                            id: child,
-                            count: e?.target?.value,
-                          },
-                        ]);
-                      }
-                    }, 1000);
-                  }}
-                />
-              </Form.Item>
-            </Col>
-          );
-        })}
-        <div>Giá gốc:{priceRecipe ? priceRecipe : 0}Vnd</div>
         <Form.Item
           label="Mô tả"
           name="descript"
@@ -271,42 +186,63 @@ const CreateProduct = () => {
         <Form.Item>
           <Button htmlType="submit">Tạo sản phẩm</Button>
         </Form.Item>
+        <Button onClick={() => setNext(true)}>Trở lại</Button>
       </Form>
     );
   };
   return (
     <>
       <h1>Thêm sản phẩm</h1>
-      <div
-        style={{
-          width: 300,
-          height: 300,
-          marginBottom: 50,
-        }}
-      >
-        <img
-          src={avatarPreview}
-          alt="Ảnh Sản Phẩm"
-          style={{ width: "100%", height: "100%" }}
-        />
-        <input
-          type="file"
-          name="avatar"
-          placeholder="ảnh"
-          onChange={handleChangeIMG}
-        />
-      </div>
-      <Spin spinning={loading}>
-        {state?.state?.id ? (
-          listVT?.length > 0 ? (
-            <FromProduct />
+
+      {next ? (
+        <>
+          <SelectVT
+            listVT={listVT}
+            setVT={setListVT}
+            setPriceRecipe={setPriceRecipe}
+            setNext={() => setNext(false)}
+          />
+        </>
+      ) : (
+        <Spin spinning={loading}>
+          <div className="text-center text-[#4658AC] text-2xl font-bold  leading-normal">
+            Thông tin sản phẩm
+          </div>
+          <div
+            style={{
+              width: 300,
+              height: 300,
+              marginBottom: 50,
+            }}
+          >
+            <img
+              src={
+                avatarPreview
+                  ? avatarPreview
+                  : "https://icon-library.com/images/facebook-loading-icon/facebook-loading-icon-15.jpg"
+              }
+              alt="Ảnh Sản Phẩm"
+              style={{ width: "100%", height: "100%" }}
+            />
+
+            <input
+              type="file"
+              name="avatar"
+              placeholder="ảnh"
+              onChange={handleChangeIMG}
+            />
+          </div>
+          {state?.state?.id ? (
+            listVT?.length > 0 ? (
+              <FromProduct />
+            ) : (
+              ""
+            )
           ) : (
-            ""
-          )
-        ) : (
-          <FromProduct />
-        )}
-      </Spin>
+            <FromProduct />
+          )}
+        </Spin>
+      )}
     </>
   );
 };
