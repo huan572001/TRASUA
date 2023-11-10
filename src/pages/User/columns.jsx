@@ -82,7 +82,7 @@ export const columns = (fetchRows) => {
           {info?.isAcctive === 0 ? (
             <LockOutlined
               onClick={(e) => {
-                showLockUserModal(false, async () => {
+                showLockUserModal(true, async () => {
                   await lock(info?.id);
                   fetchRows();
                 });
@@ -92,7 +92,7 @@ export const columns = (fetchRows) => {
           ) : (
             <UnlockOutlined
               onClick={(e) => {
-                showLockUserModal(true, async () => {
+                showLockUserModal(false, async () => {
                   await unLock(info?.id);
                   fetchRows();
                 });

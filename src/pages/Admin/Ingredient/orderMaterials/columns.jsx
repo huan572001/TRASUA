@@ -17,20 +17,24 @@ const lock = async (id) => {
   try {
     const rq = await IngrediantAPI.lockOrder(id);
     if (rq?.success) {
-      showSuccess();
+      showSuccess(rq.msg);
+    } else {
+      showError(rq.msg);
     }
   } catch (error) {
-    showError();
+    showError(rq.msg);
   }
 };
 const unLock = async (id) => {
   try {
     const rq = await IngrediantAPI.unLockOrder(id);
     if (rq?.success) {
-      showSuccess();
+      showSuccess(rq.msg);
+    } else {
+      showError(rq.msg);
     }
   } catch (error) {
-    showError();
+    showError(rq.msg);
   }
 };
 export const columns = (onDelete, fetchRows) => {

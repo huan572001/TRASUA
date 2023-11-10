@@ -97,7 +97,7 @@ const CreateProduct = () => {
                 },
               ]}
             >
-              <Input type="number" min={0} max={100} />
+              <Input type="number" min={1} max={100} />
             </Form.Item>
           </Col>
           <Col span={13}>

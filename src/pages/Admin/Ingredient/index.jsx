@@ -25,7 +25,7 @@ const index = () => {
           fontSize: "40px",
         }}
       >
-        Danh sach Vat tu
+        Danh sách Vật tư
       </h1>
       <Button
         className="btn"

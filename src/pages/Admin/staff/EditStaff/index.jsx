@@ -4,6 +4,8 @@ import routerLinks from "@/utils/router-links";
 import { useEffect, useState } from "react";
 import { StaffAPI } from "@/services/Admin/staff";
 import { showError, showSuccess } from "@/components/AccountModal/Modal";
+import moment from "moment";
+
 const EditStaff = () => {
   const state = useLocation();
   const [role, setRole] = useState([]);
@@ -35,6 +37,13 @@ const EditStaff = () => {
   };
   const onChange = (value) => {
     editStaff(value);
+  };
+  const disabledDate = (current) => {
+    // Lấy thời gian hiện tại
+    const today = moment();
+
+    // Giới hạn chỉ được chọn từ ngày cách thời gian hiện tại 18 năm
+    return current && current >= today.subtract(18, "years");
   };
   return (
     <>
@@ -122,7 +131,7 @@ const EditStaff = () => {
           ]}
           label="Ngày sinh"
         >
-          <DatePicker />
+          <DatePicker disabledDate={disabledDate} />
         </Form.Item>
         <Form.Item
           name="gender"
