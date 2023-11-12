@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { columns } from "./columns";
 import { columns2 } from "./columns2";
 import { StatiscalAPI } from "@/services/Admin/statistical";
-import PieChart from "./Chart";
 import moment from "moment";
 import * as XLSX from "xlsx";
 import { data } from "autoprefixer";

@@ -6,6 +6,10 @@ import moment from "moment";
 import { StaffAPI } from "@/services/Admin/staff";
 import { showError, showSuccess } from "@/components/AccountModal/Modal";
 import ChangeForPassWord from "./changeForPassWord";
+import {
+  VALIDATION_PHONE_E002,
+  VALIDATION_required_E001,
+} from "@/constant/validate";
 const ProfileStaff = () => {
   const user = JSON.parse(localStorage.getItem(keyUser));
   const [data, setData] = useState(undefined);
@@ -88,7 +92,6 @@ const ProfileStaff = () => {
               <Form.Item
                 name="phone"
                 rules={[
-                  { required: true },
                   {
                     min: 10,
                   },
@@ -96,8 +99,12 @@ const ProfileStaff = () => {
                     max: 10,
                   },
                   {
+                    required: true,
+                    message: VALIDATION_required_E001,
+                  },
+                  {
                     pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
-                    message: "Invalid phone number!",
+                    message: VALIDATION_PHONE_E002,
                   },
                 ]}
                 label="SDT"

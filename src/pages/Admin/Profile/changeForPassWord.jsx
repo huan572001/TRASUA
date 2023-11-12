@@ -10,7 +10,7 @@ const ChangeForPassWord = ({ id, setpassWord }) => {
         showSuccess("Đổi mật khẩu thành công");
         setpassWord(true);
       } else {
-        showError(rq?.mgs);
+        showError(rq?.msg);
       }
     } catch (error) {
       showError();

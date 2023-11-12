@@ -12,3 +12,4 @@ export const VALIDATION_PASSWORD_E002 =
   "Vui lòng nhập mật khẩu có độ dài từ 6-8 ký tự";
 export const VALIDATION_ERROR_E002 = "Sản phẩm không còn đủ nguyên liệu";
 export const VALIDATION_SUCCES_E001 = "Thêm vào giỏ hàng thành công";
+export const VALIDATION_required_E001 = "Không được để trống";

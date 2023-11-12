@@ -3,6 +3,7 @@ import { getAllIngredient } from "../../handal";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space, Select } from "antd";
 import { ProductAPI } from "@/services/Admin/product";
+import { Warning, showWarning } from "@/components/AccountModal/Modal";
 
 const SelectVT = ({ listVT, setVT, setPriceRecipe, setNext }) => {
   const [option, setOption] = useState([]);
@@ -32,7 +33,11 @@ const SelectVT = ({ listVT, setVT, setPriceRecipe, setNext }) => {
     } catch (error) {}
   };
   const onFinish = (values) => {
-    getPriceRecepe(values?.recipre);
+    if (values?.recipre?.length > 0) {
+      getPriceRecepe(values?.recipre);
+    } else {
+      Warning("Không được để trống!");
+    }
   };
   useEffect(() => {
     form.setFieldsValue({ recipre: listVT });
@@ -66,17 +71,7 @@ const SelectVT = ({ listVT, setVT, setPriceRecipe, setNext }) => {
                     ]}
                     label="Nguyên liệu"
                   >
-                    <Select
-                      options={formatOption()}
-                      onChange={(e) => {
-                        if (setTime) {
-                          clearTimeout(setTime);
-                        }
-                        setTime = setTimeout(() => {
-                          console.log(e, name, "hihiđá");
-                        }, 500);
-                      }}
-                    />
+                    <Select options={formatOption()} onChange={(e) => {}} />
                   </Form.Item>
                   <Form.Item
                     {...restField}
@@ -89,20 +84,14 @@ const SelectVT = ({ listVT, setVT, setPriceRecipe, setNext }) => {
                     ]}
                     label="Sô lượng"
                   >
-                    <Input
-                      placeholder="Số lượng"
-                      type="number"
-                      onChange={(e) => {
-                        if (setTime) {
-                          clearTimeout(setTime);
-                        }
-                        setTime = setTimeout(() => {
-                          console.log(e.target.value, name, "hihi");
-                        }, 500);
-                      }}
-                    />
+                    <Input placeholder="Số lượng" type="number" />
                   </Form.Item>
-                  <MinusCircleOutlined onClick={() => remove(name)} />
+                  <MinusCircleOutlined
+                    onClick={() => {
+                      remove(name);
+                      console.log(restField);
+                    }}
+                  />
                 </Space>
               ))}
               <Form.Item className="w-full">

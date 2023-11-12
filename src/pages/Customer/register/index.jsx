@@ -15,6 +15,9 @@ import {
   SIGNUP_NAME_ERROR,
   SIGNUP_PHONE_ERROR,
   VALIDATION_PASSWORD_E001,
+  VALIDATION_PASSWORD_E002,
+  VALIDATION_PHONE_E002,
+  VALIDATION_required_E001,
 } from "@/constant/validate";
 const Register = () => {
   const navigate = useNavigate();
@@ -57,7 +60,7 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: SIGNUP_EMAIL_ERROR,
+                    message: VALIDATION_required_E001,
                   },
                   {
                     whitespace: true,
@@ -66,6 +69,7 @@ const Register = () => {
                   { max: 255, message: "chiều dài không vượt quá 255" },
                   {
                     type: "email",
+                    message: SIGNUP_EMAIL_ERROR,
                   },
                 ]}
               >
@@ -79,14 +83,13 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: VALIDATION_PASSWORD_E001,
+                    message: VALIDATION_required_E001,
                   },
                   {
-                    whitespace: true,
-                    message: "Không được để khoảng trắng!",
+                    min: 6,
+                    max: 32,
+                    message: VALIDATION_PASSWORD_E002,
                   },
-                  { max: 40, message: "chiều dài không vượt quá 40" },
-                  { min: 6, message: "chiều dài không nhỏ hơn 6" },
                 ]}
               >
                 <Input
@@ -122,9 +125,10 @@ const Register = () => {
                     required: true,
                     message: SIGNUP_PHONE_ERROR,
                   },
+
                   {
                     pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
-                    message: "Invalid phone number!",
+                    message: VALIDATION_PHONE_E002,
                   },
                 ]}
               >
@@ -190,7 +194,7 @@ const Register = () => {
                 </Button>
                 Or
                 <div onClick={() => navigate(routerLinks("LoginCustomer"))}>
-                  <a className="login-form-forgot"> Login now!</a>
+                  <a className="login-form-forgot"> Đã có tài khoản!</a>
                 </div>
               </Form.Item>
             </Form>

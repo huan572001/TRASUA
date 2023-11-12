@@ -93,22 +93,6 @@ const CreateProduct = () => {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
-  const editProduct = async (id, data, recipre) => {
-    try {
-      const a = await ProductAPI.editProduct(id, data);
-
-      const rq = await ProductAPI.editRecipe(id, { recipe: recipre });
-
-      if (a?.success) {
-        showSuccess("Chỉnh sửa sản phẩm thành công");
-        navigate(routerLinks("AdminProduct"));
-        setLoading(false);
-      }
-    } catch (error) {
-      showError();
-      setLoading(false);
-    }
-  };
 
   const getPriceRecepe = async (data) => {
     try {
@@ -184,7 +168,9 @@ const CreateProduct = () => {
           <TextArea rows={4} />
         </Form.Item>
         <Form.Item>
-          <Button htmlType="submit">Tạo sản phẩm</Button>
+          <Button htmlType="submit">
+            {state?.state?.id ? "Chỉnh sửa" : "Tạo sản phẩm"}
+          </Button>
         </Form.Item>
         <Button onClick={() => setNext(true)}>Trở lại</Button>
       </Form>

@@ -9,6 +9,7 @@ import { showError } from "@/components/AccountModal/Modal";
 import {
   VALIDATION_PASSWORD_E002,
   VALIDATION_PHONE_E002,
+  VALIDATION_required_E001,
 } from "@/constant/validate";
 const LoginCustomer = () => {
   const auth = useAuth();
@@ -24,7 +25,7 @@ const LoginCustomer = () => {
         auth.login(data);
         navigate("/", { replace: true });
       } else {
-        showError(res?.mgs);
+        showError("đăng nhập  thất bại nhập sai tài khoản hoặc mật khẩu");
       }
     } catch (err) {
       showError();
@@ -56,11 +57,11 @@ const LoginCustomer = () => {
                 rules={[
                   {
                     required: true,
-                    message: VALIDATION_PHONE_E002,
+                    message: VALIDATION_required_E001,
                   },
                   {
                     pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
-                    message: "Invalid phone number!",
+                    message: VALIDATION_PHONE_E002,
                   },
                 ]}
               >
@@ -74,6 +75,11 @@ const LoginCustomer = () => {
                 rules={[
                   {
                     required: true,
+                    message: VALIDATION_required_E001,
+                  },
+                  {
+                    min: 6,
+                    max: 32,
                     message: VALIDATION_PASSWORD_E002,
                   },
                 ]}
@@ -108,12 +114,12 @@ const LoginCustomer = () => {
                 Or{" "}
                 <div onClick={() => navigate(routerLinks("Register"))}>
                   {/* Register now! */}
-                  <a className="login-form-forgot">Register now!</a>
+                  <a className="login-form-forgot">Đăng ký ngay!</a>
                 </div>
               </Form.Item>
               <div onClick={() => navigate(routerLinks("Login"))}>
                 {/* Staff click here */}
-                <a className="login-form-forgot"> Staff click here</a>
+                <a className="login-form-forgot"> Đăng nhập nhân viên</a>
               </div>
             </Form>
           </div>

@@ -10,6 +10,7 @@ import "./index.less";
 import {
   VALIDATION_PASSWORD_E002,
   VALIDATION_PHONE_E002,
+  VALIDATION_required_E001,
 } from "@/constant/validate";
 import routerLinks from "@/utils/router-links";
 
@@ -65,11 +66,11 @@ const Login = () => {
                 rules={[
                   {
                     required: true,
-                    message: VALIDATION_PHONE_E002,
+                    message: VALIDATION_required_E001,
                   },
                   {
                     pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
-                    message: "Invalid phone number!",
+                    message: VALIDATION_PHONE_E002,
                   },
                 ]}
               >

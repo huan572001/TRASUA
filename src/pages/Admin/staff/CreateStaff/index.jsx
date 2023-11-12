@@ -5,6 +5,10 @@ import { StaffAPI } from "@/services/Admin/staff";
 import { useEffect, useState } from "react";
 import { showError, showSuccess } from "@/components/AccountModal/Modal";
 import moment from "moment";
+import {
+  VALIDATION_PHONE_E002,
+  VALIDATION_required_E001,
+} from "@/constant/validate";
 
 const Staff = () => {
   const [role, setRole] = useState([]);
@@ -85,10 +89,13 @@ const Staff = () => {
         <Form.Item
           name="phone"
           rules={[
-            { required: true },
+            {
+              required: true,
+              message: VALIDATION_required_E001,
+            },
             {
               pattern: /^[0-9]{9,11}$/, // Điều kiện: 10-11 chữ số
-              message: "Invalid phone number!",
+              message: VALIDATION_PHONE_E002,
             },
           ]}
           label="SDT"

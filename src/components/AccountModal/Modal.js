@@ -156,6 +156,19 @@ export const showSuccess = (value) => {
     buttons: "Đồng ý",
   });
 };
+export const Warning = (value, text, onAccept) => {
+  swal({
+    title: value ? value : "Cảnh báo!",
+    text: text ? text : `Cảnh báo!`,
+    icon: "warning",
+    // dangerMode: true,
+    buttons: "Đồng ý",
+  }).then((yes) => {
+    if (yes) {
+      onAccept();
+    }
+  });
+};
 export const showWarning = (value, onAccept) => {
   swal({
     title: value ? value : "Bạn có chắc muốn thực hiện hành động này chứ?",
