@@ -1,10 +1,18 @@
 // Import CSS của Ant Design
 
+import { showSuccess } from "@/components/AccountModal/Modal";
 import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const PayMentDone = () => {
+  const param = useParams();
+  const navigate = useNavigate();
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify([]));
+    if (param?.id === "00") {
+      localStorage.setItem("cart", JSON.stringify([]));
+      navigate("/");
+      showSuccess("Mua hàng thành công");
+    }
   }, []);
   return (
     <>
