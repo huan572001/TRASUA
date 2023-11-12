@@ -44,6 +44,7 @@ const Payment = () => {
         idPro: e?.id,
         qty: e?.sl,
         price: e?.price,
+        capital_price: e?.capital_price,
       });
     });
     input = { ...input, data };
