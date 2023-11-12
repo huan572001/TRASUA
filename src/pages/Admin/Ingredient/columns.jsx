@@ -18,8 +18,7 @@ export const columns = (onDelete) => {
     {
       title: "Đơn vị tính",
       key: "4",
-      dataIndex: "measure_id",
-      render: (_, info) => <>{info?.measure_id === 1 ? "KG" : "Cái"}</>,
+      dataIndex: "measure.name",
     },
     {
       title: "Số lượng",
