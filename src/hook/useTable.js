@@ -97,7 +97,7 @@ const useTable = (fetchData, dataFieldName, deleteData) => {
               fetchRows(params);
             }
           } else {
-            showError(res?.mgs);
+            showError(res?.msg);
           }
         } catch (error) {
           showError(valueErorr);
