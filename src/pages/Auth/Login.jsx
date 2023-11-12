@@ -119,7 +119,7 @@ const Login = () => {
               </Form.Item>
               <div onClick={() => navigate(routerLinks("LoginCustomer"))}>
                 {/* Staff click here */}
-                <a className="login-form-forgot"> User click here</a>
+                <a className="login-form-forgot">Đăng nhập khách hàng</a>
               </div>
             </Form>
           </div>
