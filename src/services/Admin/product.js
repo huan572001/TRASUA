@@ -3,7 +3,7 @@ import axiosClient from "../axiosClient";
 
 export const ProductAPI = {
   getAllProduct: async (params) => {
-    const url = `until/getAllProduct?search=${params?.search}&page=${params?.page}&limit=${params?.amount}&activate=`;
+    const url = `until/getAllProduct?search=${params?.search}&page=${params?.page}&limit=${params?.amount}&activate=0`;
     return axiosClient.get(url);
   },
   deleteProduct: async (id) => {

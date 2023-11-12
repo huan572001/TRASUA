@@ -37,10 +37,6 @@ const CreateProduct = () => {
       showError();
     }
   };
-
-  const onChangeDate = (value) => {
-    console.log(value);
-  };
   const handleChange = (value) => {
     setListVT(value);
   };
