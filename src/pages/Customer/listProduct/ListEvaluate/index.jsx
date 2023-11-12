@@ -31,7 +31,7 @@ const ListEvaluate = ({ id }) => {
   useEffect(() => {
     getAllEvalute();
   }, []);
-  console.log(rate);
+  console.log(data);
   return (
     <>
       <Card>
@@ -40,7 +40,7 @@ const ListEvaluate = ({ id }) => {
           {rate !== null ? (
             <>
               <div>{rate} trên 5.0 sao</div>
-              <Rate defaultValue={rate} disabled={true} />
+              <Rate defaultValue={Number(rate)} disabled={true} allowHalf />
             </>
           ) : (
             ""
@@ -51,7 +51,7 @@ const ListEvaluate = ({ id }) => {
           return (
             <div key={index}>
               <div>{e?.fullname}</div>
-              <Rate defaultValue={e?.start} disabled={true} />
+              <Rate defaultValue={e?.start} disabled={true} allowHalf />
               <img src={e?.img} />
               <div>{e?.comment} </div>
               <Divider />
