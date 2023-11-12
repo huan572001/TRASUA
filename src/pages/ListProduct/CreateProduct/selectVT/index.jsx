@@ -70,6 +70,7 @@ const SelectVT = ({ listVT, setVT, setPriceRecipe, setNext }) => {
                       },
                     ]}
                     label="Nguyên liệu"
+                    className="w-64"
                   >
                     <Select options={formatOption()} onChange={(e) => {}} />
                   </Form.Item>
