@@ -35,8 +35,7 @@ const Cart = () => {
         cout += e?.price * e?.sl;
       }
     });
-
-    setTotal(cout);
+    setTotal(parseInt(cout));
     // totalF();
   }, [data]);
 
