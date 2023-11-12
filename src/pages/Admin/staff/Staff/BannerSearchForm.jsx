@@ -79,6 +79,7 @@ const BannerSearchForm = ({ fetchRows, params, onReset }) => {
       amount: params.amount,
       search: titleBanner,
       type: typeBanner,
+      activate: "0",
     });
   };
 

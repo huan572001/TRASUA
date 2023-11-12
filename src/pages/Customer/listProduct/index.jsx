@@ -30,7 +30,7 @@ const ListProduct = () => {
   const dispatch = useDispatch();
   const dataTest = useSelector((state) => state.card);
   useEffect(() => {
-    fetchRows(params);
+    fetchRows({ ...params, activate: "0" });
     const arrCard = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : [];
