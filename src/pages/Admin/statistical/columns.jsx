@@ -35,7 +35,7 @@ export const columns = (onDelete) => {
       dataIndex: "sl",
     },
     {
-      title: "Tổng tiền",
+      title: "Lợi nhuận",
       key: "4",
       dataIndex: "profit",
     },

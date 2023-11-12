@@ -102,7 +102,7 @@ const Product = () => {
           onClick: () => {},
         })}
       />
-      <div>Tổng: {tableData?.total} VND</div>
+      <div>Tổng lợi nhuận: {tableData?.total} VND</div>
       <Button onClick={handleExportExcelProduct}>Xuất Excel</Button>
     </div>
   );
