@@ -87,7 +87,7 @@ export const columns = (onDelete, fetchRows) => {
               navigate(routerLinks("EditProduct"), { state: { ...info } });
             }}
           />
-          {info?.activate === 1 ? (
+          {info?.activate === 0 ? (
             <LockOutlined
               onClick={(e) => {
                 showLockProductModal(false, async () => {
